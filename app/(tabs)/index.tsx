@@ -10,32 +10,41 @@ export default function HomeScreen() {
     {
       title: 'Add Your Ingredients',
       description: 'Take a photo or add ingredients you have available',
-      icon: 'CAMERA',
+      icon: '📸',
       color: colors.primary,
+      bgColor: '#E8F5E8',
       action: () => router.push('/ingredients'),
     },
     {
       title: 'Leftover Magic',
       description: 'Transform your leftover ingredients into amazing meals',
-      icon: 'RECYCLE',
+      icon: '✨',
       color: colors.secondary,
+      bgColor: '#FFF8E8',
       action: () => router.push('/swap'),
     },
   ];
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <View style={styles.backgroundImage} />
+      
       <AppHeader 
         title="Your Kitchen Assistant" 
         subtitle="Turn your ingredients into delicious meals and reduce food waste"
       />
 
       <View style={styles.heroSection}>
+        <View style={styles.foodImageContainer}>
+          <View style={styles.vegetablePattern} />
+          <View style={styles.fruitPattern} />
+          <View style={styles.grainPattern} />
+        </View>
         <View style={styles.kitchenIcon}>
-          <Text style={styles.kitchenIconText}>KITCHEN</Text>
+          <Text style={styles.kitchenIconText}>✨ KITCHEN MAGIC ✨</Text>
         </View>
         <Text style={styles.heroText}>
-          Reduce food waste by discovering recipes that use the ingredients you already have in your kitchen!
+          Transform your ingredients into delicious meals and reduce food waste with AI-powered recipe suggestions! 🍽️
         </Text>
       </View>
 
@@ -45,11 +54,11 @@ export default function HomeScreen() {
         {mainActions.map((action, index) => (
           <Pressable
             key={index}
-            style={[styles.actionCard, { borderLeftColor: action.color }]}
+            style={[styles.actionCard, { borderLeftColor: action.color, backgroundColor: action.bgColor }]}
             onPress={action.action}
           >
-            <View style={styles.actionIconContainer}>
-              <Text style={styles.actionIconText}>{action.icon}</Text>
+            <View style={[styles.actionIconContainer, { backgroundColor: action.color }]}>
+              <Text style={styles.actionIcon}>{action.icon}</Text>
             </View>
             <View style={styles.actionContent}>
               <Text style={styles.actionTitle}>{action.title}</Text>
@@ -103,9 +112,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    position: 'relative',
   },
   content: {
     paddingBottom: 20,
+  },
+  backgroundImage: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: colors.background,
+    backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(245, 222, 179, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(210, 105, 30, 0.2) 0%, transparent 50%), radial-gradient(circle at 50% 20%, rgba(139, 69, 19, 0.1) 0%, transparent 50%)',
+    opacity: 0.7,
+    zIndex: 0,
   },
   heroSection: {
     alignItems: 'center',
@@ -124,6 +145,60 @@ const styles = StyleSheet.create({
     elevation: 6,
     borderWidth: 2,
     borderColor: colors.steel,
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  heroBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(245, 222, 179, 0.3)',
+    borderRadius: 18,
+  },
+  foodImageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 50,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  vegetablePattern: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#228B22',
+    marginHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  fruitPattern: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#FF6347',
+    marginHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  grainPattern: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#DAA520',
+    marginHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   kitchenIcon: {
     backgroundColor: colors.kitchenWood,
@@ -199,8 +274,12 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   actionIcon: {
-    fontSize: 40,
-    marginRight: 20,
+    fontSize: 30,
+    marginBottom: 5,
+  },
+  actionEmojis: {
+    fontSize: 16,
+    marginTop: 2,
   },
   actionContent: {
     flex: 1,

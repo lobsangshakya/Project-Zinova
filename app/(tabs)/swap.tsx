@@ -137,13 +137,23 @@ export default function LeftoverMagicScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <View style={styles.magicBackground}>
+        <Text style={styles.magicBackgroundEmoji}>✨</Text>
+        <Text style={styles.magicBackgroundEmoji}>🍳</Text>
+        <Text style={styles.magicBackgroundEmoji}>✨</Text>
+        <Text style={styles.magicBackgroundEmoji}>🍲</Text>
+      </View>
+      
       <AppHeader 
         title="Kitchen Leftover Magic" 
         subtitle="Transform your leftover ingredients into amazing meals from your kitchen"
       />
 
       <View style={styles.photoSection}>
-        <Text style={styles.sectionTitle}>What leftovers do you have in your kitchen?</Text>
+        <Text style={styles.sectionTitle}>✨ What leftovers do you have in your kitchen? ✨</Text>
+        <View style={styles.magicFoodContainer}>
+          <Text style={styles.magicEmojis}>🍲→🍝→🍳→🍽️</Text>
+        </View>
         
         <View style={styles.photoButtons}>
           <Pressable 
@@ -294,7 +304,8 @@ export default function LeftoverMagicScreen() {
       {leftoverIngredients.length === 0 && (
         <View style={styles.emptyState}>
           <View style={styles.emptyIconContainer}>
-            <Text style={styles.emptyIconText}>KITCHEN</Text>
+            <Text style={styles.emptyIconText}>🍳</Text>
+            <Text style={styles.magicEmojis}>✨🍲🍝✨</Text>
           </View>
           <Text style={styles.emptyText}>No leftovers added yet</Text>
           <Text style={styles.emptySubtext}>
@@ -319,11 +330,31 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    position: 'relative',
   },
   content: {
     paddingTop: 60,
     paddingHorizontal: 20,
     paddingBottom: 20,
+  },
+  magicBackground: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    opacity: 0.05,
+    zIndex: 0,
+  },
+  magicBackgroundEmoji: {
+    fontSize: 60,
+    color: colors.secondary,
+    margin: 30,
+    transform: [{ rotate: '15deg' }],
   },
   header: {
     alignItems: 'center',
@@ -356,6 +387,19 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colors.text,
     marginBottom: 16,
+    textAlign: 'center',
+  },
+  magicFoodContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 25,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginBottom: 16,
+    alignItems: 'center',
+  },
+  magicEmojis: {
+    fontSize: 20,
+    letterSpacing: 3,
     textAlign: 'center',
   },
   photoButtons: {

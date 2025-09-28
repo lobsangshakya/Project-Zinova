@@ -6,9 +6,11 @@ export const colors = {
   accent: '#CD853F',       // Sandy brown
   tertiary: '#F5DEB3',     // Wheat/cream
   quaternary: '#FFF8DC',   // Kitchen cream
-  background: '#FEFEFE',   // Clean white
+  background: '#FFF8F0',   // Warm cream background
   backgroundAlt: '#F7F5F3', // Warm off-white
   backgroundGradient: 'linear-gradient(135deg, #F5DEB3 0%, #DEB887 100%)', // Warm gradient
+  foodGradient: 'linear-gradient(45deg, #FF6B6B 0%, #FFE66D 50%, #4ECDC4 100%)', // Food gradient
+  kitchenGradient: 'linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #F5DEB3 100%)', // Kitchen gradient
   text: '#2F1B14',         // Dark brown
   textSecondary: '#5D4E37', // Medium brown
   textLight: '#8B7355',    // Light brown
@@ -23,7 +25,7 @@ export const colors = {
   dark: '#2F1B14',         // Dark brown
   light: '#FFFFFF',        // White
   kitchenWood: '#8B4513',  // Kitchen cabinet wood
-  marble: '#F8F8FF',       // Marble countertop
+  marble: '#FAF0E6',       // Linen/marble countertop
   steel: '#C0C0C0',        // Stainless steel
 };
 
@@ -53,6 +55,18 @@ export const commonStyles = StyleSheet.create({
     height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  backgroundPattern: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.05,
+    fontSize: 300,
+    color: colors.primary,
+    textAlign: 'center',
+    lineHeight: 400,
   },
   content: {
     flex: 1,

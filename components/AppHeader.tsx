@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     elevation: 8,
     borderBottomWidth: 3,
     borderBottomColor: colors.secondary,
+    overflow: 'hidden',
   },
   gradientOverlay: {
     position: 'absolute',
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: colors.primary,
+    backgroundColor: 'linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%)',
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     opacity: 0.9,

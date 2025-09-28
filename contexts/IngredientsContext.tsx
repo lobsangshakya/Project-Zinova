@@ -26,7 +26,7 @@ export interface Recipe {
 interface IngredientsContextType {
   ingredients: Ingredient[];
   addIngredient: (ingredient: Omit<Ingredient, 'id' | 'dateAdded'>) => void;
-  removeIngredient: (id: string) => void;
+  removeIngredient: (id: string) => boolean;
   clearAllIngredients: () => void;
   getRecommendedRecipes: () => Recipe[];
   getAllRecipes: () => Recipe[];
@@ -200,15 +200,30 @@ export function IngredientsProvider({ children }: { children: React.ReactNode })
   const removeIngredient = (id: string) => {
     console.log('IngredientsContext: Removing ingredient with ID:', id);
     console.log('Current ingredients before removal:', ingredients.length);
+    console.log('All ingredient IDs:', ingredients.map(ing => ing.id));
+    const ingredientToRemove = ingredients.find(item => item.id === id);
     const updatedIngredients = ingredients.filter(item => item.id !== id);
     console.log('Updated ingredients after removal:', updatedIngredients.length);
-    setIngredients(updatedIngredients);
-    saveIngredients(updatedIngredients);
+    
+    if (ingredientToRemove && updatedIngredients.length < ingredients.length) {
+      setIngredients(updatedIngredients);
+      saveIngredients(updatedIngredients);
+      console.log('Successfully removed ingredient:', ingredientToRemove.name);
+      return true;
+    } else {
+      console.warn('Ingredient not found or removal failed for ID:', id);
+      return false;
+    }
   };
 
   const clearAllIngredients = () => {
+    console.log('Clearing all ingredients immediately');
     setIngredients([]);
     saveIngredients([]);
+    // Also clear from AsyncStorage to ensure complete reset
+    AsyncStorage.removeItem('user_ingredients').catch(error => {
+      console.log('Error clearing AsyncStorage:', error);
+    });
   };
 
   const getRecommendedRecipes = (): Recipe[] => {

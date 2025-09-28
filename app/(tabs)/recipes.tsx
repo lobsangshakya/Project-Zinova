@@ -52,6 +52,13 @@ export default function RecipesScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <View style={styles.backgroundPattern}>
+        <Text style={styles.backgroundEmoji}>🍲</Text>
+        <Text style={styles.backgroundEmoji}>🍝</Text>
+        <Text style={styles.backgroundEmoji}>🍳</Text>
+        <Text style={styles.backgroundEmoji}>🍽️</Text>
+      </View>
+      
       <AppHeader 
         title="Kitchen Recipe Ideas" 
         subtitle="Discover delicious recipes with what you have in your kitchen"
@@ -60,7 +67,8 @@ export default function RecipesScreen() {
       {ingredients.length === 0 ? (
         <View style={styles.noIngredientsHint}>
           <View style={styles.hintIconContainer}>
-            <Text style={styles.hintIconText}>TIP</Text>
+            <Text style={styles.hintIcon}>💡</Text>
+            <Text style={styles.foodDisplayEmojis}>🍅🥕🌶️🍎</Text>
           </View>
           <Text style={styles.hintText}>
             Add ingredients in "Kitchen Ingredients" to get personalized recipe suggestions!
@@ -71,13 +79,14 @@ export default function RecipesScreen() {
             size="sm"
             style={styles.addIngredientsButton}
           >
-            Add Kitchen Ingredients
+            📷 Add Kitchen Ingredients
           </Button>
         </View>
       ) : (
         <View style={styles.personalizedHint}>
           <View style={styles.hintIconContainer}>
-            <Text style={styles.hintIconText}>CHEF</Text>
+            <Text style={styles.hintIcon}>👨‍🍳</Text>
+            <Text style={styles.chefEmojis}>🍲🍝🍳✨</Text>
           </View>
           <Text style={styles.hintText}>
             {getRecommendedRecipes().length > 0 
@@ -123,7 +132,8 @@ export default function RecipesScreen() {
         {filteredRecipes.length === 0 ? (
           <View style={styles.emptyState}>
             <View style={styles.emptyIconContainer}>
-              <Text style={styles.emptyIconText}>CHEF</Text>
+              <Text style={styles.emptyIconText}>👨‍🍳</Text>
+              <Text style={styles.foodDisplayEmojis}>🍲🍝🍳</Text>
             </View>
             <Text style={styles.emptyText}>No recipes found</Text>
             <Text style={styles.emptySubtext}>
@@ -205,11 +215,30 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    position: 'relative',
   },
   content: {
     paddingTop: 60,
     paddingHorizontal: 20,
     paddingBottom: 20,
+  },
+  backgroundPattern: {
+    position: 'absolute',
+    top: 50,
+    left: 20,
+    right: 20,
+    bottom: 50,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    opacity: 0.04,
+    zIndex: 0,
+  },
+  backgroundEmoji: {
+    fontSize: 80,
+    color: colors.primary,
+    margin: 40,
   },
   header: {
     alignItems: 'center',
@@ -237,6 +266,28 @@ const styles = StyleSheet.create({
     borderColor: colors.border,
   },
   hintIcon: {
+    fontSize: 28,
+    marginBottom: 8,
+  },
+  hintIconContainer: {
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  foodDisplayEmojis: {
+    fontSize: 20,
+    marginTop: 5,
+    letterSpacing: 3,
+  },
+  chefEmojis: {
+    fontSize: 18,
+    marginTop: 3,
+    letterSpacing: 2,
+  },
+  emptyIconContainer: {
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  emptyIconText: {
     fontSize: 24,
     marginBottom: 8,
   },

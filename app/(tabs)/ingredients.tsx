@@ -8,7 +8,7 @@ import { router } from 'expo-router';
 import { AppHeader } from '@/components/AppHeader';
 
 export default function IngredientsScreen() {
-  const { ingredients, addIngredient, removeIngredient } = useIngredients();
+  const { ingredients, addIngredient, removeIngredient, clearAllIngredients } = useIngredients();
   const [showAddForm, setShowAddForm] = useState(false);
   const [newIngredient, setNewIngredient] = useState({
     name: '',
@@ -19,15 +19,15 @@ export default function IngredientsScreen() {
   const categories = ['Vegetables', 'Fruits', 'Dairy', 'Meat', 'Grains', 'Other'];
 
   const getCategoryIcon = (category: string) => {
-    const icons: { [key: string]: string } = {
-      Vegetables: 'VEG',
-      Fruits: 'FRUIT',
-      Dairy: 'DAIRY',
-      Meat: 'MEAT',
-      Grains: 'GRAIN',
-      Other: 'OTHER',
+    const icons: { [key: string]: any } = {
+      Vegetables: { backgroundColor: '#228B22', pattern: 'circle' },
+      Fruits: { backgroundColor: '#FF6347', pattern: 'circle' }, 
+      Dairy: { backgroundColor: '#FFF8DC', pattern: 'square', border: '#DAA520' },
+      Meat: { backgroundColor: '#8B4513', pattern: 'circle' },
+      Grains: { backgroundColor: '#F5DEB3', pattern: 'square', border: '#DAA520' },
+      Other: { backgroundColor: '#C0C0C0', pattern: 'circle' },
     };
-    return icons[category] || 'OTHER';
+    return icons[category] || icons.Other;
   };
 
   const takePhoto = async () => {
@@ -139,6 +139,8 @@ export default function IngredientsScreen() {
 
   const handleRemoveIngredient = (id: string) => {
     console.log('Attempting to remove ingredient with ID:', id);
+    console.log('Current ingredients:', ingredients.map(ing => `${ing.name} (ID: ${ing.id})`));
+    
     Alert.alert(
       'Remove Ingredient',
       'Are you sure you want to remove this ingredient from your kitchen?',
@@ -149,15 +151,36 @@ export default function IngredientsScreen() {
           style: 'destructive',
           onPress: () => {
             console.log('User confirmed removal for ID:', id);
-            removeIngredient(id);
+            try {
+              const success = removeIngredient(id);
+              console.log('Remove operation result:', success);
+              if (success !== false) {
+                setTimeout(() => {
+                  Alert.alert('Success!', 'Ingredient removed from your kitchen.');
+                }, 100);
+              } else {
+                Alert.alert('Error', 'Could not find ingredient to remove.');
+              }
+            } catch (error) {
+              console.error('Error removing ingredient:', error);
+              Alert.alert('Error', 'Failed to remove ingredient. Please try again.');
+            }
           },
         },
       ]
     );
   };
 
+  const handleClearAll = () => {
+    // Direct clear without confirmation for simplicity
+    clearAllIngredients();
+    console.log('All ingredients cleared immediately');
+  };
+
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+      <View style={styles.backgroundGradient} />
+      
       <AppHeader 
         title="Kitchen Ingredients" 
         subtitle="Add what you have in your kitchen to get recipe suggestions"
@@ -169,14 +192,14 @@ export default function IngredientsScreen() {
         <View style={styles.photoButtons}>
           <Pressable style={styles.photoButton} onPress={takePhoto}>
             <View style={styles.photoIconContainer}>
-              <Text style={styles.photoIconText}>CAMERA</Text>
+              <View style={styles.cameraIcon} />
             </View>
             <Text style={styles.photoButtonText}>Take Photo</Text>
           </Pressable>
           
           <Pressable style={styles.photoButton} onPress={pickImage}>
             <View style={styles.photoIconContainer}>
-              <Text style={styles.photoIconText}>GALLERY</Text>
+              <View style={styles.galleryIcon} />
             </View>
             <Text style={styles.photoButtonText}>Choose Photo</Text>
           </Pressable>
@@ -269,12 +292,17 @@ export default function IngredientsScreen() {
         ) : (
           <>
             {ingredients.map((ingredient) => (
-              <View key={ingredient.id} style={styles.ingredientCard}>
+              <View key={`ingredient-${ingredient.id}-${ingredient.name}`} style={styles.ingredientCard}>
                 <View style={styles.ingredientHeader}>
                   <View style={styles.categoryBadge}>
-                    <Text style={styles.categoryBadgeText}>
-                      {getCategoryIcon(ingredient.category)}
-                    </Text>
+                    <View style={[
+                      styles.categoryIcon,
+                      { 
+                        backgroundColor: getCategoryIcon(ingredient.category).backgroundColor,
+                        borderColor: getCategoryIcon(ingredient.category).border || getCategoryIcon(ingredient.category).backgroundColor,
+                        borderRadius: getCategoryIcon(ingredient.category).pattern === 'circle' ? 10 : 4
+                      }
+                    ]} />
                   </View>
                   <View style={styles.ingredientInfo}>
                     <Text style={styles.ingredientName}>{ingredient.name}</Text>
@@ -287,10 +315,15 @@ export default function IngredientsScreen() {
                       console.log('Remove button pressed for ingredient:', ingredient.name, 'with ID:', ingredient.id);
                       handleRemoveIngredient(ingredient.id);
                     }}
-                    style={styles.removeButton}
-                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                    style={({ pressed }) => [
+                      styles.removeButton,
+                      pressed && { opacity: 0.7, transform: [{ scale: 0.95 }] }
+                    ]}
+                    hitSlop={{ top: 15, bottom: 15, left: 15, right: 15 }}
+                    accessibilityLabel={`Remove ${ingredient.name}`}
+                    accessibilityRole="button"
                   >
-                    <Text style={styles.removeButtonText}>REMOVE</Text>
+                    <Text style={styles.removeButtonText}>🗑️ REMOVE</Text>
                   </Pressable>
                 </View>
               </View>
@@ -301,13 +334,22 @@ export default function IngredientsScreen() {
                 <Text style={styles.hintText}>
                   You have {ingredients.length} ingredient{ingredients.length > 1 ? 's' : ''} in your kitchen!
                 </Text>
-                <Button 
-                  onPress={() => router.push('/recipes')}
-                  variant="outline"
-                  style={styles.recipeButton}
-                >
-                  Get Kitchen Recipe Ideas
-                </Button>
+                <View style={styles.buttonRow}>
+                  <Button 
+                    onPress={() => router.push('/recipes')}
+                    variant="outline"
+                    style={styles.halfButton}
+                  >
+                    Get Recipes
+                  </Button>
+                  <Button 
+                    onPress={handleClearAll}
+                    variant="filled"
+                    style={styles.clearButton}
+                  >
+                    Clear All
+                  </Button>
+                </View>
               </View>
             )}
           </>
@@ -321,12 +363,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
+    position: 'relative',
   },
   content: {
     paddingBottom: 20,
   },
+  backgroundGradient: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: colors.background,
+    backgroundImage: 'linear-gradient(45deg, rgba(34, 139, 34, 0.1) 0%, rgba(255, 99, 71, 0.1) 25%, rgba(218, 165, 32, 0.1) 50%, rgba(255, 20, 147, 0.1) 75%, rgba(30, 144, 255, 0.1) 100%)',
+    opacity: 0.3,
+    zIndex: 0,
+  },
   photoSection: {
-    backgroundColor: colors.marble,
+    backgroundColor: 'rgba(245, 222, 179, 0.8)',
     borderRadius: 20,
     padding: 25,
     marginHorizontal: 20,
@@ -342,6 +396,8 @@ const styles = StyleSheet.create({
     elevation: 6,
     borderWidth: 2,
     borderColor: colors.steel,
+    position: 'relative',
+    overflow: 'hidden',
   },
   sectionTitle: {
     fontSize: 20,
@@ -381,6 +437,23 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderWidth: 1,
     borderColor: colors.kitchenWood,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cameraIcon: {
+    width: 24,
+    height: 20,
+    backgroundColor: colors.primary,
+    borderRadius: 4,
+    position: 'relative',
+  },
+  galleryIcon: {
+    width: 24,
+    height: 20,
+    backgroundColor: colors.secondary,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: colors.primary,
   },
   photoIconText: {
     fontSize: 12,
@@ -389,8 +462,12 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   photoIcon: {
-    fontSize: 36,
-    marginBottom: 10,
+    fontSize: 24,
+    marginBottom: 5,
+  },
+  photoEmojis: {
+    fontSize: 12,
+    letterSpacing: 1,
   },
   photoButtonText: {
     fontSize: 15,
@@ -452,10 +529,9 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   categoryIcon: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: colors.dark,
-    textAlign: 'center',
+    width: 20,
+    height: 20,
+    borderWidth: 2,
   },
   categoryEmoji: {
     fontSize: 20,
@@ -539,18 +615,18 @@ const styles = StyleSheet.create({
   },
   categoryBadge: {
     backgroundColor: colors.tertiary,
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    borderRadius: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
     marginRight: 12,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: colors.kitchenWood,
+    minWidth: 40,
+    alignItems: 'center',
   },
   categoryBadgeText: {
-    fontSize: 10,
-    fontWeight: '700',
-    color: colors.dark,
-    letterSpacing: 1,
+    fontSize: 18,
+    textAlign: 'center',
   },
   ingredientInfo: {
     flex: 1,
@@ -609,5 +685,18 @@ const styles = StyleSheet.create({
   recipeButton: {
     borderColor: colors.primary,
     marginTop: 8,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    gap: 12,
+    width: '100%',
+  },
+  halfButton: {
+    flex: 1,
+    borderColor: colors.primary,
+  },
+  clearButton: {
+    flex: 1,
+    backgroundColor: colors.error,
   },
 });
