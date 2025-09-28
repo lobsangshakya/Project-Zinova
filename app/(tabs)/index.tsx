@@ -1,10 +1,9 @@
-
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
-import { Logo } from '@/components/Logo';
+import { AppHeader } from '@/components/AppHeader';
 
 export default function HomeScreen() {
   const mainActions = [
@@ -18,20 +17,18 @@ export default function HomeScreen() {
     {
       title: 'Leftover Food Recipe',
       description: 'Get recipes for your leftover ingredients',
-      icon: '🔄',
-      color: colors.accent,
+      icon: '♻️',
+      color: colors.secondary,
       action: () => router.push('/swap'),
     },
   ];
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <View style={styles.header}>
-        <Logo size="large" showText={true} />
-        <Text style={styles.subtitle}>
-          Turn your ingredients into delicious meals
-        </Text>
-      </View>
+      <AppHeader 
+        title="Welcome to WasteNot" 
+        subtitle="Turn your ingredients into delicious meals and reduce food waste!"
+      />
 
       <View style={styles.heroSection}>
         <Text style={styles.heroIcon}>🍽️</Text>
@@ -96,48 +93,41 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   content: {
-    paddingTop: 60,
-    paddingHorizontal: 20,
     paddingBottom: 20,
-  },
-  header: {
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: '800',
-    color: colors.text,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: colors.textSecondary,
-    textAlign: 'center',
   },
   heroSection: {
     alignItems: 'center',
-    backgroundColor: colors.backgroundAlt,
-    borderRadius: 16,
-    padding: 24,
+    backgroundColor: colors.quaternary,
+    borderRadius: 20,
+    padding: 30,
+    marginHorizontal: 20,
     marginBottom: 32,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4.65,
+    elevation: 6,
   },
   heroIcon: {
-    fontSize: 48,
+    fontSize: 60,
     marginBottom: 16,
   },
   heroText: {
-    fontSize: 16,
-    color: colors.text,
+    fontSize: 18,
+    color: colors.dark,
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: 26,
+    fontWeight: '500',
   },
   actionsSection: {
     marginBottom: 32,
+    paddingHorizontal: 20,
   },
   sectionTitle: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: '700',
     color: colors.text,
     marginBottom: 20,
@@ -147,52 +137,65 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.card,
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: 18,
+    padding: 24,
     marginBottom: 16,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderLeftWidth: 4,
+    borderLeftWidth: 6,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   actionIcon: {
-    fontSize: 32,
-    marginRight: 16,
+    fontSize: 40,
+    marginRight: 20,
   },
   actionContent: {
     flex: 1,
   },
   actionTitle: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 20,
+    fontWeight: '700',
     color: colors.text,
-    marginBottom: 4,
+    marginBottom: 6,
   },
   actionDescription: {
-    fontSize: 14,
+    fontSize: 15,
     color: colors.textSecondary,
-    lineHeight: 20,
+    lineHeight: 22,
   },
   actionArrow: {
-    fontSize: 24,
+    fontSize: 28,
     color: colors.primary,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   recipeButton: {
-    backgroundColor: colors.backgroundAlt,
-    borderRadius: 12,
-    padding: 16,
+    backgroundColor: colors.tertiary,
+    borderRadius: 15,
+    padding: 18,
     alignItems: 'center',
-    marginTop: 8,
-    borderWidth: 1,
-    borderColor: colors.border,
+    marginTop: 12,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   recipeButtonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: colors.primary,
+    fontSize: 17,
+    fontWeight: '600',
+    color: colors.dark,
   },
   howItWorks: {
     marginBottom: 32,
+    paddingHorizontal: 20,
   },
   stepContainer: {
     paddingHorizontal: 16,
@@ -200,24 +203,36 @@ const styles = StyleSheet.create({
   step: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    backgroundColor: colors.card,
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 16,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 4,
   },
   stepNumber: {
+    fontSize: 24,
+    fontWeight: '800',
+    color: colors.light,
+    backgroundColor: colors.info,
+    borderRadius: 20,
     width: 40,
     height: 40,
-    borderRadius: 20,
-    backgroundColor: colors.primary,
-    color: colors.background,
-    fontSize: 18,
-    fontWeight: '700',
     textAlign: 'center',
     lineHeight: 40,
     marginRight: 16,
   },
   stepText: {
-    flex: 1,
     fontSize: 16,
     color: colors.text,
+    flex: 1,
+    fontWeight: '500',
     lineHeight: 22,
   },
 });

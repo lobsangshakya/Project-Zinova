@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/WasteNot_logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#22c55e"
+      "backgroundColor": "#FF6B6B"
     },
     "ios": {
       "supportsTablet": true,
@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/WasteNot_logo.png",
-        "backgroundColor": "#22c55e"
+        "backgroundColor": "#FF6B6B"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.lobsangtseten.wastenot"

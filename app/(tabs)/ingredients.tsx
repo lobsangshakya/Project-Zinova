@@ -5,7 +5,7 @@ import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
 import { useIngredients } from '@/contexts/IngredientsContext';
 import { router } from 'expo-router';
-import { Logo } from '@/components/Logo';
+import { AppHeader } from '@/components/AppHeader';
 
 export default function IngredientsScreen() {
   const { ingredients, addIngredient, removeIngredient } = useIngredients();
@@ -160,13 +160,10 @@ export default function IngredientsScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <View style={styles.header}>
-        <Logo size="medium" />
-        <Text style={styles.title}>My Ingredients</Text>
-        <Text style={styles.subtitle}>
-          Add what you have to get recipe suggestions
-        </Text>
-      </View>
+      <AppHeader 
+        title="My Ingredients" 
+        subtitle="Add what you have to get recipe suggestions"
+      />
 
       <View style={styles.photoSection}>
         <Text style={styles.sectionTitle}>Add Ingredients</Text>
@@ -314,35 +311,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   content: {
-    paddingTop: 60,
-    paddingHorizontal: 20,
     paddingBottom: 20,
   },
-  header: {
-    alignItems: 'center',
-    marginBottom: 24,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: colors.text,
-    marginBottom: 8,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 16,
-    color: colors.textSecondary,
-    textAlign: 'center',
-  },
   photoSection: {
-    backgroundColor: colors.backgroundAlt,
-    borderRadius: 16,
-    padding: 20,
+    backgroundColor: colors.accent,
+    borderRadius: 20,
+    padding: 25,
+    marginHorizontal: 20,
     marginBottom: 24,
     alignItems: 'center',
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4.65,
+    elevation: 6,
   },
   sectionTitle: {
     fontSize: 20,
@@ -359,20 +344,28 @@ const styles = StyleSheet.create({
   },
   photoButton: {
     alignItems: 'center',
-    backgroundColor: colors.card,
-    borderRadius: 12,
-    padding: 16,
-    minWidth: 120,
-    borderWidth: 1,
-    borderColor: colors.border,
+    backgroundColor: colors.light,
+    borderRadius: 16,
+    padding: 20,
+    minWidth: 130,
+    borderWidth: 2,
+    borderColor: colors.primary,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   photoIcon: {
-    fontSize: 32,
-    marginBottom: 8,
+    fontSize: 36,
+    marginBottom: 10,
   },
   photoButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 15,
+    fontWeight: '600',
     color: colors.text,
   },
   orText: {
@@ -465,11 +458,19 @@ const styles = StyleSheet.create({
   },
   ingredientCard: {
     backgroundColor: colors.card,
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: 16,
+    padding: 18,
     marginBottom: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderLeftWidth: 5,
+    borderLeftColor: colors.secondary,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 4,
   },
   ingredientHeader: {
     flexDirection: 'row',

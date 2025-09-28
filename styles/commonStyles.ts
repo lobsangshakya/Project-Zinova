@@ -1,19 +1,27 @@
 import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 export const colors = {
-  primary: '#22c55e',    // Green primary
-  secondary: '#16a34a',  // Darker green
-  accent: '#84cc16',     // Light green accent
-  background: '#ffffff', // White background
-  backgroundAlt: '#f8fafc', // Light grey background
-  text: '#1f2937',       // Dark text
-  textSecondary: '#6b7280', // Grey text
-  grey: '#e5e7eb',       // Light grey
-  card: '#ffffff',       // White card background
-  border: '#e5e7eb',     // Border color
-  success: '#10b981',    // Success green
-  warning: '#f59e0b',    // Warning orange
-  error: '#ef4444',      // Error red
+  primary: '#FF6B6B',      // Vibrant coral red
+  secondary: '#4ECDC4',    // Turquoise
+  accent: '#45B7D1',       // Sky blue
+  tertiary: '#96CEB4',     // Mint green
+  quaternary: '#FFEAA7',   // Soft yellow
+  background: '#FDFDFD',   // Pure white
+  backgroundAlt: '#F8F9FA', // Very light grey
+  backgroundGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // Purple gradient
+  text: '#2D3436',         // Dark charcoal
+  textSecondary: '#636E72', // Medium grey
+  textLight: '#B2BEC3',    // Light grey
+  grey: '#DDD6FE',         // Lavender grey
+  card: '#FFFFFF',         // Pure white
+  cardShadow: 'rgba(0, 0, 0, 0.1)', // Soft shadow
+  border: '#E17055',       // Coral border
+  success: '#00B894',      // Emerald green
+  warning: '#FDCB6E',      // Golden yellow
+  error: '#E84393',        // Pink red
+  info: '#6C5CE7',         // Purple
+  dark: '#2D3436',         // Dark grey
+  light: '#FFFFFF',        // White
 };
 
 export const buttonStyles = StyleSheet.create({

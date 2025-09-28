@@ -5,7 +5,7 @@ import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
 import { useIngredients, Recipe } from '@/contexts/IngredientsContext';
 import { RecipeDetailModal } from '@/components/RecipeDetailModal';
-import { Logo } from '@/components/Logo';
+import { AppHeader } from '@/components/AppHeader';
 import { generateLeftoverRecipes } from '@/utils/recipeGenerator';
 
 export default function LeftoverMagicScreen() {
@@ -137,13 +137,10 @@ export default function LeftoverMagicScreen() {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <View style={styles.header}>
-        <Logo size="medium" />
-        <Text style={styles.title}>Leftover Magic ✨</Text>
-        <Text style={styles.subtitle}>
-          Turn your leftover ingredients into amazing meals
-        </Text>
-      </View>
+      <AppHeader 
+        title="Leftover Magic ✨" 
+        subtitle="Turn your leftover ingredients into amazing meals"
+      />
 
       <View style={styles.photoSection}>
         <Text style={styles.sectionTitle}>What leftovers do you have?</Text>
