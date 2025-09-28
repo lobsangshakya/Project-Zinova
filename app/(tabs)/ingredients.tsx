@@ -18,6 +18,18 @@ export default function IngredientsScreen() {
 
   const categories = ['Vegetables', 'Fruits', 'Dairy', 'Meat', 'Grains', 'Other'];
 
+  const getCategoryIcon = (category: string) => {
+    const icons: { [key: string]: string } = {
+      Vegetables: 'VEG',
+      Fruits: 'FRUIT',
+      Dairy: 'DAIRY',
+      Meat: 'MEAT',
+      Grains: 'GRAIN',
+      Other: 'OTHER',
+    };
+    return icons[category] || 'OTHER';
+  };
+
   const takePhoto = async () => {
     try {
       const permissionResult = await ImagePicker.requestCameraPermissionsAsync();
@@ -35,17 +47,14 @@ export default function IngredientsScreen() {
       });
 
       if (!result.canceled && result.assets[0]) {
-        // Simulate AI ingredient detection
         setShowAddForm(true);
         
-        // Mock detected ingredients
         const mockDetectedIngredients = [
           { name: 'Carrots', category: 'Vegetables' },
           { name: 'Chicken', category: 'Meat' },
           { name: 'Rice', category: 'Grains' }
         ];
         
-        // Add detected ingredients automatically
         setTimeout(() => {
           mockDetectedIngredients.forEach(detected => {
             addIngredient({
@@ -83,17 +92,14 @@ export default function IngredientsScreen() {
       });
 
       if (!result.canceled && result.assets[0]) {
-        // Simulate AI ingredient detection
         setShowAddForm(true);
         
-        // Mock detected ingredients
         const mockDetectedIngredients = [
           { name: 'Tomatoes', category: 'Vegetables' },
           { name: 'Pasta', category: 'Grains' },
           { name: 'Cheese', category: 'Dairy' }
         ];
         
-        // Add detected ingredients automatically
         setTimeout(() => {
           mockDetectedIngredients.forEach(detected => {
             addIngredient({
@@ -128,13 +134,13 @@ export default function IngredientsScreen() {
     
     setNewIngredient({ name: '', quantity: '', category: 'Vegetables' });
     setShowAddForm(false);
-    Alert.alert('Success!', 'Ingredient added to your list.');
+    Alert.alert('Success!', 'Ingredient added to your kitchen list.');
   };
 
   const handleRemoveIngredient = (id: string) => {
     Alert.alert(
       'Remove Ingredient',
-      'Are you sure you want to remove this ingredient?',
+      'Are you sure you want to remove this ingredient from your kitchen?',
       [
         { text: 'Cancel', style: 'cancel' },
         {
@@ -146,36 +152,28 @@ export default function IngredientsScreen() {
     );
   };
 
-  const getCategoryEmoji = (category: string) => {
-    const emojis: { [key: string]: string } = {
-      Vegetables: '🥕',
-      Fruits: '🍎',
-      Dairy: '🥛',
-      Meat: '🥩',
-      Grains: '🌾',
-      Other: '📦',
-    };
-    return emojis[category] || '📦';
-  };
-
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <AppHeader 
-        title="My Ingredients" 
-        subtitle="Add what you have to get recipe suggestions"
+        title="Kitchen Ingredients" 
+        subtitle="Add what you have in your kitchen to get recipe suggestions"
       />
 
       <View style={styles.photoSection}>
-        <Text style={styles.sectionTitle}>Add Ingredients</Text>
+        <Text style={styles.sectionTitle}>Add Kitchen Ingredients</Text>
         
         <View style={styles.photoButtons}>
           <Pressable style={styles.photoButton} onPress={takePhoto}>
-            <Text style={styles.photoIcon}>📷</Text>
+            <View style={styles.photoIconContainer}>
+              <Text style={styles.photoIconText}>CAMERA</Text>
+            </View>
             <Text style={styles.photoButtonText}>Take Photo</Text>
           </Pressable>
           
           <Pressable style={styles.photoButton} onPress={pickImage}>
-            <Text style={styles.photoIcon}>🖼️</Text>
+            <View style={styles.photoIconContainer}>
+              <Text style={styles.photoIconText}>GALLERY</Text>
+            </View>
             <Text style={styles.photoButtonText}>Choose Photo</Text>
           </Pressable>
         </View>
@@ -229,7 +227,9 @@ export default function IngredientsScreen() {
                   ]}
                   onPress={() => setNewIngredient({ ...newIngredient, category })}
                 >
-                  <Text style={styles.categoryEmoji}>{getCategoryEmoji(category)}</Text>
+                  <View style={styles.categoryIconContainer}>
+                    <Text style={styles.categoryIcon}>{getCategoryIcon(category)}</Text>
+                  </View>
                   <Text
                     style={[
                       styles.categoryText,
@@ -250,11 +250,13 @@ export default function IngredientsScreen() {
       )}
 
       <View style={styles.ingredientsList}>
-        <Text style={styles.sectionTitle}>Your Ingredients ({ingredients.length})</Text>
+        <Text style={styles.sectionTitle}>Your Kitchen Ingredients ({ingredients.length})</Text>
         
         {ingredients.length === 0 ? (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>🍽️</Text>
+            <View style={styles.emptyIconContainer}>
+              <Text style={styles.emptyIconText}>KITCHEN</Text>
+            </View>
             <Text style={styles.emptyText}>No ingredients yet</Text>
             <Text style={styles.emptySubtext}>
               Add your first ingredient using the photo feature or manual entry above!
@@ -265,9 +267,11 @@ export default function IngredientsScreen() {
             {ingredients.map((ingredient) => (
               <View key={ingredient.id} style={styles.ingredientCard}>
                 <View style={styles.ingredientHeader}>
-                  <Text style={styles.categoryEmoji}>
-                    {getCategoryEmoji(ingredient.category)}
-                  </Text>
+                  <View style={styles.categoryBadge}>
+                    <Text style={styles.categoryBadgeText}>
+                      {getCategoryIcon(ingredient.category)}
+                    </Text>
+                  </View>
                   <View style={styles.ingredientInfo}>
                     <Text style={styles.ingredientName}>{ingredient.name}</Text>
                     <Text style={styles.ingredientDetails}>
@@ -287,14 +291,14 @@ export default function IngredientsScreen() {
             {ingredients.length > 0 && (
               <View style={styles.actionHint}>
                 <Text style={styles.hintText}>
-                  💡 You have {ingredients.length} ingredient{ingredients.length > 1 ? 's' : ''}!
+                  You have {ingredients.length} ingredient{ingredients.length > 1 ? 's' : ''} in your kitchen!
                 </Text>
                 <Button 
                   onPress={() => router.push('/recipes')}
                   variant="outline"
                   style={styles.recipeButton}
                 >
-                  Get Recipe Ideas
+                  Get Kitchen Recipe Ideas
                 </Button>
               </View>
             )}
@@ -314,7 +318,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   photoSection: {
-    backgroundColor: colors.accent,
+    backgroundColor: colors.marble,
     borderRadius: 20,
     padding: 25,
     marginHorizontal: 20,
@@ -328,6 +332,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4.65,
     elevation: 6,
+    borderWidth: 2,
+    borderColor: colors.steel,
   },
   sectionTitle: {
     fontSize: 20,
@@ -349,7 +355,7 @@ const styles = StyleSheet.create({
     padding: 20,
     minWidth: 130,
     borderWidth: 2,
-    borderColor: colors.primary,
+    borderColor: colors.kitchenWood,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
@@ -358,6 +364,21 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 3.84,
     elevation: 5,
+  },
+  photoIconContainer: {
+    backgroundColor: colors.tertiary,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: colors.kitchenWood,
+  },
+  photoIconText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.dark,
+    letterSpacing: 1,
   },
   photoIcon: {
     fontSize: 36,
@@ -381,6 +402,7 @@ const styles = StyleSheet.create({
   },
   addForm: {
     marginBottom: 24,
+    marginHorizontal: 20,
   },
   formTitle: {
     fontSize: 18,
@@ -405,14 +427,27 @@ const styles = StyleSheet.create({
     padding: 12,
     marginRight: 12,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderWidth: 2,
+    borderColor: colors.steel,
     backgroundColor: colors.background,
     minWidth: 80,
   },
   categoryButtonActive: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
+    backgroundColor: colors.kitchenWood,
+    borderColor: colors.secondary,
+  },
+  categoryIconContainer: {
+    backgroundColor: colors.tertiary,
+    borderRadius: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    marginBottom: 6,
+  },
+  categoryIcon: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.dark,
+    textAlign: 'center',
   },
   categoryEmoji: {
     fontSize: 20,
@@ -424,7 +459,7 @@ const styles = StyleSheet.create({
     fontWeight: '500',
   },
   categoryTextActive: {
-    color: colors.background,
+    color: colors.light,
     fontWeight: '600',
   },
   submitButton: {
@@ -433,11 +468,27 @@ const styles = StyleSheet.create({
   },
   ingredientsList: {
     flex: 1,
+    marginHorizontal: 20,
   },
   emptyState: {
     alignItems: 'center',
     paddingVertical: 40,
     paddingHorizontal: 20,
+  },
+  emptyIconContainer: {
+    backgroundColor: colors.kitchenWood,
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    marginBottom: 16,
+    borderWidth: 2,
+    borderColor: colors.secondary,
+  },
+  emptyIconText: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: colors.light,
+    letterSpacing: 2,
   },
   emptyIcon: {
     fontSize: 48,
@@ -462,7 +513,7 @@ const styles = StyleSheet.create({
     padding: 18,
     marginBottom: 12,
     borderLeftWidth: 5,
-    borderLeftColor: colors.secondary,
+    borderLeftColor: colors.kitchenWood,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
@@ -471,14 +522,30 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 3.84,
     elevation: 4,
+    borderTopWidth: 2,
+    borderTopColor: colors.steel,
   },
   ingredientHeader: {
     flexDirection: 'row',
     alignItems: 'center',
   },
+  categoryBadge: {
+    backgroundColor: colors.tertiary,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    marginRight: 12,
+    borderWidth: 1,
+    borderColor: colors.kitchenWood,
+  },
+  categoryBadgeText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.dark,
+    letterSpacing: 1,
+  },
   ingredientInfo: {
     flex: 1,
-    marginLeft: 12,
   },
   ingredientName: {
     fontSize: 16,
@@ -497,6 +564,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.error,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: colors.light,
   },
   removeButtonText: {
     color: colors.background,
@@ -504,12 +573,12 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   actionHint: {
-    backgroundColor: colors.backgroundAlt,
+    backgroundColor: colors.marble,
     borderRadius: 12,
     padding: 16,
     marginTop: 16,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderWidth: 2,
+    borderColor: colors.steel,
     alignItems: 'center',
   },
   hintText: {

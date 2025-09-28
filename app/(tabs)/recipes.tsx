@@ -53,15 +53,17 @@ export default function RecipesScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <AppHeader 
-        title="Recipe Ideas" 
-        subtitle="Discover delicious recipes with what you have"
+        title="Kitchen Recipe Ideas" 
+        subtitle="Discover delicious recipes with what you have in your kitchen"
       />
 
       {ingredients.length === 0 ? (
         <View style={styles.noIngredientsHint}>
-          <Text style={styles.hintIcon}>💡</Text>
+          <View style={styles.hintIconContainer}>
+            <Text style={styles.hintIconText}>TIP</Text>
+          </View>
           <Text style={styles.hintText}>
-            Add ingredients in "My Ingredients" to get personalized recipe suggestions!
+            Add ingredients in "Kitchen Ingredients" to get personalized recipe suggestions!
           </Text>
           <Button 
             onPress={() => router.push('/ingredients')}
@@ -69,16 +71,18 @@ export default function RecipesScreen() {
             size="sm"
             style={styles.addIngredientsButton}
           >
-            Add Ingredients
+            Add Kitchen Ingredients
           </Button>
         </View>
       ) : (
         <View style={styles.personalizedHint}>
-          <Text style={styles.hintIcon}>✨</Text>
+          <View style={styles.hintIconContainer}>
+            <Text style={styles.hintIconText}>CHEF</Text>
+          </View>
           <Text style={styles.hintText}>
             {getRecommendedRecipes().length > 0 
-              ? `Found ${getRecommendedRecipes().length} recipes using your ingredients!`
-              : 'Here are some great recipes to try with any ingredients.'
+              ? `Found ${getRecommendedRecipes().length} recipes using your kitchen ingredients!`
+              : 'Here are some great recipes to try with any ingredients from your kitchen.'
             }
           </Text>
         </View>
@@ -118,10 +122,12 @@ export default function RecipesScreen() {
         
         {filteredRecipes.length === 0 ? (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyIcon}>👨‍🍳</Text>
+            <View style={styles.emptyIconContainer}>
+              <Text style={styles.emptyIconText}>CHEF</Text>
+            </View>
             <Text style={styles.emptyText}>No recipes found</Text>
             <Text style={styles.emptySubtext}>
-              Try selecting a different category or add more ingredients!
+              Try selecting a different category or add more ingredients to your kitchen!
             </Text>
           </View>
         ) : (

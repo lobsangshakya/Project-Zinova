@@ -24,7 +24,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               style={styles.logo}
               resizeMode="contain"
             />
-            <Text style={styles.brandText}>WasteNot</Text>
+            <Text style={styles.brandText}>WasteNot Kitchen</Text>
           </View>
         )}
         <Text style={styles.title}>{title}</Text>
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 30,
     paddingHorizontal: 20,
-    backgroundColor: colors.primary,
+    backgroundColor: colors.kitchenWood,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     marginBottom: 20,
@@ -54,6 +54,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
     elevation: 8,
+    borderBottomWidth: 3,
+    borderBottomColor: colors.secondary,
   },
   gradientOverlay: {
     position: 'absolute',
@@ -61,10 +63,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
-    opacity: 0.8,
+    opacity: 0.9,
   },
   content: {
     alignItems: 'center',
@@ -74,6 +76,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
   },
   logo: {
     width: 40,
@@ -85,14 +93,17 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     color: colors.light,
     letterSpacing: 1,
+    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
   title: {
-    fontSize: 32,
+    fontSize: 28,
     fontWeight: '700',
     color: colors.light,
     textAlign: 'center',
     marginBottom: 8,
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
+    textShadowColor: 'rgba(0, 0, 0, 0.4)',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
   },
@@ -102,5 +113,8 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.9)',
     textAlign: 'center',
     lineHeight: 22,
+    textShadowColor: 'rgba(0, 0, 0, 0.2)',
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 2,
   },
 });

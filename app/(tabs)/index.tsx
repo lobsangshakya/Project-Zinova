@@ -9,15 +9,15 @@ export default function HomeScreen() {
   const mainActions = [
     {
       title: 'Add Your Ingredients',
-      description: 'Take a photo or add ingredients you have',
-      icon: '📸',
+      description: 'Take a photo or add ingredients you have available',
+      icon: 'CAMERA',
       color: colors.primary,
       action: () => router.push('/ingredients'),
     },
     {
-      title: 'Leftover Food Recipe',
-      description: 'Get recipes for your leftover ingredients',
-      icon: '♻️',
+      title: 'Leftover Magic',
+      description: 'Transform your leftover ingredients into amazing meals',
+      icon: 'RECYCLE',
       color: colors.secondary,
       action: () => router.push('/swap'),
     },
@@ -26,14 +26,16 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <AppHeader 
-        title="Welcome to WasteNot" 
-        subtitle="Turn your ingredients into delicious meals and reduce food waste!"
+        title="Your Kitchen Assistant" 
+        subtitle="Turn your ingredients into delicious meals and reduce food waste"
       />
 
       <View style={styles.heroSection}>
-        <Text style={styles.heroIcon}>🍽️</Text>
+        <View style={styles.kitchenIcon}>
+          <Text style={styles.kitchenIconText}>KITCHEN</Text>
+        </View>
         <Text style={styles.heroText}>
-          Reduce food waste by discovering recipes that use the ingredients you already have!
+          Reduce food waste by discovering recipes that use the ingredients you already have in your kitchen!
         </Text>
       </View>
 
@@ -46,12 +48,16 @@ export default function HomeScreen() {
             style={[styles.actionCard, { borderLeftColor: action.color }]}
             onPress={action.action}
           >
-            <Text style={styles.actionIcon}>{action.icon}</Text>
+            <View style={styles.actionIconContainer}>
+              <Text style={styles.actionIconText}>{action.icon}</Text>
+            </View>
             <View style={styles.actionContent}>
               <Text style={styles.actionTitle}>{action.title}</Text>
               <Text style={styles.actionDescription}>{action.description}</Text>
             </View>
-            <Text style={styles.actionArrow}>→</Text>
+            <View style={styles.actionArrowContainer}>
+              <Text style={styles.actionArrow}>→</Text>
+            </View>
           </Pressable>
         ))}
         
@@ -59,27 +65,33 @@ export default function HomeScreen() {
           style={styles.recipeButton}
           onPress={() => router.push('/recipes')}
         >
-          <Text style={styles.recipeButtonText}>Browse All Recipe Ideas</Text>
+          <Text style={styles.recipeButtonText}>Browse All Kitchen Recipes</Text>
         </Pressable>
       </View>
 
       <View style={styles.howItWorks}>
-        <Text style={styles.sectionTitle}>How it works</Text>
+        <Text style={styles.sectionTitle}>How Your Kitchen Assistant Works</Text>
         
         <View style={styles.stepContainer}>
           <View style={styles.step}>
-            <Text style={styles.stepNumber}>1</Text>
-            <Text style={styles.stepText}>Add or photograph your ingredients</Text>
+            <View style={styles.stepNumberContainer}>
+              <Text style={styles.stepNumber}>1</Text>
+            </View>
+            <Text style={styles.stepText}>Add or photograph your available ingredients</Text>
           </View>
           
           <View style={styles.step}>
-            <Text style={styles.stepNumber}>2</Text>
-            <Text style={styles.stepText}>Get personalized recipe suggestions</Text>
+            <View style={styles.stepNumberContainer}>
+              <Text style={styles.stepNumber}>2</Text>
+            </View>
+            <Text style={styles.stepText}>Get personalized recipe suggestions from your kitchen</Text>
           </View>
           
           <View style={styles.step}>
-            <Text style={styles.stepNumber}>3</Text>
-            <Text style={styles.stepText}>Cook delicious meals & reduce waste</Text>
+            <View style={styles.stepNumberContainer}>
+              <Text style={styles.stepNumber}>3</Text>
+            </View>
+            <Text style={styles.stepText}>Cook delicious meals and reduce food waste</Text>
           </View>
         </View>
       </View>
@@ -97,7 +109,7 @@ const styles = StyleSheet.create({
   },
   heroSection: {
     alignItems: 'center',
-    backgroundColor: colors.quaternary,
+    backgroundColor: colors.marble,
     borderRadius: 20,
     padding: 30,
     marginHorizontal: 20,
@@ -110,6 +122,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 4.65,
     elevation: 6,
+    borderWidth: 2,
+    borderColor: colors.steel,
+  },
+  kitchenIcon: {
+    backgroundColor: colors.kitchenWood,
+    borderRadius: 8,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    marginBottom: 16,
+    borderWidth: 2,
+    borderColor: colors.secondary,
+  },
+  kitchenIconText: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: colors.light,
+    letterSpacing: 2,
+    textAlign: 'center',
   },
   heroIcon: {
     fontSize: 60,
@@ -149,6 +179,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 3.84,
     elevation: 5,
+    borderTopWidth: 2,
+    borderTopColor: colors.steel,
+  },
+  actionIconContainer: {
+    backgroundColor: colors.tertiary,
+    borderRadius: 12,
+    padding: 12,
+    marginRight: 20,
+    borderWidth: 2,
+    borderColor: colors.kitchenWood,
+    minWidth: 50,
+    alignItems: 'center',
+  },
+  actionIconText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.dark,
+    letterSpacing: 1,
   },
   actionIcon: {
     fontSize: 40,
@@ -168,9 +216,19 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     lineHeight: 22,
   },
+  actionArrowContainer: {
+    backgroundColor: colors.primary,
+    borderRadius: 20,
+    width: 40,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: colors.secondary,
+  },
   actionArrow: {
-    fontSize: 28,
-    color: colors.primary,
+    fontSize: 20,
+    color: colors.light,
     fontWeight: '700',
   },
   recipeButton: {
@@ -216,17 +274,30 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 4,
   },
+  stepNumberContainer: {
+    backgroundColor: colors.kitchenWood,
+    borderRadius: 25,
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 16,
+    borderWidth: 3,
+    borderColor: colors.secondary,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
+  },
   stepNumber: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '800',
     color: colors.light,
-    backgroundColor: colors.info,
-    borderRadius: 20,
-    width: 40,
-    height: 40,
     textAlign: 'center',
-    lineHeight: 40,
-    marginRight: 16,
   },
   stepText: {
     fontSize: 16,

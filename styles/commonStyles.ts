@@ -1,27 +1,30 @@
 import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 export const colors = {
-  primary: '#FF6B6B',      // Vibrant coral red
-  secondary: '#4ECDC4',    // Turquoise
-  accent: '#45B7D1',       // Sky blue
-  tertiary: '#96CEB4',     // Mint green
-  quaternary: '#FFEAA7',   // Soft yellow
-  background: '#FDFDFD',   // Pure white
-  backgroundAlt: '#F8F9FA', // Very light grey
-  backgroundGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // Purple gradient
-  text: '#2D3436',         // Dark charcoal
-  textSecondary: '#636E72', // Medium grey
-  textLight: '#B2BEC3',    // Light grey
-  grey: '#DDD6FE',         // Lavender grey
+  primary: '#8B4513',      // Kitchen wood brown
+  secondary: '#D2691E',    // Warm copper
+  accent: '#CD853F',       // Sandy brown
+  tertiary: '#F5DEB3',     // Wheat/cream
+  quaternary: '#FFF8DC',   // Kitchen cream
+  background: '#FEFEFE',   // Clean white
+  backgroundAlt: '#F7F5F3', // Warm off-white
+  backgroundGradient: 'linear-gradient(135deg, #F5DEB3 0%, #DEB887 100%)', // Warm gradient
+  text: '#2F1B14',         // Dark brown
+  textSecondary: '#5D4E37', // Medium brown
+  textLight: '#8B7355',    // Light brown
+  grey: '#D3D3D3',         // Light grey
   card: '#FFFFFF',         // Pure white
-  cardShadow: 'rgba(0, 0, 0, 0.1)', // Soft shadow
-  border: '#E17055',       // Coral border
-  success: '#00B894',      // Emerald green
-  warning: '#FDCB6E',      // Golden yellow
-  error: '#E84393',        // Pink red
-  info: '#6C5CE7',         // Purple
-  dark: '#2D3436',         // Dark grey
+  cardShadow: 'rgba(139, 69, 19, 0.1)', // Warm brown shadow
+  border: '#D2691E',       // Copper border
+  success: '#228B22',      // Forest green
+  warning: '#DAA520',      // Golden rod
+  error: '#B22222',        // Fire brick red
+  info: '#4682B4',         // Steel blue
+  dark: '#2F1B14',         // Dark brown
   light: '#FFFFFF',        // White
+  kitchenWood: '#8B4513',  // Kitchen cabinet wood
+  marble: '#F8F8FF',       // Marble countertop
+  steel: '#C0C0C0',        // Stainless steel
 };
 
 export const buttonStyles = StyleSheet.create({
@@ -106,8 +109,10 @@ export const commonStyles = StyleSheet.create({
     padding: 16,
     marginVertical: 8,
     width: '100%',
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)',
-    elevation: 3,
+    boxShadow: '0px 3px 12px rgba(139, 69, 19, 0.15)',
+    elevation: 4,
+    borderTopWidth: 3,
+    borderTopColor: colors.kitchenWood,
   },
   input: {
     borderWidth: 1,

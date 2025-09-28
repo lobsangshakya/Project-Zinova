@@ -138,12 +138,12 @@ export default function LeftoverMagicScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <AppHeader 
-        title="Leftover Magic ✨" 
-        subtitle="Turn your leftover ingredients into amazing meals"
+        title="Kitchen Leftover Magic" 
+        subtitle="Transform your leftover ingredients into amazing meals from your kitchen"
       />
 
       <View style={styles.photoSection}>
-        <Text style={styles.sectionTitle}>What leftovers do you have?</Text>
+        <Text style={styles.sectionTitle}>What leftovers do you have in your kitchen?</Text>
         
         <View style={styles.photoButtons}>
           <Pressable 
@@ -151,7 +151,11 @@ export default function LeftoverMagicScreen() {
             onPress={takePhotoOfLeftovers}
             disabled={isAnalyzing}
           >
-            <Text style={styles.photoIcon}>📷</Text>
+            <View style={styles.photoIconContainer}>
+              <Text style={styles.photoIconText}>
+                {isAnalyzing ? 'ANALYZING' : 'CAMERA'}
+              </Text>
+            </View>
             <Text style={styles.photoButtonText}>
               {isAnalyzing ? 'Analyzing...' : 'Take Photo'}
             </Text>
@@ -162,7 +166,11 @@ export default function LeftoverMagicScreen() {
             onPress={pickImageOfLeftovers}
             disabled={isAnalyzing}
           >
-            <Text style={styles.photoIcon}>🖼️</Text>
+            <View style={styles.photoIconContainer}>
+              <Text style={styles.photoIconText}>
+                {isAnalyzing ? 'ANALYZING' : 'GALLERY'}
+              </Text>
+            </View>
             <Text style={styles.photoButtonText}>
               {isAnalyzing ? 'Analyzing...' : 'Choose Photo'}
             </Text>
@@ -171,7 +179,10 @@ export default function LeftoverMagicScreen() {
         
         {isAnalyzing && (
           <View style={styles.analyzingContainer}>
-            <Text style={styles.analyzingText}>🔍 Analyzing your photo...</Text>
+            <View style={styles.analyzingIcon}>
+              <Text style={styles.analyzingIconText}>ANALYZING</Text>
+            </View>
+            <Text style={styles.analyzingText}>Analyzing your kitchen photo...</Text>
             <Text style={styles.analyzingSubtext}>This may take a moment</Text>
           </View>
         )}
@@ -222,7 +233,7 @@ export default function LeftoverMagicScreen() {
 
       {recommendedRecipes.length > 0 && (
         <View style={styles.recipesSection}>
-          <Text style={styles.sectionTitle}>🍽️ Recipe Recommendations</Text>
+          <Text style={styles.sectionTitle}>Kitchen Recipe Recommendations</Text>
           
           {recommendedRecipes.map((recipe) => (
             <View key={recipe.id} style={styles.recipeCard}>
@@ -282,10 +293,12 @@ export default function LeftoverMagicScreen() {
 
       {leftoverIngredients.length === 0 && (
         <View style={styles.emptyState}>
-          <Text style={styles.emptyIcon}>🍽️</Text>
+          <View style={styles.emptyIconContainer}>
+            <Text style={styles.emptyIconText}>KITCHEN</Text>
+          </View>
           <Text style={styles.emptyText}>No leftovers added yet</Text>
           <Text style={styles.emptySubtext}>
-            Take a photo or add ingredients manually to get personalized leftover recipes!
+            Take a photo or add ingredients manually to get personalized kitchen recipes!
           </Text>
         </View>
       )}
@@ -357,11 +370,35 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 16,
     minWidth: 120,
-    borderWidth: 1,
-    borderColor: colors.border,
+    borderWidth: 2,
+    borderColor: colors.kitchenWood,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   photoButtonDisabled: {
     opacity: 0.6,
+  },
+  photoIconContainer: {
+    backgroundColor: colors.tertiary,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: colors.kitchenWood,
+  },
+  photoIconText: {
+    fontSize: 10,
+    fontWeight: '700',
+    color: colors.dark,
+    letterSpacing: 1,
+    textAlign: 'center',
   },
   photoIcon: {
     fontSize: 32,
@@ -375,6 +412,21 @@ const styles = StyleSheet.create({
   analyzingContainer: {
     alignItems: 'center',
     paddingVertical: 16,
+  },
+  analyzingIcon: {
+    backgroundColor: colors.warning,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: colors.kitchenWood,
+  },
+  analyzingIconText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.dark,
+    letterSpacing: 1,
   },
   analyzingText: {
     fontSize: 16,
@@ -532,6 +584,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 40,
     paddingHorizontal: 20,
+  },
+  emptyIconContainer: {
+    backgroundColor: colors.kitchenWood,
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    marginBottom: 16,
+    borderWidth: 2,
+    borderColor: colors.secondary,
+  },
+  emptyIconText: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: colors.light,
+    letterSpacing: 2,
   },
   emptyIcon: {
     fontSize: 48,
