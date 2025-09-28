@@ -6,7 +6,6 @@ interface User {
   id: string;
   email: string;
   name: string;
-  points: number;
 }
 
 interface AuthContextType {
@@ -15,7 +14,6 @@ interface AuthContextType {
   login: (email: string, password: string) => Promise<boolean>;
   register: (email: string, password: string, name: string) => Promise<boolean>;
   logout: () => Promise<void>;
-  updateUserPoints: (points: number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -46,12 +44,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Simulate API call
       console.log('Logging in user:', email);
       
-      // Mock user data
+      // Simple user data
       const userData: User = {
         id: '1',
         email,
         name: email.split('@')[0],
-        points: 100,
       };
 
       await AsyncStorage.setItem('user', JSON.stringify(userData));
@@ -68,12 +65,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Simulate API call
       console.log('Registering user:', email, name);
       
-      // Mock user data
+      // Simple user data
       const userData: User = {
         id: Date.now().toString(),
         email,
         name,
-        points: 0,
       };
 
       await AsyncStorage.setItem('user', JSON.stringify(userData));
@@ -94,14 +90,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const updateUserPoints = (points: number) => {
-    if (user) {
-      const updatedUser = { ...user, points };
-      setUser(updatedUser);
-      AsyncStorage.setItem('user', JSON.stringify(updatedUser));
-    }
-  };
-
   return (
     <AuthContext.Provider value={{
       user,
@@ -109,7 +97,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       login,
       register,
       logout,
-      updateUserPoints,
     }}>
       {children}
     </AuthContext.Provider>
