@@ -198,7 +198,10 @@ export function IngredientsProvider({ children }: { children: React.ReactNode })
   };
 
   const removeIngredient = (id: string) => {
+    console.log('IngredientsContext: Removing ingredient with ID:', id);
+    console.log('Current ingredients before removal:', ingredients.length);
     const updatedIngredients = ingredients.filter(item => item.id !== id);
+    console.log('Updated ingredients after removal:', updatedIngredients.length);
     setIngredients(updatedIngredients);
     saveIngredients(updatedIngredients);
   };

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "WasteNot - Food Recipe",
+    "name": "WasteNot Kitchen Assistant",
     "slug": "wastenot-food-recipe",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,7 +10,7 @@
     "splash": {
       "image": "./assets/images/WasteNot_logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#FF6B6B"
+      "backgroundColor": "#8B4513"
     },
     "ios": {
       "supportsTablet": true,
@@ -22,7 +22,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/WasteNot_logo.png",
-        "backgroundColor": "#FF6B6B"
+        "backgroundColor": "#8B4513"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.lobsangtseten.wastenot"

@@ -138,6 +138,7 @@ export default function IngredientsScreen() {
   };
 
   const handleRemoveIngredient = (id: string) => {
+    console.log('Attempting to remove ingredient with ID:', id);
     Alert.alert(
       'Remove Ingredient',
       'Are you sure you want to remove this ingredient from your kitchen?',
@@ -146,7 +147,10 @@ export default function IngredientsScreen() {
         {
           text: 'Remove',
           style: 'destructive',
-          onPress: () => removeIngredient(id),
+          onPress: () => {
+            console.log('User confirmed removal for ID:', id);
+            removeIngredient(id);
+          },
         },
       ]
     );
@@ -279,10 +283,14 @@ export default function IngredientsScreen() {
                     </Text>
                   </View>
                   <Pressable
-                    onPress={() => handleRemoveIngredient(ingredient.id)}
+                    onPress={() => {
+                      console.log('Remove button pressed for ingredient:', ingredient.name, 'with ID:', ingredient.id);
+                      handleRemoveIngredient(ingredient.id);
+                    }}
                     style={styles.removeButton}
+                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
                   >
-                    <Text style={styles.removeButtonText}>×</Text>
+                    <Text style={styles.removeButtonText}>REMOVE</Text>
                   </Pressable>
                 </View>
               </View>
@@ -558,19 +566,29 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
   },
   removeButton: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
     backgroundColor: colors.error,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
     borderColor: colors.light,
+    minWidth: 70,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+    elevation: 3,
   },
   removeButtonText: {
-    color: colors.background,
-    fontSize: 18,
-    fontWeight: '600',
+    color: colors.light,
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 1,
   },
   actionHint: {
     backgroundColor: colors.marble,
