@@ -3,78 +3,41 @@ import { View, Text, StyleSheet, ScrollView, Pressable, Alert, TextInput } from 
 import * as ImagePicker from 'expo-image-picker';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
-
-interface LeftoverRecipe {
-  id: string;
-  title: string;
-  description: string;
-  ingredients: string[];
-  cookTime: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  servings: string;
-  instructions: string[];
-}
+import { useIngredients, Recipe } from '@/contexts/IngredientsContext';
+import { RecipeDetailModal } from '@/components/RecipeDetailModal';
 
 export default function LeftoverMagicScreen() {
+  const { addIngredient, getRecommendedRecipes } = useIngredients();
   const [leftoverIngredients, setLeftoverIngredients] = useState<string[]>([]);
   const [newIngredient, setNewIngredient] = useState('');
-  const [recommendedRecipes, setRecommendedRecipes] = useState<LeftoverRecipe[]>([]);
+  const [recommendedRecipes, setRecommendedRecipes] = useState<Recipe[]>([]);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [showRecipeModal, setShowRecipeModal] = useState(false);
 
-  // Sample leftover recipes
-  const sampleLeftoverRecipes: LeftoverRecipe[] = [
-    {
-      id: '1',
-      title: 'Everything Fried Rice',
-      description: 'Perfect way to use up any leftover vegetables, meat, and rice',
-      ingredients: ['Leftover rice', 'Any vegetables', 'Eggs', 'Soy sauce', 'Oil'],
-      cookTime: '15 min',
-      difficulty: 'Easy',
-      servings: '2-3',
-      instructions: [
-        'Heat oil in a large pan or wok',
-        'Add any leftover vegetables and cook for 2-3 minutes',
-        'Add cold leftover rice, breaking up clumps',
-        'Push rice to one side, scramble eggs on the other',
-        'Mix everything together with soy sauce',
-        'Cook for 2-3 more minutes until heated through'
-      ],
-    },
-    {
-      id: '2',
-      title: 'Quick Vegetable Soup',
-      description: 'Turn any leftover vegetables into a warming soup',
-      ingredients: ['Mixed leftover vegetables', 'Broth or water', 'Onion', 'Garlic', 'Salt'],
-      cookTime: '20 min',
-      difficulty: 'Easy',
-      servings: '3-4',
-      instructions: [
-        'Chop onion and garlic, sauté until fragrant',
-        'Add any leftover vegetables, chopped',
-        'Pour in broth or water to cover',
-        'Bring to boil, then simmer for 15 minutes',
-        'Season with salt and pepper',
-        'Blend if desired for smooth soup'
-      ],
-    },
-    {
-      id: '3',
-      title: 'Leftover Pasta Frittata',
-      description: 'Transform leftover pasta into a delicious egg dish',
-      ingredients: ['Leftover pasta', 'Eggs', 'Any cheese', 'Leftover vegetables', 'Oil'],
-      cookTime: '25 min',
-      difficulty: 'Medium',
-      servings: '4',
-      instructions: [
-        'Preheat oven to 375°F (190°C)',
-        'Beat eggs in a bowl, mix in pasta and vegetables',
-        'Heat oil in oven-safe pan',
-        'Pour in egg mixture, cook on stove for 5 minutes',
-        'Sprinkle cheese on top',
-        'Transfer to oven for 15-20 minutes until set'
-      ],
-    },
-  ];
+  const generateRecipeRecommendations = (ingredients: string[]) => {
+    if (ingredients.length > 0) {
+      // Add ingredients to global context
+      ingredients.forEach(ingredientName => {
+        addIngredient({
+          name: ingredientName,
+          quantity: '1 portion',
+          category: 'Other', // Default category for leftovers
+        });
+      });
+      
+      // Get recipes from global context
+      const recipes = getRecommendedRecipes();
+      setRecommendedRecipes(recipes);
+    } else {
+      setRecommendedRecipes([]);
+    }
+  };
+
+  const handleViewRecipe = (recipe: Recipe) => {
+    setSelectedRecipe(recipe);
+    setShowRecipeModal(true);
+  };
 
   const takePhotoOfLeftovers = async () => {
     try {
@@ -98,8 +61,9 @@ export default function LeftoverMagicScreen() {
         // Simulate AI analysis
         setTimeout(() => {
           const mockAnalyzedIngredients = ['Rice', 'Carrots', 'Chicken', 'Green beans'];
-          setLeftoverIngredients([...leftoverIngredients, ...mockAnalyzedIngredients]);
-          generateRecipeRecommendations([...leftoverIngredients, ...mockAnalyzedIngredients]);
+          const updatedIngredients = [...leftoverIngredients, ...mockAnalyzedIngredients];
+          setLeftoverIngredients(updatedIngredients);
+          generateRecipeRecommendations(updatedIngredients);
           setIsAnalyzing(false);
           Alert.alert('Photo Analyzed!', 'We detected some ingredients in your photo. Check the list below and add any we missed!');
         }, 2000);
@@ -132,8 +96,9 @@ export default function LeftoverMagicScreen() {
         // Simulate AI analysis
         setTimeout(() => {
           const mockAnalyzedIngredients = ['Pasta', 'Tomatoes', 'Bell peppers', 'Cheese'];
-          setLeftoverIngredients([...leftoverIngredients, ...mockAnalyzedIngredients]);
-          generateRecipeRecommendations([...leftoverIngredients, ...mockAnalyzedIngredients]);
+          const updatedIngredients = [...leftoverIngredients, ...mockAnalyzedIngredients];
+          setLeftoverIngredients(updatedIngredients);
+          generateRecipeRecommendations(updatedIngredients);
           setIsAnalyzing(false);
           Alert.alert('Photo Analyzed!', 'We detected some ingredients in your photo. Check the list below and add any we missed!');
         }, 2000);
@@ -157,15 +122,6 @@ export default function LeftoverMagicScreen() {
     const updatedIngredients = leftoverIngredients.filter((_, i) => i !== index);
     setLeftoverIngredients(updatedIngredients);
     generateRecipeRecommendations(updatedIngredients);
-  };
-
-  const generateRecipeRecommendations = (ingredients: string[]) => {
-    if (ingredients.length > 0) {
-      // In a real app, this would call an AI API to generate recipes based on ingredients
-      setRecommendedRecipes(sampleLeftoverRecipes);
-    } else {
-      setRecommendedRecipes([]);
-    }
   };
 
   const getDifficultyColor = (difficulty: string) => {
@@ -312,7 +268,10 @@ export default function LeftoverMagicScreen() {
                 )}
               </View>
               
-              <Pressable style={styles.viewFullRecipeButton}>
+              <Pressable 
+                style={styles.viewFullRecipeButton}
+                onPress={() => handleViewRecipe(recipe)}
+              >
                 <Text style={styles.viewFullRecipeText}>View Full Recipe</Text>
                 <Text style={styles.viewFullRecipeArrow}>→</Text>
               </Pressable>
@@ -330,6 +289,15 @@ export default function LeftoverMagicScreen() {
           </Text>
         </View>
       )}
+
+      <RecipeDetailModal
+        recipe={selectedRecipe}
+        visible={showRecipeModal}
+        onClose={() => {
+          setShowRecipeModal(false);
+          setSelectedRecipe(null);
+        }}
+      />
     </ScrollView>
   );
 }

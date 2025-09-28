@@ -3,18 +3,11 @@ import { View, Text, StyleSheet, ScrollView, TextInput, Alert, Pressable } from 
 import * as ImagePicker from 'expo-image-picker';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
-
-interface Ingredient {
-  id: string;
-  name: string;
-  quantity: string;
-  category: string;
-  imageUri?: string;
-}
+import { useIngredients, Ingredient } from '@/contexts/IngredientsContext';
+import { router } from 'expo-router';
 
 export default function IngredientsScreen() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
-
+  const { ingredients, addIngredient, removeIngredient } = useIngredients();
   const [showAddForm, setShowAddForm] = useState(false);
   const [newIngredient, setNewIngredient] = useState({
     name: '',
@@ -41,9 +34,31 @@ export default function IngredientsScreen() {
       });
 
       if (!result.canceled && result.assets[0]) {
-        // For now, just show the add form with the image
+        // Simulate AI ingredient detection
         setShowAddForm(true);
-        Alert.alert('Photo Taken!', 'Please add the ingredient details below.');
+        
+        // Mock detected ingredients
+        const mockDetectedIngredients = [
+          { name: 'Carrots', category: 'Vegetables' },
+          { name: 'Chicken', category: 'Meat' },
+          { name: 'Rice', category: 'Grains' }
+        ];
+        
+        // Add detected ingredients automatically
+        setTimeout(() => {
+          mockDetectedIngredients.forEach(detected => {
+            addIngredient({
+              name: detected.name,
+              quantity: '1 portion',
+              category: detected.category,
+              imageUri: result.assets[0].uri
+            });
+          });
+          
+          Alert.alert('Ingredients Detected!', 
+            `Found: ${mockDetectedIngredients.map(i => i.name).join(', ')}. You can add more manually if needed.`);
+          setShowAddForm(false);
+        }, 1500);
       }
     } catch (error) {
       Alert.alert('Error', 'Unable to take photo. Please try again.');
@@ -67,32 +82,55 @@ export default function IngredientsScreen() {
       });
 
       if (!result.canceled && result.assets[0]) {
+        // Simulate AI ingredient detection
         setShowAddForm(true);
-        Alert.alert('Image Selected!', 'Please add the ingredient details below.');
+        
+        // Mock detected ingredients
+        const mockDetectedIngredients = [
+          { name: 'Tomatoes', category: 'Vegetables' },
+          { name: 'Pasta', category: 'Grains' },
+          { name: 'Cheese', category: 'Dairy' }
+        ];
+        
+        // Add detected ingredients automatically
+        setTimeout(() => {
+          mockDetectedIngredients.forEach(detected => {
+            addIngredient({
+              name: detected.name,
+              quantity: '1 portion',
+              category: detected.category,
+              imageUri: result.assets[0].uri
+            });
+          });
+          
+          Alert.alert('Ingredients Detected!', 
+            `Found: ${mockDetectedIngredients.map(i => i.name).join(', ')}. You can add more manually if needed.`);
+          setShowAddForm(false);
+        }, 1500);
       }
     } catch (error) {
       Alert.alert('Error', 'Unable to select image. Please try again.');
     }
   };
 
-  const addIngredient = () => {
+  const handleAddIngredient = () => {
     if (!newIngredient.name || !newIngredient.quantity) {
       Alert.alert('Missing Information', 'Please enter both ingredient name and quantity.');
       return;
     }
 
-    const ingredient: Ingredient = {
-      id: Date.now().toString(),
-      ...newIngredient,
-    };
-
-    setIngredients([...ingredients, ingredient]);
+    addIngredient({
+      name: newIngredient.name,
+      quantity: newIngredient.quantity,
+      category: newIngredient.category,
+    });
+    
     setNewIngredient({ name: '', quantity: '', category: 'Vegetables' });
     setShowAddForm(false);
     Alert.alert('Success!', 'Ingredient added to your list.');
   };
 
-  const removeIngredient = (id: string) => {
+  const handleRemoveIngredient = (id: string) => {
     Alert.alert(
       'Remove Ingredient',
       'Are you sure you want to remove this ingredient?',
@@ -101,7 +139,7 @@ export default function IngredientsScreen() {
         {
           text: 'Remove',
           style: 'destructive',
-          onPress: () => setIngredients(ingredients.filter(item => item.id !== id)),
+          onPress: () => removeIngredient(id),
         },
       ]
     );
@@ -206,7 +244,7 @@ export default function IngredientsScreen() {
             </ScrollView>
           </View>
 
-          <Button onPress={addIngredient} style={styles.submitButton}>
+          <Button onPress={handleAddIngredient} style={styles.submitButton}>
             Add Ingredient
           </Button>
         </View>
@@ -238,7 +276,7 @@ export default function IngredientsScreen() {
                     </Text>
                   </View>
                   <Pressable
-                    onPress={() => removeIngredient(ingredient.id)}
+                    onPress={() => handleRemoveIngredient(ingredient.id)}
                     style={styles.removeButton}
                   >
                     <Text style={styles.removeButtonText}>×</Text>
@@ -250,8 +288,15 @@ export default function IngredientsScreen() {
             {ingredients.length > 0 && (
               <View style={styles.actionHint}>
                 <Text style={styles.hintText}>
-                  💡 Go to "Recipe Ideas" to see what you can make with these ingredients!
+                  💡 You have {ingredients.length} ingredient{ingredients.length > 1 ? 's' : ''}!
                 </Text>
+                <Button 
+                  onPress={() => router.push('/recipes')}
+                  variant="outline"
+                  style={styles.recipeButton}
+                >
+                  Get Recipe Ideas
+                </Button>
               </View>
             )}
           </>
@@ -459,11 +504,17 @@ const styles = StyleSheet.create({
     marginTop: 16,
     borderWidth: 1,
     borderColor: colors.border,
+    alignItems: 'center',
   },
   hintText: {
     fontSize: 14,
     color: colors.text,
     textAlign: 'center',
     lineHeight: 20,
+    marginBottom: 12,
+  },
+  recipeButton: {
+    borderColor: colors.primary,
+    marginTop: 8,
   },
 });

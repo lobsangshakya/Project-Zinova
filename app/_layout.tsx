@@ -12,6 +12,7 @@ import {
 } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { AuthProvider } from "@/contexts/AuthContext";
+import { IngredientsProvider } from "@/contexts/IngredientsContext";
 import { colors } from "@/styles/commonStyles";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -51,17 +52,19 @@ export default function RootLayout() {
 
   return (
     <AuthProvider>
-      <ThemeProvider value={lightTheme}>
-        <GestureHandlerRootView style={{ flex: 1 }}>
-          <StatusBar style="dark" />
-          <Stack screenOptions={{ headerShown: false }}>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          </Stack>
-          <SystemBars style="dark" />
-        </GestureHandlerRootView>
-      </ThemeProvider>
+      <IngredientsProvider>
+        <ThemeProvider value={lightTheme}>
+          <GestureHandlerRootView style={{ flex: 1 }}>
+            <StatusBar style="dark" />
+            <Stack screenOptions={{ headerShown: false }}>
+              <Stack.Screen name="index" options={{ headerShown: false }} />
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            </Stack>
+            <SystemBars style="dark" />
+          </GestureHandlerRootView>
+        </ThemeProvider>
+      </IngredientsProvider>
     </AuthProvider>
   );
 }

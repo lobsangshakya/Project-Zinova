@@ -4,85 +4,37 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
-
-interface Recipe {
-  id: string;
-  title: string;
-  description: string;
-  ingredients: string[];
-  cookTime: string;
-  difficulty: 'Easy' | 'Medium' | 'Hard';
-  category: string;
-  servings: string;
-  instructions: string[];
-}
+import { useIngredients, Recipe } from '@/contexts/IngredientsContext';
+import { RecipeDetailModal } from '@/components/RecipeDetailModal';
 
 export default function RecipesScreen() {
+  const { ingredients, getRecommendedRecipes, getAllRecipes } = useIngredients();
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [showRecipeModal, setShowRecipeModal] = useState(false);
 
-  const categories = ['All', 'Quick Meals', 'Vegetarian', 'Soup', 'Salad', 'Main Course'];
+  const categories = ['All', 'Quick Meals', 'Main Course', 'Soup', 'Salad'];
 
-  // Sample recipes - you can replace with real data or API calls
-  const sampleRecipes: Recipe[] = [
-    {
-      id: '1',
-      title: 'Simple Vegetable Stir Fry',
-      description: 'A quick and healthy way to use up any vegetables you have',
-      ingredients: ['Mixed vegetables', 'Oil', 'Garlic', 'Soy sauce', 'Salt'],
-      cookTime: '15 min',
-      difficulty: 'Easy',
-      category: 'Quick Meals',
-      servings: '2-3',
-      instructions: [
-        'Heat oil in a large pan',
-        'Add garlic and cook for 1 minute',
-        'Add vegetables and stir fry for 5-8 minutes',
-        'Season with soy sauce and salt',
-        'Serve hot'
-      ],
-    },
-    {
-      id: '2',
-      title: 'Fresh Garden Salad',
-      description: 'Perfect for using up fresh vegetables and greens',
-      ingredients: ['Mixed greens', 'Tomatoes', 'Cucumber', 'Olive oil', 'Lemon juice'],
-      cookTime: '10 min',
-      difficulty: 'Easy',
-      category: 'Salad',
-      servings: '2',
-      instructions: [
-        'Wash and chop all vegetables',
-        'Mix greens in a large bowl',
-        'Add chopped vegetables',
-        'Drizzle with olive oil and lemon juice',
-        'Toss and serve immediately'
-      ],
-    },
-    {
-      id: '3',
-      title: 'Hearty Vegetable Soup',
-      description: 'Warm and comforting soup using seasonal vegetables',
-      ingredients: ['Mixed vegetables', 'Vegetable broth', 'Onion', 'Herbs', 'Salt'],
-      cookTime: '30 min',
-      difficulty: 'Easy',
-      category: 'Soup',
-      servings: '4',
-      instructions: [
-        'Chop all vegetables into bite-sized pieces',
-        'Sauté onion until translucent',
-        'Add vegetables and cook for 5 minutes',
-        'Pour in broth and bring to boil',
-        'Simmer for 20 minutes until tender',
-        'Season with herbs and salt'
-      ],
-    },
-  ];
+  const handleViewRecipe = (recipe: Recipe) => {
+    setSelectedRecipe(recipe);
+    setShowRecipeModal(true);
+  };
 
   useEffect(() => {
-    // In a real app, this would fetch recipes based on user's ingredients
-    setRecipes(sampleRecipes);
-  }, []);
+    // Load recipes based on whether user has ingredients
+    if (ingredients.length > 0) {
+      const recommended = getRecommendedRecipes();
+      if (recommended.length > 0) {
+        setRecipes(recommended);
+      } else {
+        // If no matches, show all recipes
+        setRecipes(getAllRecipes());
+      }
+    } else {
+      setRecipes(getAllRecipes());
+    }
+  }, [ingredients, getRecommendedRecipes, getAllRecipes]);
 
   const filteredRecipes = selectedCategory === 'All' 
     ? recipes 
@@ -106,20 +58,32 @@ export default function RecipesScreen() {
         </Text>
       </View>
 
-      <View style={styles.noIngredientsHint}>
-        <Text style={styles.hintIcon}>💡</Text>
-        <Text style={styles.hintText}>
-          Add ingredients in "My Ingredients" to get personalized recipe suggestions!
-        </Text>
-        <Button 
-          onPress={() => router.push('/ingredients')}
-          variant="outline"
-          size="sm"
-          style={styles.addIngredientsButton}
-        >
-          Add Ingredients
-        </Button>
-      </View>
+      {ingredients.length === 0 ? (
+        <View style={styles.noIngredientsHint}>
+          <Text style={styles.hintIcon}>💡</Text>
+          <Text style={styles.hintText}>
+            Add ingredients in "My Ingredients" to get personalized recipe suggestions!
+          </Text>
+          <Button 
+            onPress={() => router.push('/ingredients')}
+            variant="outline"
+            size="sm"
+            style={styles.addIngredientsButton}
+          >
+            Add Ingredients
+          </Button>
+        </View>
+      ) : (
+        <View style={styles.personalizedHint}>
+          <Text style={styles.hintIcon}>✨</Text>
+          <Text style={styles.hintText}>
+            {getRecommendedRecipes().length > 0 
+              ? `Found ${getRecommendedRecipes().length} recipes using your ingredients!`
+              : 'Here are some great recipes to try with any ingredients.'
+            }
+          </Text>
+        </View>
+      )}
 
       <ScrollView 
         horizontal 
@@ -208,7 +172,10 @@ export default function RecipesScreen() {
                 </View>
               </View>
               
-              <Pressable style={styles.viewRecipeButton}>
+              <Pressable 
+                style={styles.viewRecipeButton}
+                onPress={() => handleViewRecipe(recipe)}
+              >
                 <Text style={styles.viewRecipeText}>View Full Recipe</Text>
                 <Text style={styles.viewRecipeArrow}>→</Text>
               </Pressable>
@@ -216,6 +183,15 @@ export default function RecipesScreen() {
           ))
         )}
       </View>
+      
+      <RecipeDetailModal
+        recipe={selectedRecipe}
+        visible={showRecipeModal}
+        onClose={() => {
+          setShowRecipeModal(false);
+          setSelectedRecipe(null);
+        }}
+      />
     </ScrollView>
   );
 }
@@ -268,6 +244,15 @@ const styles = StyleSheet.create({
   },
   addIngredientsButton: {
     marginTop: 8,
+  },
+  personalizedHint: {
+    backgroundColor: colors.backgroundAlt,
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 20,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.primary,
   },
   categoryScroll: {
     marginBottom: 20,
