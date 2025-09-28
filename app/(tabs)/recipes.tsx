@@ -6,6 +6,7 @@ import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
 import { useIngredients, Recipe } from '@/contexts/IngredientsContext';
 import { RecipeDetailModal } from '@/components/RecipeDetailModal';
+import { Logo } from '@/components/Logo';
 
 export default function RecipesScreen() {
   const { ingredients, getRecommendedRecipes, getAllRecipes } = useIngredients();
@@ -52,6 +53,7 @@ export default function RecipesScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
+        <Logo size="medium" />
         <Text style={styles.title}>Recipe Ideas</Text>
         <Text style={styles.subtitle}>
           Discover delicious recipes with what you have

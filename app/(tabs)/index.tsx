@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
+import { Logo } from '@/components/Logo';
 
 export default function HomeScreen() {
   const mainActions = [
@@ -26,7 +27,7 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Text style={styles.title}>Food Waste Recipe</Text>
+        <Logo size="large" showText={true} />
         <Text style={styles.subtitle}>
           Turn your ingredients into delicious meals
         </Text>

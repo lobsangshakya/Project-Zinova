@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, ScrollView, TextInput, Alert, Pressable } from 
 import * as ImagePicker from 'expo-image-picker';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
-import { useIngredients, Ingredient } from '@/contexts/IngredientsContext';
+import { useIngredients } from '@/contexts/IngredientsContext';
 import { router } from 'expo-router';
+import { Logo } from '@/components/Logo';
 
 export default function IngredientsScreen() {
   const { ingredients, addIngredient, removeIngredient } = useIngredients();
@@ -160,6 +161,7 @@ export default function IngredientsScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
+        <Logo size="medium" />
         <Text style={styles.title}>My Ingredients</Text>
         <Text style={styles.subtitle}>
           Add what you have to get recipe suggestions
@@ -319,6 +321,9 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     marginBottom: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   title: {
     fontSize: 28,

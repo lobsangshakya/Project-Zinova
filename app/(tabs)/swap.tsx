@@ -5,6 +5,8 @@ import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
 import { useIngredients, Recipe } from '@/contexts/IngredientsContext';
 import { RecipeDetailModal } from '@/components/RecipeDetailModal';
+import { Logo } from '@/components/Logo';
+import { generateLeftoverRecipes } from '@/utils/recipeGenerator';
 
 export default function LeftoverMagicScreen() {
   const { addIngredient, getRecommendedRecipes } = useIngredients();
@@ -17,7 +19,11 @@ export default function LeftoverMagicScreen() {
 
   const generateRecipeRecommendations = (ingredients: string[]) => {
     if (ingredients.length > 0) {
-      // Add ingredients to global context
+      // Generate dynamic recipes based on user's actual ingredients
+      const dynamicRecipes = generateLeftoverRecipes(ingredients);
+      setRecommendedRecipes(dynamicRecipes);
+      
+      // Optionally add ingredients to global context for cross-screen integration
       ingredients.forEach(ingredientName => {
         addIngredient({
           name: ingredientName,
@@ -25,10 +31,6 @@ export default function LeftoverMagicScreen() {
           category: 'Other', // Default category for leftovers
         });
       });
-      
-      // Get recipes from global context
-      const recipes = getRecommendedRecipes();
-      setRecommendedRecipes(recipes);
     } else {
       setRecommendedRecipes([]);
     }
@@ -136,6 +138,7 @@ export default function LeftoverMagicScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
+        <Logo size="medium" />
         <Text style={styles.title}>Leftover Magic ✨</Text>
         <Text style={styles.subtitle}>
           Turn your leftover ingredients into amazing meals
@@ -315,6 +318,9 @@ const styles = StyleSheet.create({
   header: {
     alignItems: 'center',
     marginBottom: 24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
   title: {
     fontSize: 28,
