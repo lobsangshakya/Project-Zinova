@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, Alert, Pressable } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
 
@@ -8,27 +9,12 @@ interface Ingredient {
   id: string;
   name: string;
   quantity: string;
-  expiryDate: string;
   category: string;
+  imageUri?: string;
 }
 
 export default function IngredientsScreen() {
-  const [ingredients, setIngredients] = useState<Ingredient[]>([
-    {
-      id: '1',
-      name: 'Tomatoes',
-      quantity: '3 pieces',
-      expiryDate: '2024-01-15',
-      category: 'Vegetables',
-    },
-    {
-      id: '2',
-      name: 'Bread',
-      quantity: '1 loaf',
-      expiryDate: '2024-01-12',
-      category: 'Bakery',
-    },
-  ]);
+  const [ingredients, setIngredients] = useState<Ingredient[]>([]);
 
   const [showAddForm, setShowAddForm] = useState(false);
   const [newIngredient, setNewIngredient] = useState({
@@ -187,11 +173,6 @@ export default function IngredientsScreen() {
                   <Text style={styles.ingredientDetails}>
                     {ingredient.quantity} • {ingredient.category}
                   </Text>
-                  {ingredient.expiryDate && (
-                    <Text style={styles.expiryDate}>
-                      Expires: {ingredient.expiryDate}
-                    </Text>
-                  )}
                 </View>
                 <Pressable
                   onPress={() => removeIngredient(ingredient.id)}

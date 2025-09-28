@@ -2,30 +2,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
-import { useAuth } from '@/contexts/AuthContext';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
 
 export default function HomeScreen() {
-  const { user } = useAuth();
-
-  const quickActions = [
+  const mainActions = [
     {
-      title: 'Add Ingredients',
-      description: 'Upload your leftover food items',
-      icon: '📱',
+      title: 'Add Your Ingredients',
+      description: 'Take a photo or add ingredients you have',
+      icon: '📸',
+      color: colors.primary,
       action: () => router.push('/ingredients'),
     },
     {
-      title: 'Find Recipes',
-      description: 'Discover recipes with your ingredients',
-      icon: '👨‍🍳',
-      action: () => router.push('/recipes'),
-    },
-    {
-      title: 'Swap Food',
-      description: 'Connect with nearby users',
+      title: 'Leftover Food Recipe',
+      description: 'Get recipes for your leftover ingredients',
       icon: '🔄',
+      color: colors.accent,
       action: () => router.push('/swap'),
     },
   ];
@@ -33,35 +26,26 @@ export default function HomeScreen() {
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.header}>
-        <Text style={styles.greeting}>
-          Hello, {user?.name || 'Friend'}! 👋
-        </Text>
+        <Text style={styles.title}>Food Waste Recipe</Text>
         <Text style={styles.subtitle}>
-          Let&apos;s reduce food waste together
+          Turn your ingredients into delicious meals
         </Text>
       </View>
 
-      <View style={styles.statsContainer}>
-        <View style={styles.statCard}>
-          <Text style={styles.statNumber}>{user?.points || 0}</Text>
-          <Text style={styles.statLabel}>Points Earned</Text>
-        </View>
-        <View style={styles.statCard}>
-          <Text style={styles.statNumber}>12</Text>
-          <Text style={styles.statLabel}>Items Shared</Text>
-        </View>
-        <View style={styles.statCard}>
-          <Text style={styles.statNumber}>5</Text>
-          <Text style={styles.statLabel}>Recipes Found</Text>
-        </View>
+      <View style={styles.heroSection}>
+        <Text style={styles.heroIcon}>🍽️</Text>
+        <Text style={styles.heroText}>
+          Reduce food waste by discovering recipes that use the ingredients you already have!
+        </Text>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Quick Actions</Text>
-        {quickActions.map((action, index) => (
+      <View style={styles.actionsSection}>
+        <Text style={styles.sectionTitle}>What would you like to do?</Text>
+        
+        {mainActions.map((action, index) => (
           <Pressable
             key={index}
-            style={styles.actionCard}
+            style={[styles.actionCard, { borderLeftColor: action.color }]}
             onPress={action.action}
           >
             <Text style={styles.actionIcon}>{action.icon}</Text>
@@ -69,21 +53,36 @@ export default function HomeScreen() {
               <Text style={styles.actionTitle}>{action.title}</Text>
               <Text style={styles.actionDescription}>{action.description}</Text>
             </View>
-            <Text style={styles.actionArrow}>›</Text>
+            <Text style={styles.actionArrow}>→</Text>
           </Pressable>
         ))}
+        
+        <Pressable
+          style={styles.recipeButton}
+          onPress={() => router.push('/recipes')}
+        >
+          <Text style={styles.recipeButtonText}>Browse All Recipe Ideas</Text>
+        </Pressable>
       </View>
 
-      <View style={styles.section}>
-        <Text style={styles.sectionTitle}>Today&apos;s Impact</Text>
-        <View style={[commonStyles.card, styles.impactCard]}>
-          <Text style={styles.impactIcon}>🌍</Text>
-          <Text style={styles.impactText}>
-            You&apos;ve helped save 2.5 lbs of food from waste today!
-          </Text>
-          <Text style={styles.impactSubtext}>
-            Keep up the great work! Every bit counts.
-          </Text>
+      <View style={styles.howItWorks}>
+        <Text style={styles.sectionTitle}>How it works</Text>
+        
+        <View style={styles.stepContainer}>
+          <View style={styles.step}>
+            <Text style={styles.stepNumber}>1</Text>
+            <Text style={styles.stepText}>Add or photograph your ingredients</Text>
+          </View>
+          
+          <View style={styles.step}>
+            <Text style={styles.stepNumber}>2</Text>
+            <Text style={styles.stepText}>Get personalized recipe suggestions</Text>
+          </View>
+          
+          <View style={styles.step}>
+            <Text style={styles.stepNumber}>3</Text>
+            <Text style={styles.stepText}>Cook delicious meals & reduce waste</Text>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -101,102 +100,123 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   header: {
+    alignItems: 'center',
     marginBottom: 30,
   },
-  greeting: {
-    fontSize: 24,
-    fontWeight: '700',
+  title: {
+    fontSize: 32,
+    fontWeight: '800',
     color: colors.text,
-    marginBottom: 4,
+    marginBottom: 8,
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
     color: colors.textSecondary,
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 30,
-  },
-  statCard: {
-    flex: 1,
-    backgroundColor: colors.card,
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginHorizontal: 4,
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  statNumber: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: colors.primary,
-    marginBottom: 4,
-  },
-  statLabel: {
-    fontSize: 12,
-    color: colors.textSecondary,
     textAlign: 'center',
   },
-  section: {
-    marginBottom: 30,
+  heroSection: {
+    alignItems: 'center',
+    backgroundColor: colors.backgroundAlt,
+    borderRadius: 16,
+    padding: 24,
+    marginBottom: 32,
+  },
+  heroIcon: {
+    fontSize: 48,
+    marginBottom: 16,
+  },
+  heroText: {
+    fontSize: 16,
+    color: colors.text,
+    textAlign: 'center',
+    lineHeight: 24,
+  },
+  actionsSection: {
+    marginBottom: 32,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 22,
+    fontWeight: '700',
     color: colors.text,
-    marginBottom: 16,
+    marginBottom: 20,
+    textAlign: 'center',
   },
   actionCard: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.card,
-    borderRadius: 12,
-    padding: 16,
-    marginBottom: 12,
+    borderRadius: 16,
+    padding: 20,
+    marginBottom: 16,
     borderWidth: 1,
     borderColor: colors.border,
+    borderLeftWidth: 4,
   },
   actionIcon: {
-    fontSize: 24,
+    fontSize: 32,
     marginRight: 16,
   },
   actionContent: {
     flex: 1,
   },
   actionTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
     color: colors.text,
-    marginBottom: 2,
+    marginBottom: 4,
   },
   actionDescription: {
     fontSize: 14,
     color: colors.textSecondary,
+    lineHeight: 20,
   },
   actionArrow: {
-    fontSize: 20,
-    color: colors.textSecondary,
-  },
-  impactCard: {
-    alignItems: 'center',
-    padding: 20,
-  },
-  impactIcon: {
-    fontSize: 32,
-    marginBottom: 12,
-  },
-  impactText: {
-    fontSize: 16,
+    fontSize: 24,
+    color: colors.primary,
     fontWeight: '600',
-    color: colors.text,
-    textAlign: 'center',
-    marginBottom: 8,
   },
-  impactSubtext: {
-    fontSize: 14,
-    color: colors.textSecondary,
+  recipeButton: {
+    backgroundColor: colors.backgroundAlt,
+    borderRadius: 12,
+    padding: 16,
+    alignItems: 'center',
+    marginTop: 8,
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  recipeButtonText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: colors.primary,
+  },
+  howItWorks: {
+    marginBottom: 32,
+  },
+  stepContainer: {
+    paddingHorizontal: 16,
+  },
+  step: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  stepNumber: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: colors.primary,
+    color: colors.background,
+    fontSize: 18,
+    fontWeight: '700',
     textAlign: 'center',
+    lineHeight: 40,
+    marginRight: 16,
+  },
+  stepText: {
+    flex: 1,
+    fontSize: 16,
+    color: colors.text,
+    lineHeight: 22,
   },
 });
