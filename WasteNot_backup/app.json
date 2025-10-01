@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "WasteNot Kitchen Assistant",
+    "slug": "wastenot-food-recipe",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/WasteNot_logo.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/WasteNot_logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#8B4513"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.lobsangtseten.wastenot",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/WasteNot_logo.png",
+        "backgroundColor": "#8B4513"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.lobsangtseten.wastenot"
+    },
+    "web": {
+      "favicon": "./public/WasteNot_logo.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-font",
+      "expo-router",
+      "expo-web-browser"
+    ],
+    "scheme": "wastenot",
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {}
+    }
+  }
+}
