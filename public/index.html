@@ -11,18 +11,14 @@
     <link rel="icon" type="image/png" href="/WasteNot_logo.png" />
     <link rel="apple-touch-icon" href="/WasteNot_logo.png" />
     <title>WasteNot Kitchen Assistant</title>
-    <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
-      /* These styles make the body full-height */
       html,
       body {
         height: 100%;
       }
-      /* These styles disable body scrolling if you are using <ScrollView> */
       body {
         overflow: hidden;
       }
-      /* These styles make the root element full-height */
       #root {
         display: flex;
         height: 100%;
@@ -34,9 +30,7 @@
     window.deferredPrompt = null;
 
     window.addEventListener('load', async () => {
-
-      // Skip PWA installation and service worker code if we're in development mode (index.ts.bundle exists)
-      // or if we're in Expo development environment
+      
       if (!document.querySelector('script[src*="index.ts.bundle"]') && !window.location.href.includes('exp.direct')) {
 
         window.handleInstallClick = async () => {
@@ -44,15 +38,12 @@
 
           if (!window.deferredPrompt) return;
 
-          // Show the install prompt
           window.deferredPrompt.prompt();
 
           console.debug("window.deferredPrompt.prompt called");
 
-          // Wait for the user to respond to the prompt
           const { outcome } = await window.deferredPrompt.userChoice;
 
-          // Hide the install button
           if (outcome === 'accepted') {
             canInstall = false;
           }
@@ -61,13 +52,10 @@
         window.handleBeforeInstallPrompt = (e) => {
           console.debug("handleBeforeInstallPrompt called");
 
-          // Prevent Chrome 67 and earlier from automatically showing the prompt
           e.preventDefault();
 
-          // Stash the event so it can be triggered later
           window.deferredPrompt = e;
 
-          // Update UI to notify the user they can install the PWA
           window.canInstall = true;
         };
 
@@ -84,7 +72,6 @@
           const registration = await navigator.serviceWorker.register('./sw.js');
           console.log('Service Worker registered with scope:', registration.scope);
 
-          // Check for updates every 30 seconds
           setInterval(async () => {
             try {
               await registration.update();
@@ -93,25 +80,17 @@
             }
           }, 200);
 
-          // Listen for updates
           registration.addEventListener('updatefound', () => {
             console.log('Service Worker update found');
             if (registration.installing) {
               registration.installing.addEventListener('statechange', () => {
                 if (registration.waiting) {
-                  // Automatically activate the new service worker
                   registration.waiting.postMessage('SKIP_WAITING');
                 }
               });
             }
           });
-
-          // // Listen for controller change to refresh the page
-          // navigator.serviceWorker.addEventListener('controllerchange', () => {
-          //   console.log('New service worker activated, refreshing page');
-          //   window.location.reload();
-          // });
-
+          
           navigator.serviceWorker.addEventListener('activate', function(event) {
             console.log('Service Worker activated');
             event.waitUntil(
@@ -131,11 +110,9 @@
   </head>
 
   <body class="">
-    <!-- Use static rendering with Expo Router to support running without JavaScript. -->
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <!-- The root element for your Expo app. -->
     <div id="root"></div>
   </body>
 </html>
