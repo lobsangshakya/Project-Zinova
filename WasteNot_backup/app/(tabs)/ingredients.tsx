@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, Alert, Pressable } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, Alert, Pressable, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';

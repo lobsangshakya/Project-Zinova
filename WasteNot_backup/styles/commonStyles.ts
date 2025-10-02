@@ -1,32 +1,32 @@
 import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 export const colors = {
-  primary: '#8B4513',      // Kitchen wood brown
-  secondary: '#D2691E',    // Warm copper
-  accent: '#CD853F',       // Sandy brown
-  tertiary: '#F5DEB3',     // Wheat/cream
-  quaternary: '#FFF8DC',   // Kitchen cream
-  background: '#FFF8F0',   // Warm cream background
-  backgroundAlt: '#F7F5F3', // Warm off-white
-  backgroundGradient: 'linear-gradient(135deg, #F5DEB3 0%, #DEB887 100%)', // Warm gradient
-  foodGradient: 'linear-gradient(45deg, #FF6B6B 0%, #FFE66D 50%, #4ECDC4 100%)', // Food gradient
-  kitchenGradient: 'linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #F5DEB3 100%)', // Kitchen gradient
-  text: '#2F1B14',         // Dark brown
-  textSecondary: '#5D4E37', // Medium brown
-  textLight: '#8B7355',    // Light brown
-  grey: '#D3D3D3',         // Light grey
+  primary: '#FF6B6B',      // Fresh coral red
+  secondary: '#4ECDC4',    // Mint green
+  accent: '#45B7D1',       // Sky blue
+  tertiary: '#96CEB4',     // Sage green
+  quaternary: '#FFEAA7',   // Warm yellow
+  background: '#FFFFFF',   // Pure white background
+  backgroundAlt: '#F8FFFE', // Very light mint
+  backgroundGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // Purple gradient
+  foodGradient: 'linear-gradient(45deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%)', // Fresh food gradient
+  kitchenGradient: 'linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #96CEB4 100%)', // Modern kitchen gradient
+  text: '#2D3748',         // Dark slate
+  textSecondary: '#718096', // Gray
+  textLight: '#A0AEC0',    // Light gray
+  grey: '#E2E8F0',         // Very light gray
   card: '#FFFFFF',         // Pure white
-  cardShadow: 'rgba(139, 69, 19, 0.1)', // Warm brown shadow
-  border: '#D2691E',       // Copper border
-  success: '#228B22',      // Forest green
-  warning: '#DAA520',      // Golden rod
-  error: '#B22222',        // Fire brick red
-  info: '#4682B4',         // Steel blue
-  dark: '#2F1B14',         // Dark brown
+  cardShadow: 'rgba(0, 0, 0, 0.08)', // Soft shadow
+  border: '#E2E8F0',       // Light border
+  success: '#48BB78',      // Fresh green
+  warning: '#ED8936',      // Orange
+  error: '#F56565',        // Red
+  info: '#4299E1',         // Blue
+  dark: '#1A202C',         // Very dark
   light: '#FFFFFF',        // White
-  kitchenWood: '#8B4513',  // Kitchen cabinet wood
-  marble: '#FAF0E6',       // Linen/marble countertop
-  steel: '#C0C0C0',        // Stainless steel
+  kitchenWood: '#8B4513',  // Keep original wood tone
+  marble: '#F7FAFC',       // Light marble
+  steel: '#CBD5E0',        // Light steel
 };
 
 export const buttonStyles = StyleSheet.create({
