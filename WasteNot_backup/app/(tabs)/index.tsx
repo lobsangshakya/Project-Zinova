@@ -44,16 +44,16 @@ export default function HomeScreen() {
         />
         <View style={styles.heroOverlay}>
           <View style={styles.kitchenIcon}>
-            <Text style={styles.kitchenIconText}>✨ KITCHEN MAGIC ✨</Text>
+            <Text style={styles.kitchenIconText}>🍳 HAPPY COOKING 🍳</Text>
           </View>
           <Text style={styles.heroText}>
-            Transform your ingredients into delicious meals and reduce food waste with AI-powered recipe suggestions! 🍽️
+            Hi there! 😊 Ready to turn your kitchen into a place of delicious discoveries? Let\'s make cooking fun and easy together! 🍽️
           </Text>
         </View>
       </View>
 
       <View style={styles.actionsSection}>
-        <Text style={styles.sectionTitle}>What would you like to do?</Text>
+        <Text style={styles.sectionTitle}>What would you like to do today? 😊</Text>
         
         {mainActions.map((action, index) => (
           <Pressable
@@ -89,34 +89,34 @@ export default function HomeScreen() {
             resizeMode="cover"
           />
           <View style={styles.recipeButtonOverlay}>
-            <Text style={styles.recipeButtonText}>🍳 Browse All Kitchen Recipes</Text>
+            <Text style={styles.recipeButtonText}>📚 Explore Recipe Collection</Text>
           </View>
         </Pressable>
       </View>
 
       <View style={styles.howItWorks}>
-        <Text style={styles.sectionTitle}>How Your Kitchen Assistant Works</Text>
+        <Text style={styles.sectionTitle}>How it works (it\'s super easy!) 🙌</Text>
         
         <View style={styles.stepContainer}>
           <View style={styles.step}>
             <View style={styles.stepNumberContainer}>
               <Text style={styles.stepNumber}>1</Text>
             </View>
-            <Text style={styles.stepText}>Add or photograph your available ingredients</Text>
+            <Text style={styles.stepText}>Show us what\'s in your kitchen 📷</Text>
           </View>
           
           <View style={styles.step}>
             <View style={styles.stepNumberContainer}>
               <Text style={styles.stepNumber}>2</Text>
             </View>
-            <Text style={styles.stepText}>Get personalized recipe suggestions from your kitchen</Text>
+            <Text style={styles.stepText}>Get personalized recipe ideas just for you 💡</Text>
           </View>
           
           <View style={styles.step}>
             <View style={styles.stepNumberContainer}>
               <Text style={styles.stepNumber}>3</Text>
             </View>
-            <Text style={styles.stepText}>Cook delicious meals and reduce food waste</Text>
+            <Text style={styles.stepText}>Cook, enjoy, and feel proud! 🎉</Text>
           </View>
         </View>
       </View>
@@ -147,52 +147,54 @@ const styles = StyleSheet.create({
   heroSection: {
     alignItems: 'center',
     backgroundColor: colors.card,
-    borderRadius: 20,
-    marginHorizontal: 20,
-    marginBottom: 32,
+    borderRadius: 24,
+    marginHorizontal: 16,
+    marginBottom: 24,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
-      height: 8,
+      height: 4,
     },
-    shadowOpacity: 0.15,
-    shadowRadius: 12,
-    elevation: 8,
-    borderWidth: 1,
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    elevation: 4,
+    borderWidth: 0.5,
     borderColor: colors.border,
     position: 'relative',
     overflow: 'hidden',
   },
   heroImage: {
     width: '100%',
-    height: 250,
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    height: 220,
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
   },
   heroOverlay: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    padding: 30,
+    backgroundColor: 'rgba(255, 255, 255, 0.97)',
+    padding: 24,
     alignItems: 'center',
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 24,
+    borderBottomRightRadius: 24,
   },
 
   kitchenIcon: {
-    backgroundColor: 'rgba(255, 107, 107, 0.9)',
-    borderRadius: 8,
+    backgroundColor: 'rgba(255, 138, 128, 0.12)',
+    borderRadius: 20,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    marginBottom: 16,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 138, 128, 0.2)',
   },
   kitchenIconText: {
     fontSize: 12,
-    fontWeight: '800',
-    color: colors.light,
-    letterSpacing: 2,
+    fontWeight: '700',
+    color: colors.primary,
+    letterSpacing: 1,
     textAlign: 'center',
   },
   heroIcon: {
@@ -200,21 +202,21 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   heroText: {
-    fontSize: 18,
-    color: colors.dark,
+    fontSize: 16,
+    color: colors.text,
     textAlign: 'center',
-    lineHeight: 26,
-    fontWeight: '500',
+    lineHeight: 24,
+    fontWeight: '400',
   },
   actionsSection: {
-    marginBottom: 32,
-    paddingHorizontal: 20,
+    marginBottom: 24,
+    paddingHorizontal: 16,
   },
   sectionTitle: {
-    fontSize: 24,
-    fontWeight: '700',
+    fontSize: 20,
+    fontWeight: '600',
     color: colors.text,
-    marginBottom: 20,
+    marginBottom: 16,
     textAlign: 'center',
   },
   actionCard: {
@@ -223,17 +225,17 @@ const styles = StyleSheet.create({
     backgroundColor: colors.card,
     borderRadius: 20,
     padding: 20,
-    marginBottom: 16,
-    borderLeftWidth: 4,
+    marginBottom: 12,
+    borderLeftWidth: 3,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 2,
     },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 6,
-    borderWidth: 1,
+    shadowOpacity: 0.06,
+    shadowRadius: 12,
+    elevation: 3,
+    borderWidth: 0.5,
     borderColor: colors.border,
     overflow: 'hidden',
   },
