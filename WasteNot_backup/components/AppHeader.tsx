@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
 import { colors } from '@/styles/commonStyles';
 
 interface AppHeaderProps {
@@ -14,7 +14,11 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
   showLogo = true 
 }) => {
   return (
-    <View style={styles.header}>
+    <ImageBackground
+      source={{ uri: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=400&fit=crop&auto=format' }}
+      style={styles.header}
+      resizeMode="cover"
+    >
       <View style={styles.gradientOverlay} />
       <View style={styles.content}>
         {showLogo && (
@@ -24,7 +28,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               style={styles.logo}
               resizeMode="contain"
             />
-            <Text style={styles.brandText}>WasteNot Kitchen</Text>
+            <Text style={styles.brandText}>WasteNot Kitchen 🍳</Text>
           </View>
         )}
         <Text style={styles.title}>{title}</Text>
@@ -32,7 +36,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
           <Text style={styles.subtitle}>{subtitle}</Text>
         )}
       </View>
-    </View>
+    </ImageBackground>
   );
 };
 
@@ -42,20 +46,17 @@ const styles = StyleSheet.create({
     paddingTop: 60,
     paddingBottom: 30,
     paddingHorizontal: 20,
-    backgroundColor: colors.kitchenWood,
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
     marginBottom: 20,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 8,
     },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
-    elevation: 8,
-    borderBottomWidth: 3,
-    borderBottomColor: colors.secondary,
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 10,
     overflow: 'hidden',
   },
   gradientOverlay: {
@@ -64,10 +65,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #CD853F 100%)',
+    backgroundColor: 'rgba(255, 107, 107, 0.85)',
     borderBottomLeftRadius: 25,
     borderBottomRightRadius: 25,
-    opacity: 0.9,
   },
   content: {
     alignItems: 'center',
@@ -77,12 +77,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderRadius: 25,
-    borderWidth: 2,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    borderRadius: 30,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.3)',
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 6,
   },
   logo: {
     width: 40,
@@ -90,13 +98,10 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   brandText: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: '800',
-    color: colors.light,
-    letterSpacing: 1,
-    textShadowColor: 'rgba(0, 0, 0, 0.3)',
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
+    color: colors.primary,
+    letterSpacing: 0.5,
   },
   title: {
     fontSize: 28,

@@ -8,21 +8,21 @@ import { AppHeader } from '@/components/AppHeader';
 export default function HomeScreen() {
   const mainActions = [
     {
-      title: 'Add Your Ingredients',
-      description: 'Take a photo or add ingredients you have available',
-      icon: '🍅',
+      title: '📸 Add Your Ingredients',
+      description: 'Snap a quick photo or tell us what\'s in your kitchen',
+      icon: '🥗',
       image: 'https://images.unsplash.com/photo-1506368083636-6defb67639a7?w=400&h=300&fit=crop&auto=format',
       color: colors.primary,
-      bgColor: 'rgba(255, 107, 107, 0.1)',
+      bgColor: 'rgba(255, 138, 128, 0.08)',
       action: () => router.push('/ingredients'),
     },
     {
-      title: 'Leftover Magic',
-      description: 'Transform your leftover ingredients into amazing meals',
-      icon: '✨',
+      title: '✨ Create Magic Meals',
+      description: 'Turn your ingredients into something delicious!',
+      icon: '🍳',
       image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&auto=format',
       color: colors.secondary,
-      bgColor: 'rgba(78, 205, 196, 0.1)',
+      bgColor: 'rgba(129, 199, 132, 0.08)',
       action: () => router.push('/swap'),
     },
   ];
@@ -32,8 +32,8 @@ export default function HomeScreen() {
       <View style={styles.backgroundImage} />
       
       <AppHeader 
-        title="Your Kitchen Assistant" 
-        subtitle="Turn your ingredients into delicious meals and reduce food waste"
+        title="Welcome to Your Kitchen! 🏠" 
+        subtitle="Let's cook something amazing together"
       />
 
       <View style={styles.heroSection}>

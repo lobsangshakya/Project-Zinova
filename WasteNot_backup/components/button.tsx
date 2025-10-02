@@ -44,10 +44,18 @@ export const Button: React.FC<ButtonProps> = ({
 
   const getVariantStyle = () => {
     const baseStyle: ViewStyle = {
-      borderRadius: 12,
+      borderRadius: 16,
       flexDirection: "row",
       alignItems: "center",
       justifyContent: "center",
+      shadowColor: colors.cardShadow,
+      shadowOffset: {
+        width: 0,
+        height: 4,
+      },
+      shadowOpacity: 0.15,
+      shadowRadius: 6,
+      elevation: 4,
     };
 
     switch (variant) {
@@ -59,8 +67,8 @@ export const Button: React.FC<ButtonProps> = ({
       case "outline":
         return {
           ...baseStyle,
-          backgroundColor: "transparent",
-          borderWidth: 1,
+          backgroundColor: colors.card,
+          borderWidth: 2,
           borderColor: colors.primary,
         };
       case "ghost":
@@ -70,9 +78,11 @@ export const Button: React.FC<ButtonProps> = ({
         };
       case "link":
         return {
-          ...baseStyle,
-          backgroundColor: "transparent",
-          height: 'auto',
+          backgroundColor: "transparent" as const,
+          borderRadius: 16,
+          flexDirection: "row" as const,
+          alignItems: "center" as const,
+          justifyContent: "center" as const,
           paddingHorizontal: 0,
           paddingVertical: 4,
         };

@@ -1,32 +1,32 @@
 import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 export const colors = {
-  primary: '#FF6B6B',      // Fresh coral red
-  secondary: '#4ECDC4',    // Mint green
-  accent: '#45B7D1',       // Sky blue
-  tertiary: '#96CEB4',     // Sage green
-  quaternary: '#FFEAA7',   // Warm yellow
-  background: '#FFFFFF',   // Pure white background
-  backgroundAlt: '#F8FFFE', // Very light mint
-  backgroundGradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', // Purple gradient
-  foodGradient: 'linear-gradient(45deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%)', // Fresh food gradient
-  kitchenGradient: 'linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 50%, #96CEB4 100%)', // Modern kitchen gradient
-  text: '#2D3748',         // Dark slate
-  textSecondary: '#718096', // Gray
-  textLight: '#A0AEC0',    // Light gray
-  grey: '#E2E8F0',         // Very light gray
+  primary: '#FF8A80',      // Soft coral pink - more approachable
+  secondary: '#81C784',    // Gentle green - friendly and natural
+  accent: '#90CAF9',       // Light blue - calming
+  tertiary: '#C8E6C9',     // Very light green - soothing
+  quaternary: '#FFF9C4',   // Soft yellow - warm and inviting
+  background: '#FAFAFA',   // Warm off-white - easier on eyes
+  backgroundAlt: '#F1F8E9', // Very light green tint
+  backgroundGradient: 'linear-gradient(135deg, #FFE0B2 0%, #FFCCBC 100%)', // Warm peach gradient
+  foodGradient: 'linear-gradient(45deg, #FF8A80 0%, #81C784 50%, #90CAF9 100%)', // Soft food gradient
+  kitchenGradient: 'linear-gradient(135deg, #FF8A80 0%, #81C784 50%, #C8E6C9 100%)', // Gentle kitchen gradient
+  text: '#424242',         // Softer dark gray
+  textSecondary: '#757575', // Medium gray - better readability
+  textLight: '#BDBDBD',    // Light gray
+  grey: '#F5F5F5',         // Very light gray
   card: '#FFFFFF',         // Pure white
-  cardShadow: 'rgba(0, 0, 0, 0.08)', // Soft shadow
-  border: '#E2E8F0',       // Light border
-  success: '#48BB78',      // Fresh green
-  warning: '#ED8936',      // Orange
-  error: '#F56565',        // Red
-  info: '#4299E1',         // Blue
-  dark: '#1A202C',         // Very dark
+  cardShadow: 'rgba(0, 0, 0, 0.05)', // Very soft shadow
+  border: '#E8F5E8',       // Very light green border
+  success: '#66BB6A',      // Friendly green
+  warning: '#FFB74D',      // Warm orange
+  error: '#EF5350',        // Gentle red
+  info: '#42A5F5',         // Friendly blue
+  dark: '#37474F',         // Softer dark
   light: '#FFFFFF',        // White
-  kitchenWood: '#8B4513',  // Keep original wood tone
-  marble: '#F7FAFC',       // Light marble
-  steel: '#CBD5E0',        // Light steel
+  kitchenWood: '#8D6E63',  // Warmer brown tone
+  marble: '#FAFAFA',       // Light marble
+  steel: '#E0E0E0',        // Soft steel
 };
 
 export const buttonStyles = StyleSheet.create({
