@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TextInput, Alert, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TextInput, Alert, Pressable } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
@@ -16,14 +16,7 @@ export default function IngredientsScreen() {
     category: 'Vegetables',
   });
 
-  const categories = [
-    { name: 'Vegetables', image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&h=200&fit=crop&auto=format', emoji: '🥕' },
-    { name: 'Fruits', image: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=300&h=200&fit=crop&auto=format', emoji: '🍎' },
-    { name: 'Dairy', image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=200&fit=crop&auto=format', emoji: '🧀' },
-    { name: 'Meat', image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=300&h=200&fit=crop&auto=format', emoji: '🥩' },
-    { name: 'Grains', image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=300&h=200&fit=crop&auto=format', emoji: '🌾' },
-    { name: 'Other', image: 'https://images.unsplash.com/photo-1556909114-4f6e8cda40d7?w=300&h=200&fit=crop&auto=format', emoji: '🍳' }
-  ];
+  const categories = ['Vegetables', 'Fruits', 'Dairy', 'Meat', 'Grains', 'Other'];
 
   const getCategoryIcon = (category: string) => {
     const icons: { [key: string]: any } = {
@@ -189,45 +182,38 @@ export default function IngredientsScreen() {
       <View style={styles.backgroundGradient} />
       
       <AppHeader 
-        title="What's in your kitchen? 🍳" 
-        subtitle="Let's see what delicious things we can make together!"
+        title="Kitchen Ingredients" 
+        subtitle="Add what you have in your kitchen to get recipe suggestions"
       />
 
       <View style={styles.photoSection}>
-        <Image 
-          source={{ uri: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=300&fit=crop&auto=format' }}
-          style={styles.photoSectionImage}
-          resizeMode="cover"
-        />
-        <View style={styles.photoSectionOverlay}>
-          <Text style={styles.sectionTitle}>Add Your Ingredients 🥗</Text>
+        <Text style={styles.sectionTitle}>Add Kitchen Ingredients</Text>
+        
+        <View style={styles.photoButtons}>
+          <Pressable style={styles.photoButton} onPress={takePhoto}>
+            <View style={styles.photoIconContainer}>
+              <View style={styles.cameraIcon} />
+            </View>
+            <Text style={styles.photoButtonText}>Take Photo</Text>
+          </Pressable>
           
-          <View style={styles.photoButtons}>
-            <Pressable style={styles.photoButton} onPress={takePhoto}>
-              <View style={styles.photoIconContainer}>
-                <Text style={styles.photoIcon}>📷</Text>
-              </View>
-              <Text style={styles.photoButtonText}>Take Photo</Text>
-            </Pressable>
-            
-            <Pressable style={styles.photoButton} onPress={pickImage}>
-              <View style={styles.photoIconContainer}>
-                <Text style={styles.photoIcon}>🖼️</Text>
-              </View>
-              <Text style={styles.photoButtonText}>Choose Photo</Text>
-            </Pressable>
-          </View>
-          
-          <Text style={styles.orText}>or</Text>
-          
-          <Button
-            onPress={() => setShowAddForm(!showAddForm)}
-            variant="outline"
-            style={styles.manualButton}
-          >
-            {showAddForm ? '❌ Cancel' : '✍️ Type it in'}
-          </Button>
+          <Pressable style={styles.photoButton} onPress={pickImage}>
+            <View style={styles.photoIconContainer}>
+              <View style={styles.galleryIcon} />
+            </View>
+            <Text style={styles.photoButtonText}>Choose Photo</Text>
+          </Pressable>
         </View>
+        
+        <Text style={styles.orText}>or</Text>
+        
+        <Button
+          onPress={() => setShowAddForm(!showAddForm)}
+          variant="outline"
+          style={styles.manualButton}
+        >
+          {showAddForm ? 'Cancel' : 'Add Manually'}
+        </Button>
       </View>
 
       {showAddForm && (
@@ -261,28 +247,23 @@ export default function IngredientsScreen() {
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoryScroll}>
               {categories.map((category) => (
                 <Pressable
-                  key={category.name}
+                  key={category}
                   style={[
                     styles.categoryButton,
-                    newIngredient.category === category.name && styles.categoryButtonActive,
+                    newIngredient.category === category && styles.categoryButtonActive,
                   ]}
-                  onPress={() => setNewIngredient({ ...newIngredient, category: category.name })}
+                  onPress={() => setNewIngredient({ ...newIngredient, category })}
                 >
-                  <Image 
-                    source={{ uri: category.image }}
-                    style={styles.categoryImage}
-                    resizeMode="cover"
-                  />
                   <View style={styles.categoryIconContainer}>
-                    <Text style={styles.categoryEmoji}>{category.emoji}</Text>
+                    <Text style={styles.categoryIcon}>{getCategoryIcon(category)}</Text>
                   </View>
                   <Text
                     style={[
                       styles.categoryText,
-                      newIngredient.category === category.name && styles.categoryTextActive,
+                      newIngredient.category === category && styles.categoryTextActive,
                     ]}
                   >
-                    {category.name}
+                    {category}
                   </Text>
                 </Pressable>
               ))}
@@ -296,16 +277,16 @@ export default function IngredientsScreen() {
       )}
 
       <View style={styles.ingredientsList}>
-        <Text style={styles.sectionTitle}>Your Kitchen Ingredients ({ingredients.length}) 📎</Text>
+        <Text style={styles.sectionTitle}>Your Kitchen Ingredients ({ingredients.length})</Text>
         
         {ingredients.length === 0 ? (
           <View style={styles.emptyState}>
             <View style={styles.emptyIconContainer}>
               <Text style={styles.emptyIconText}>KITCHEN</Text>
             </View>
-            <Text style={styles.emptyText}>Your kitchen is ready for ingredients! 🎉</Text>
+            <Text style={styles.emptyText}>No ingredients yet</Text>
             <Text style={styles.emptySubtext}>
-              Take a quick photo or add ingredients manually - we\'ll help you create something amazing!
+              Add your first ingredient using the photo feature or manual entry above!
             </Text>
           </View>
         ) : (
@@ -314,9 +295,14 @@ export default function IngredientsScreen() {
               <View key={`ingredient-${ingredient.id}-${ingredient.name}`} style={styles.ingredientCard}>
                 <View style={styles.ingredientHeader}>
                   <View style={styles.categoryBadge}>
-                    <Text style={styles.categoryBadgeEmoji}>
-                      {categories.find(cat => cat.name === ingredient.category)?.emoji || '🍳'}
-                    </Text>
+                    <View style={[
+                      styles.categoryIcon,
+                      { 
+                        backgroundColor: getCategoryIcon(ingredient.category).backgroundColor,
+                        borderColor: getCategoryIcon(ingredient.category).border || getCategoryIcon(ingredient.category).backgroundColor,
+                        borderRadius: getCategoryIcon(ingredient.category).pattern === 'circle' ? 10 : 4
+                      }
+                    ]} />
                   </View>
                   <View style={styles.ingredientInfo}>
                     <Text style={styles.ingredientName}>{ingredient.name}</Text>
@@ -346,7 +332,7 @@ export default function IngredientsScreen() {
             {ingredients.length > 0 && (
               <View style={styles.actionHint}>
                 <Text style={styles.hintText}>
-                  Awesome! You have {ingredients.length} ingredient{ingredients.length > 1 ? 's' : ''} ready to go! 😊
+                  You have {ingredients.length} ingredient{ingredients.length > 1 ? 's' : ''} in your kitchen!
                 </Text>
                 <View style={styles.buttonRow}>
                   <Button 
@@ -354,14 +340,14 @@ export default function IngredientsScreen() {
                     variant="outline"
                     style={styles.halfButton}
                   >
-                    🍳 Find Recipes
+                    Get Recipes
                   </Button>
                   <Button 
                     onPress={handleClearAll}
                     variant="filled"
                     style={styles.clearButton}
                   >
-                    🧹 Clear All
+                    Clear All
                   </Button>
                 </View>
               </View>
@@ -394,35 +380,24 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   photoSection: {
-    backgroundColor: colors.card,
+    backgroundColor: 'rgba(245, 222, 179, 0.8)',
     borderRadius: 20,
+    padding: 25,
     marginHorizontal: 20,
     marginBottom: 24,
+    alignItems: 'center',
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
-      height: 6,
+      height: 3,
     },
-    shadowOpacity: 0.15,
-    shadowRadius: 8,
-    elevation: 8,
-    borderWidth: 1,
-    borderColor: colors.border,
-    overflow: 'hidden',
+    shadowOpacity: 0.2,
+    shadowRadius: 4.65,
+    elevation: 6,
+    borderWidth: 2,
+    borderColor: colors.steel,
     position: 'relative',
-  },
-  photoSectionImage: {
-    width: '100%',
-    height: 200,
-  },
-  photoSectionOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    padding: 25,
-    alignItems: 'center',
+    overflow: 'hidden',
   },
   sectionTitle: {
     fontSize: 20,
@@ -439,30 +414,65 @@ const styles = StyleSheet.create({
   },
   photoButton: {
     alignItems: 'center',
-    backgroundColor: colors.primary,
+    backgroundColor: colors.light,
     borderRadius: 16,
-    padding: 16,
-    minWidth: 120,
-    marginHorizontal: 8,
+    padding: 20,
+    minWidth: 130,
+    borderWidth: 2,
+    borderColor: colors.kitchenWood,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 2,
     },
     shadowOpacity: 0.15,
-    shadowRadius: 6,
+    shadowRadius: 3.84,
     elevation: 5,
   },
   photoIconContainer: {
-    marginBottom: 8,
+    backgroundColor: colors.tertiary,
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: colors.kitchenWood,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  cameraIcon: {
+    width: 24,
+    height: 20,
+    backgroundColor: colors.primary,
+    borderRadius: 4,
+    position: 'relative',
+  },
+  galleryIcon: {
+    width: 24,
+    height: 20,
+    backgroundColor: colors.secondary,
+    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: colors.primary,
+  },
+  photoIconText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: colors.dark,
+    letterSpacing: 1,
   },
   photoIcon: {
-    fontSize: 32,
+    fontSize: 24,
+    marginBottom: 5,
+  },
+  photoEmojis: {
+    fontSize: 12,
+    letterSpacing: 1,
   },
   photoButtonText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: '600',
-    color: colors.light,
+    color: colors.text,
   },
   orText: {
     fontSize: 16,
@@ -501,52 +511,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 12,
     marginRight: 12,
-    borderRadius: 16,
+    borderRadius: 12,
     borderWidth: 2,
-    borderColor: colors.border,
-    backgroundColor: colors.card,
-    minWidth: 100,
-    shadowColor: colors.cardShadow,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 3,
-    overflow: 'hidden',
+    borderColor: colors.steel,
+    backgroundColor: colors.background,
+    minWidth: 80,
   },
   categoryButtonActive: {
-    backgroundColor: colors.primary,
-    borderColor: colors.primary,
-  },
-  categoryImage: {
-    width: '100%',
-    height: 60,
-    borderRadius: 12,
-    marginBottom: 8,
+    backgroundColor: colors.kitchenWood,
+    borderColor: colors.secondary,
   },
   categoryIconContainer: {
-    position: 'absolute',
-    top: 8,
-    right: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderRadius: 16,
-    paddingHorizontal: 6,
+    backgroundColor: colors.tertiary,
+    borderRadius: 6,
+    paddingHorizontal: 8,
     paddingVertical: 4,
+    marginBottom: 6,
+  },
+  categoryIcon: {
+    width: 20,
+    height: 20,
+    borderWidth: 2,
   },
   categoryEmoji: {
-    fontSize: 16,
+    fontSize: 20,
+    marginBottom: 4,
   },
   categoryText: {
     fontSize: 12,
     color: colors.textSecondary,
-    fontWeight: '600',
-    textAlign: 'center',
+    fontWeight: '500',
   },
   categoryTextActive: {
     color: colors.light,
-    fontWeight: '700',
+    fontWeight: '600',
   },
   submitButton: {
     backgroundColor: colors.primary,
@@ -616,20 +614,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryBadge: {
-    backgroundColor: colors.backgroundAlt,
+    backgroundColor: colors.tertiary,
     borderRadius: 12,
     paddingHorizontal: 10,
-    paddingVertical: 8,
+    paddingVertical: 6,
     marginRight: 12,
-    minWidth: 50,
+    borderWidth: 2,
+    borderColor: colors.kitchenWood,
+    minWidth: 40,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: colors.border,
-  },
-  categoryBadgeEmoji: {
-    fontSize: 20,
-    textAlign: 'center',
   },
   categoryBadgeText: {
     fontSize: 18,

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
@@ -8,21 +8,19 @@ import { AppHeader } from '@/components/AppHeader';
 export default function HomeScreen() {
   const mainActions = [
     {
-      title: '📸 Add Your Ingredients',
-      description: 'Snap a quick photo or tell us what\'s in your kitchen',
-      icon: '🥗',
-      image: 'https://images.unsplash.com/photo-1506368083636-6defb67639a7?w=400&h=300&fit=crop&auto=format',
+      title: 'Add Your Ingredients',
+      description: 'Take a photo or add ingredients you have available',
+      icon: '📸',
       color: colors.primary,
-      bgColor: 'rgba(255, 138, 128, 0.08)',
+      bgColor: '#E8F5E8',
       action: () => router.push('/ingredients'),
     },
     {
-      title: '✨ Create Magic Meals',
-      description: 'Turn your ingredients into something delicious!',
-      icon: '🍳',
-      image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=400&h=300&fit=crop&auto=format',
+      title: 'Leftover Magic',
+      description: 'Transform your leftover ingredients into amazing meals',
+      icon: '✨',
       color: colors.secondary,
-      bgColor: 'rgba(129, 199, 132, 0.08)',
+      bgColor: '#FFF8E8',
       action: () => router.push('/swap'),
     },
   ];
@@ -32,28 +30,26 @@ export default function HomeScreen() {
       <View style={styles.backgroundImage} />
       
       <AppHeader 
-        title="Welcome to Your Kitchen! 🏠" 
-        subtitle="Let's cook something amazing together"
+        title="Your Kitchen Assistant" 
+        subtitle="Turn your ingredients into delicious meals and reduce food waste"
       />
 
       <View style={styles.heroSection}>
-        <Image 
-          source={{ uri: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=400&fit=crop&auto=format' }}
-          style={styles.heroImage}
-          resizeMode="cover"
-        />
-        <View style={styles.heroOverlay}>
-          <View style={styles.kitchenIcon}>
-            <Text style={styles.kitchenIconText}>🍳 HAPPY COOKING 🍳</Text>
-          </View>
-          <Text style={styles.heroText}>
-            Hi there! 😊 Ready to turn your kitchen into a place of delicious discoveries? Let\'s make cooking fun and easy together! 🍽️
-          </Text>
+        <View style={styles.foodImageContainer}>
+          <View style={styles.vegetablePattern} />
+          <View style={styles.fruitPattern} />
+          <View style={styles.grainPattern} />
         </View>
+        <View style={styles.kitchenIcon}>
+          <Text style={styles.kitchenIconText}>✨ KITCHEN MAGIC ✨</Text>
+        </View>
+        <Text style={styles.heroText}>
+          Transform your ingredients into delicious meals and reduce food waste with AI-powered recipe suggestions! 🍽️
+        </Text>
       </View>
 
       <View style={styles.actionsSection}>
-        <Text style={styles.sectionTitle}>What would you like to do today? 😊</Text>
+        <Text style={styles.sectionTitle}>What would you like to do?</Text>
         
         {mainActions.map((action, index) => (
           <Pressable
@@ -61,15 +57,10 @@ export default function HomeScreen() {
             style={[styles.actionCard, { borderLeftColor: action.color, backgroundColor: action.bgColor }]}
             onPress={action.action}
           >
-            <Image 
-              source={{ uri: action.image }}
-              style={styles.actionImage}
-              resizeMode="cover"
-            />
+            <View style={[styles.actionIconContainer, { backgroundColor: action.color }]}>
+              <Text style={styles.actionIcon}>{action.icon}</Text>
+            </View>
             <View style={styles.actionContent}>
-              <View style={[styles.actionIconContainer, { backgroundColor: action.color }]}>
-                <Text style={styles.actionIcon}>{action.icon}</Text>
-              </View>
               <Text style={styles.actionTitle}>{action.title}</Text>
               <Text style={styles.actionDescription}>{action.description}</Text>
             </View>
@@ -83,40 +74,33 @@ export default function HomeScreen() {
           style={styles.recipeButton}
           onPress={() => router.push('/recipes')}
         >
-          <Image 
-            source={{ uri: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=200&fit=crop&auto=format' }}
-            style={styles.recipeButtonImage}
-            resizeMode="cover"
-          />
-          <View style={styles.recipeButtonOverlay}>
-            <Text style={styles.recipeButtonText}>📚 Explore Recipe Collection</Text>
-          </View>
+          <Text style={styles.recipeButtonText}>Browse All Kitchen Recipes</Text>
         </Pressable>
       </View>
 
       <View style={styles.howItWorks}>
-        <Text style={styles.sectionTitle}>How it works (it\'s super easy!) 🙌</Text>
+        <Text style={styles.sectionTitle}>How Your Kitchen Assistant Works</Text>
         
         <View style={styles.stepContainer}>
           <View style={styles.step}>
             <View style={styles.stepNumberContainer}>
               <Text style={styles.stepNumber}>1</Text>
             </View>
-            <Text style={styles.stepText}>Show us what\'s in your kitchen 📷</Text>
+            <Text style={styles.stepText}>Add or photograph your available ingredients</Text>
           </View>
           
           <View style={styles.step}>
             <View style={styles.stepNumberContainer}>
               <Text style={styles.stepNumber}>2</Text>
             </View>
-            <Text style={styles.stepText}>Get personalized recipe ideas just for you 💡</Text>
+            <Text style={styles.stepText}>Get personalized recipe suggestions from your kitchen</Text>
           </View>
           
           <View style={styles.step}>
             <View style={styles.stepNumberContainer}>
               <Text style={styles.stepNumber}>3</Text>
             </View>
-            <Text style={styles.stepText}>Cook, enjoy, and feel proud! 🎉</Text>
+            <Text style={styles.stepText}>Cook delicious meals and reduce food waste</Text>
           </View>
         </View>
       </View>
@@ -146,55 +130,90 @@ const styles = StyleSheet.create({
   },
   heroSection: {
     alignItems: 'center',
-    backgroundColor: colors.card,
-    borderRadius: 24,
-    marginHorizontal: 16,
-    marginBottom: 24,
+    backgroundColor: colors.marble,
+    borderRadius: 20,
+    padding: 30,
+    marginHorizontal: 20,
+    marginBottom: 32,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 3,
     },
-    shadowOpacity: 0.08,
-    shadowRadius: 16,
-    elevation: 4,
-    borderWidth: 0.5,
-    borderColor: colors.border,
+    shadowOpacity: 0.2,
+    shadowRadius: 4.65,
+    elevation: 6,
+    borderWidth: 2,
+    borderColor: colors.steel,
     position: 'relative',
     overflow: 'hidden',
   },
-  heroImage: {
-    width: '100%',
-    height: 220,
-    borderTopLeftRadius: 24,
-    borderTopRightRadius: 24,
-  },
-  heroOverlay: {
+  heroBackground: {
     position: 'absolute',
-    bottom: 0,
+    top: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.97)',
-    padding: 24,
-    alignItems: 'center',
-    borderBottomLeftRadius: 24,
-    borderBottomRightRadius: 24,
+    bottom: 0,
+    backgroundColor: 'rgba(245, 222, 179, 0.3)',
+    borderRadius: 18,
   },
-
+  foodImageContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    borderRadius: 50,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+  },
+  vegetablePattern: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#228B22',
+    marginHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  fruitPattern: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#FF6347',
+    marginHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
+  grainPattern: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#DAA520',
+    marginHorizontal: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
+  },
   kitchenIcon: {
-    backgroundColor: 'rgba(255, 138, 128, 0.12)',
-    borderRadius: 20,
+    backgroundColor: colors.kitchenWood,
+    borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 8,
-    marginBottom: 12,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 138, 128, 0.2)',
+    marginBottom: 16,
+    borderWidth: 2,
+    borderColor: colors.secondary,
   },
   kitchenIconText: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: colors.primary,
-    letterSpacing: 1,
+    fontSize: 14,
+    fontWeight: '800',
+    color: colors.light,
+    letterSpacing: 2,
     textAlign: 'center',
   },
   heroIcon: {
@@ -202,55 +221,50 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   heroText: {
-    fontSize: 16,
-    color: colors.text,
+    fontSize: 18,
+    color: colors.dark,
     textAlign: 'center',
-    lineHeight: 24,
-    fontWeight: '400',
+    lineHeight: 26,
+    fontWeight: '500',
   },
   actionsSection: {
-    marginBottom: 24,
-    paddingHorizontal: 16,
+    marginBottom: 32,
+    paddingHorizontal: 20,
   },
   sectionTitle: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 24,
+    fontWeight: '700',
     color: colors.text,
-    marginBottom: 16,
+    marginBottom: 20,
     textAlign: 'center',
   },
   actionCard: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.card,
-    borderRadius: 20,
-    padding: 20,
-    marginBottom: 12,
-    borderLeftWidth: 3,
+    borderRadius: 18,
+    padding: 24,
+    marginBottom: 16,
+    borderLeftWidth: 6,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.06,
-    shadowRadius: 12,
-    elevation: 3,
-    borderWidth: 0.5,
-    borderColor: colors.border,
-    overflow: 'hidden',
-  },
-  actionImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 12,
-    marginRight: 16,
+    shadowOpacity: 0.15,
+    shadowRadius: 3.84,
+    elevation: 5,
+    borderTopWidth: 2,
+    borderTopColor: colors.steel,
   },
   actionIconContainer: {
-    borderRadius: 8,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    marginBottom: 8,
-    minWidth: 40,
+    backgroundColor: colors.tertiary,
+    borderRadius: 12,
+    padding: 12,
+    marginRight: 20,
+    borderWidth: 2,
+    borderColor: colors.kitchenWood,
+    minWidth: 50,
     alignItems: 'center',
   },
   actionIconText: {
@@ -271,31 +285,25 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   actionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '700',
     color: colors.text,
-    marginBottom: 4,
+    marginBottom: 6,
   },
   actionDescription: {
-    fontSize: 14,
+    fontSize: 15,
     color: colors.textSecondary,
-    lineHeight: 20,
+    lineHeight: 22,
   },
   actionArrowContainer: {
     backgroundColor: colors.primary,
     borderRadius: 20,
-    width: 36,
-    height: 36,
+    width: 40,
+    height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: colors.cardShadow,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.15,
-    shadowRadius: 4,
-    elevation: 4,
+    borderWidth: 2,
+    borderColor: colors.secondary,
   },
   actionArrow: {
     fontSize: 20,
@@ -303,41 +311,24 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   recipeButton: {
-    backgroundColor: colors.card,
-    borderRadius: 16,
+    backgroundColor: colors.tertiary,
+    borderRadius: 15,
+    padding: 18,
+    alignItems: 'center',
     marginTop: 12,
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 2,
     },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 6,
-    borderWidth: 1,
-    borderColor: colors.border,
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  recipeButtonImage: {
-    width: '100%',
-    height: 80,
-  },
-  recipeButtonOverlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(255, 107, 107, 0.8)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   recipeButtonText: {
-    fontSize: 16,
-    fontWeight: '700',
-    color: colors.light,
-    textAlign: 'center',
+    fontSize: 17,
+    fontWeight: '600',
+    color: colors.dark,
   },
   howItWorks: {
     marginBottom: 32,

@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Pressable, Image } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { router } from 'expo-router';
 import { colors, commonStyles } from '@/styles/commonStyles';
 import { Button } from '@/components/button';
@@ -15,13 +15,7 @@ export default function RecipesScreen() {
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const [showRecipeModal, setShowRecipeModal] = useState(false);
 
-  const categories = [
-    { name: 'All', image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=200&h=120&fit=crop&auto=format' },
-    { name: 'Quick Meals', image: 'https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=200&h=120&fit=crop&auto=format' },
-    { name: 'Main Course', image: 'https://images.unsplash.com/photo-1574484284002-952d92456975?w=200&h=120&fit=crop&auto=format' },
-    { name: 'Soup', image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=200&h=120&fit=crop&auto=format' },
-    { name: 'Salad', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&h=120&fit=crop&auto=format' }
-  ];
+  const categories = ['All', 'Quick Meals', 'Main Course', 'Soup', 'Salad'];
 
   const handleViewRecipe = (recipe: Recipe) => {
     setSelectedRecipe(recipe);
@@ -56,21 +50,6 @@ export default function RecipesScreen() {
     }
   };
 
-  const getRecipeImage = (title: string) => {
-    const recipeImages: { [key: string]: string } = {
-      'Veggie Stir Fry': 'https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop&auto=format',
-      'Chicken Rice Bowl': 'https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=400&h=300&fit=crop&auto=format',
-      'Tomato Pasta': 'https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=400&h=300&fit=crop&auto=format',
-      'Fruit Smoothie': 'https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=400&h=300&fit=crop&auto=format',
-      'Cheese Omelette': 'https://images.unsplash.com/photo-1525351484163-7529414344d8?w=400&h=300&fit=crop&auto=format',
-      'Fresh Garden Salad': 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop&auto=format',
-      'Beef Stew': 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&auto=format',
-      'Vegetable Soup': 'https://images.unsplash.com/photo-1547592180-85f173990554?w=400&h=300&fit=crop&auto=format',
-      'default': 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&auto=format'
-    };
-    return recipeImages[title] || recipeImages['default'];
-  };
-
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <View style={styles.backgroundPattern}>
@@ -81,48 +60,40 @@ export default function RecipesScreen() {
       </View>
       
       <AppHeader 
-        title="Recipe Ideas for You! 📚" 
-        subtitle="Let's find something delicious to cook together"
+        title="Kitchen Recipe Ideas" 
+        subtitle="Discover delicious recipes with what you have in your kitchen"
       />
 
       {ingredients.length === 0 ? (
         <View style={styles.noIngredientsHint}>
-          <Image 
-            source={{ uri: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&h=200&fit=crop&auto=format' }}
-            style={styles.hintImage}
-            resizeMode="cover"
-          />
-          <View style={styles.hintContent}>
+          <View style={styles.hintIconContainer}>
             <Text style={styles.hintIcon}>💡</Text>
-            <Text style={styles.hintText}>
-              Want personalized recipes? Add some ingredients first and we\'ll find perfect matches for you! 😊
-            </Text>
-            <Button 
-              onPress={() => router.push('/ingredients')}
-              variant="outline"
-              size="sm"
-              style={styles.addIngredientsButton}
-            >
-              📷 Add Your Ingredients
-            </Button>
+            <Text style={styles.foodDisplayEmojis}>🍅🥕🌶️🍎</Text>
           </View>
+          <Text style={styles.hintText}>
+            Add ingredients in "Kitchen Ingredients" to get personalized recipe suggestions!
+          </Text>
+          <Button 
+            onPress={() => router.push('/ingredients')}
+            variant="outline"
+            size="sm"
+            style={styles.addIngredientsButton}
+          >
+            📷 Add Kitchen Ingredients
+          </Button>
         </View>
       ) : (
         <View style={styles.personalizedHint}>
-          <Image 
-            source={{ uri: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&h=150&fit=crop&auto=format' }}
-            style={styles.personalizedImage}
-            resizeMode="cover"
-          />
-          <View style={styles.personalizedContent}>
+          <View style={styles.hintIconContainer}>
             <Text style={styles.hintIcon}>👨‍🍳</Text>
-            <Text style={styles.hintText}>
-              {getRecommendedRecipes().length > 0 
-                ? `Great news! We found ${getRecommendedRecipes().length} perfect recipes using your ingredients! 🎉`
-                : 'Here are some wonderful recipes you might enjoy. Happy cooking! 😊'
-              }
-            </Text>
+            <Text style={styles.chefEmojis}>🍲🍝🍳✨</Text>
           </View>
+          <Text style={styles.hintText}>
+            {getRecommendedRecipes().length > 0 
+              ? `Found ${getRecommendedRecipes().length} recipes using your kitchen ingredients!`
+              : 'Here are some great recipes to try with any ingredients from your kitchen.'
+            }
+          </Text>
         </View>
       )}
 
@@ -134,25 +105,20 @@ export default function RecipesScreen() {
       >
         {categories.map((category) => (
           <Pressable
-            key={category.name}
+            key={category}
             style={[
               styles.categoryButton,
-              selectedCategory === category.name && styles.categoryButtonActive,
+              selectedCategory === category && styles.categoryButtonActive,
             ]}
-            onPress={() => setSelectedCategory(category.name)}
+            onPress={() => setSelectedCategory(category)}
           >
-            <Image 
-              source={{ uri: category.image }}
-              style={styles.categoryImage}
-              resizeMode="cover"
-            />
             <Text
               style={[
                 styles.categoryText,
-                selectedCategory === category.name && styles.categoryTextActive,
+                selectedCategory === category && styles.categoryTextActive,
               ]}
             >
-              {category.name}
+              {category}
             </Text>
           </Pressable>
         ))}
@@ -169,72 +135,65 @@ export default function RecipesScreen() {
               <Text style={styles.emptyIconText}>👨‍🍳</Text>
               <Text style={styles.foodDisplayEmojis}>🍲🍝🍳</Text>
             </View>
-            <Text style={styles.emptyText}>No recipes found yet 😊</Text>
+            <Text style={styles.emptyText}>No recipes found</Text>
             <Text style={styles.emptySubtext}>
-              Try a different category or add more ingredients - we\'ll find something perfect for you!
+              Try selecting a different category or add more ingredients to your kitchen!
             </Text>
           </View>
         ) : (
           filteredRecipes.map((recipe) => (
             <View key={recipe.id} style={styles.recipeCard}>
-              <Image 
-                source={{ uri: getRecipeImage(recipe.title) }}
-                style={styles.recipeImage}
-                resizeMode="cover"
-              />
-              <View style={styles.recipeContent}>
-                <View style={styles.recipeHeader}>
-                  <Text style={styles.recipeTitle}>{recipe.title}</Text>
-                  <View style={styles.recipeMeta}>
-                    <View style={styles.metaItem}>
-                      <Text style={styles.metaIcon}>⏱️</Text>
-                      <Text style={styles.metaText}>{recipe.cookTime}</Text>
-                    </View>
-                    <View style={styles.metaItem}>
-                      <Text style={styles.metaIcon}>👥</Text>
-                      <Text style={styles.metaText}>{recipe.servings}</Text>
-                    </View>
-                    <View style={styles.metaItem}>
-                      <Text 
-                        style={[
-                          styles.difficultyText,
-                          { color: getDifficultyColor(recipe.difficulty) }
-                        ]}
-                      >
-                        {recipe.difficulty}
-                      </Text>
-                    </View>
+              <View style={styles.recipeHeader}>
+                <Text style={styles.recipeTitle}>{recipe.title}</Text>
+                <View style={styles.recipeMeta}>
+                  <View style={styles.metaItem}>
+                    <Text style={styles.metaIcon}>⏱️</Text>
+                    <Text style={styles.metaText}>{recipe.cookTime}</Text>
+                  </View>
+                  <View style={styles.metaItem}>
+                    <Text style={styles.metaIcon}>👥</Text>
+                    <Text style={styles.metaText}>{recipe.servings}</Text>
+                  </View>
+                  <View style={styles.metaItem}>
+                    <Text 
+                      style={[
+                        styles.difficultyText,
+                        { color: getDifficultyColor(recipe.difficulty) }
+                      ]}
+                    >
+                      {recipe.difficulty}
+                    </Text>
                   </View>
                 </View>
-                
-                <Text style={styles.recipeDescription}>
-                  {recipe.description}
-                </Text>
-                
-                <View style={styles.ingredientsContainer}>
-                  <Text style={styles.ingredientsTitle}>Ingredients needed:</Text>
-                  <View style={styles.ingredientsTags}>
-                    {recipe.ingredients.slice(0, 4).map((ingredient, index) => (
-                      <View key={index} style={styles.ingredientTag}>
-                        <Text style={styles.ingredientTagText}>{ingredient}</Text>
-                      </View>
-                    ))}
-                    {recipe.ingredients.length > 4 && (
-                      <View style={styles.ingredientTag}>
-                        <Text style={styles.ingredientTagText}>+{recipe.ingredients.length - 4} more</Text>
-                      </View>
-                    )}
-                  </View>
-                </View>
-                
-                <Pressable 
-                  style={styles.viewRecipeButton}
-                  onPress={() => handleViewRecipe(recipe)}
-                >
-                  <Text style={styles.viewRecipeText}>👀 Let's Cook This!</Text>
-                  <Text style={styles.viewRecipeArrow}>→</Text>
-                </Pressable>
               </View>
+              
+              <Text style={styles.recipeDescription}>
+                {recipe.description}
+              </Text>
+              
+              <View style={styles.ingredientsContainer}>
+                <Text style={styles.ingredientsTitle}>Ingredients needed:</Text>
+                <View style={styles.ingredientsTags}>
+                  {recipe.ingredients.slice(0, 4).map((ingredient, index) => (
+                    <View key={index} style={styles.ingredientTag}>
+                      <Text style={styles.ingredientTagText}>{ingredient}</Text>
+                    </View>
+                  ))}
+                  {recipe.ingredients.length > 4 && (
+                    <View style={styles.ingredientTag}>
+                      <Text style={styles.ingredientTagText}>+{recipe.ingredients.length - 4} more</Text>
+                    </View>
+                  )}
+                </View>
+              </View>
+              
+              <Pressable 
+                style={styles.viewRecipeButton}
+                onPress={() => handleViewRecipe(recipe)}
+              >
+                <Text style={styles.viewRecipeText}>View Full Recipe</Text>
+                <Text style={styles.viewRecipeArrow}>→</Text>
+              </Pressable>
             </View>
           ))
         )}
@@ -298,52 +257,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   noIngredientsHint: {
-    backgroundColor: colors.card,
-    borderRadius: 16,
+    backgroundColor: colors.backgroundAlt,
+    borderRadius: 12,
+    padding: 16,
     marginBottom: 20,
+    alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.border,
-    shadowColor: colors.cardShadow,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    overflow: 'hidden',
-  },
-  hintImage: {
-    width: '100%',
-    height: 120,
-  },
-  hintContent: {
-    padding: 16,
-    alignItems: 'center',
-  },
-  personalizedHint: {
-    backgroundColor: colors.card,
-    borderRadius: 16,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: colors.primary,
-    shadowColor: colors.cardShadow,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 6,
-    elevation: 4,
-    overflow: 'hidden',
-  },
-  personalizedImage: {
-    width: '100%',
-    height: 100,
-  },
-  personalizedContent: {
-    padding: 16,
-    alignItems: 'center',
   },
   hintIcon: {
     fontSize: 28,
@@ -381,6 +301,15 @@ const styles = StyleSheet.create({
   addIngredientsButton: {
     marginTop: 8,
   },
+  personalizedHint: {
+    backgroundColor: colors.backgroundAlt,
+    borderRadius: 12,
+    padding: 16,
+    marginBottom: 20,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
   categoryScroll: {
     marginBottom: 20,
   },
@@ -391,30 +320,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     marginRight: 12,
-    borderRadius: 16,
+    borderRadius: 20,
     borderWidth: 1,
     borderColor: colors.border,
-    backgroundColor: colors.card,
-    minWidth: 120,
-    shadowColor: colors.cardShadow,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 3,
-    overflow: 'hidden',
+    backgroundColor: colors.background,
   },
   categoryButtonActive: {
     backgroundColor: colors.primary,
     borderColor: colors.primary,
-  },
-  categoryImage: {
-    width: '100%',
-    height: 60,
-    borderRadius: 12,
-    marginBottom: 8,
   },
   categoryText: {
     fontSize: 14,
@@ -455,26 +368,11 @@ const styles = StyleSheet.create({
   },
   recipeCard: {
     backgroundColor: colors.card,
-    borderRadius: 20,
+    borderRadius: 16,
+    padding: 20,
     marginBottom: 16,
     borderWidth: 1,
     borderColor: colors.border,
-    shadowColor: colors.cardShadow,
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 6,
-    overflow: 'hidden',
-  },
-  recipeImage: {
-    width: '100%',
-    height: 200,
-  },
-  recipeContent: {
-    padding: 20,
   },
   recipeHeader: {
     flexDirection: 'row',
