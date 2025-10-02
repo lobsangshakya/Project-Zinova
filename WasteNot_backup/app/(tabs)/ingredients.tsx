@@ -189,8 +189,8 @@ export default function IngredientsScreen() {
       <View style={styles.backgroundGradient} />
       
       <AppHeader 
-        title="Kitchen Ingredients" 
-        subtitle="Add what you have in your kitchen to get recipe suggestions"
+        title="What's in your kitchen? 🍳" 
+        subtitle="Let's see what delicious things we can make together!"
       />
 
       <View style={styles.photoSection}>
@@ -200,7 +200,7 @@ export default function IngredientsScreen() {
           resizeMode="cover"
         />
         <View style={styles.photoSectionOverlay}>
-          <Text style={styles.sectionTitle}>Add Kitchen Ingredients 🍅</Text>
+          <Text style={styles.sectionTitle}>Add Your Ingredients 🥗</Text>
           
           <View style={styles.photoButtons}>
             <Pressable style={styles.photoButton} onPress={takePhoto}>
@@ -225,7 +225,7 @@ export default function IngredientsScreen() {
             variant="outline"
             style={styles.manualButton}
           >
-            {showAddForm ? 'Cancel' : '✍️ Add Manually'}
+            {showAddForm ? '❌ Cancel' : '✍️ Type it in'}
           </Button>
         </View>
       </View>
@@ -296,16 +296,16 @@ export default function IngredientsScreen() {
       )}
 
       <View style={styles.ingredientsList}>
-        <Text style={styles.sectionTitle}>Your Kitchen Ingredients ({ingredients.length})</Text>
+        <Text style={styles.sectionTitle}>Your Kitchen Ingredients ({ingredients.length}) 📎</Text>
         
         {ingredients.length === 0 ? (
           <View style={styles.emptyState}>
             <View style={styles.emptyIconContainer}>
               <Text style={styles.emptyIconText}>KITCHEN</Text>
             </View>
-            <Text style={styles.emptyText}>No ingredients yet</Text>
+            <Text style={styles.emptyText}>Your kitchen is ready for ingredients! 🎉</Text>
             <Text style={styles.emptySubtext}>
-              Add your first ingredient using the photo feature or manual entry above!
+              Take a quick photo or add ingredients manually - we\'ll help you create something amazing!
             </Text>
           </View>
         ) : (
@@ -346,7 +346,7 @@ export default function IngredientsScreen() {
             {ingredients.length > 0 && (
               <View style={styles.actionHint}>
                 <Text style={styles.hintText}>
-                  You have {ingredients.length} ingredient{ingredients.length > 1 ? 's' : ''} in your kitchen!
+                  Awesome! You have {ingredients.length} ingredient{ingredients.length > 1 ? 's' : ''} ready to go! 😊
                 </Text>
                 <View style={styles.buttonRow}>
                   <Button 
@@ -354,14 +354,14 @@ export default function IngredientsScreen() {
                     variant="outline"
                     style={styles.halfButton}
                   >
-                    Get Recipes
+                    🍳 Find Recipes
                   </Button>
                   <Button 
                     onPress={handleClearAll}
                     variant="filled"
                     style={styles.clearButton}
                   >
-                    Clear All
+                    🧹 Clear All
                   </Button>
                 </View>
               </View>

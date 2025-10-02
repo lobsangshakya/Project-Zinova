@@ -81,8 +81,8 @@ export default function RecipesScreen() {
       </View>
       
       <AppHeader 
-        title="Kitchen Recipe Ideas" 
-        subtitle="Discover delicious recipes with what you have in your kitchen"
+        title="Recipe Ideas for You! 📚" 
+        subtitle="Let's find something delicious to cook together"
       />
 
       {ingredients.length === 0 ? (
@@ -95,7 +95,7 @@ export default function RecipesScreen() {
           <View style={styles.hintContent}>
             <Text style={styles.hintIcon}>💡</Text>
             <Text style={styles.hintText}>
-              Add ingredients in "Kitchen Ingredients" to get personalized recipe suggestions!
+              Want personalized recipes? Add some ingredients first and we\'ll find perfect matches for you! 😊
             </Text>
             <Button 
               onPress={() => router.push('/ingredients')}
@@ -103,7 +103,7 @@ export default function RecipesScreen() {
               size="sm"
               style={styles.addIngredientsButton}
             >
-              📷 Add Kitchen Ingredients
+              📷 Add Your Ingredients
             </Button>
           </View>
         </View>
@@ -118,8 +118,8 @@ export default function RecipesScreen() {
             <Text style={styles.hintIcon}>👨‍🍳</Text>
             <Text style={styles.hintText}>
               {getRecommendedRecipes().length > 0 
-                ? `Found ${getRecommendedRecipes().length} recipes using your kitchen ingredients!`
-                : 'Here are some great recipes to try with any ingredients from your kitchen.'
+                ? `Great news! We found ${getRecommendedRecipes().length} perfect recipes using your ingredients! 🎉`
+                : 'Here are some wonderful recipes you might enjoy. Happy cooking! 😊'
               }
             </Text>
           </View>
@@ -169,9 +169,9 @@ export default function RecipesScreen() {
               <Text style={styles.emptyIconText}>👨‍🍳</Text>
               <Text style={styles.foodDisplayEmojis}>🍲🍝🍳</Text>
             </View>
-            <Text style={styles.emptyText}>No recipes found</Text>
+            <Text style={styles.emptyText}>No recipes found yet 😊</Text>
             <Text style={styles.emptySubtext}>
-              Try selecting a different category or add more ingredients to your kitchen!
+              Try a different category or add more ingredients - we\'ll find something perfect for you!
             </Text>
           </View>
         ) : (
@@ -231,7 +231,7 @@ export default function RecipesScreen() {
                   style={styles.viewRecipeButton}
                   onPress={() => handleViewRecipe(recipe)}
                 >
-                  <Text style={styles.viewRecipeText}>View Full Recipe</Text>
+                  <Text style={styles.viewRecipeText}>👀 Let's Cook This!</Text>
                   <Text style={styles.viewRecipeArrow}>→</Text>
                 </Pressable>
               </View>

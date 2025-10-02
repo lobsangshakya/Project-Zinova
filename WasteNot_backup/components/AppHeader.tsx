@@ -28,7 +28,7 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
               style={styles.logo}
               resizeMode="contain"
             />
-            <Text style={styles.brandText}>WasteNot Kitchen 🍳</Text>
+            <Text style={styles.brandText}>WasteNot Kitchen 😊</Text>
           </View>
         )}
         <Text style={styles.title}>{title}</Text>
