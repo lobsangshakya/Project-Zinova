@@ -16,7 +16,14 @@ export default function IngredientsScreen() {
     category: 'Vegetables',
   });
 
-  const categories = ['Vegetables', 'Fruits', 'Dairy', 'Meat', 'Grains', 'Other'];
+  const categories = [
+    { name: 'Vegetables', image: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?w=300&h=200&fit=crop&auto=format', emoji: '🥕' },
+    { name: 'Fruits', image: 'https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=300&h=200&fit=crop&auto=format', emoji: '🍎' },
+    { name: 'Dairy', image: 'https://images.unsplash.com/photo-1550583724-b2692b85b150?w=300&h=200&fit=crop&auto=format', emoji: '🧀' },
+    { name: 'Meat', image: 'https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=300&h=200&fit=crop&auto=format', emoji: '🥩' },
+    { name: 'Grains', image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=300&h=200&fit=crop&auto=format', emoji: '🌾' },
+    { name: 'Other', image: 'https://images.unsplash.com/photo-1556909114-4f6e8cda40d7?w=300&h=200&fit=crop&auto=format', emoji: '🍳' }
+  ];
 
   const getCategoryIcon = (category: string) => {
     const icons: { [key: string]: any } = {
@@ -187,33 +194,40 @@ export default function IngredientsScreen() {
       />
 
       <View style={styles.photoSection}>
-        <Text style={styles.sectionTitle}>Add Kitchen Ingredients</Text>
-        
-        <View style={styles.photoButtons}>
-          <Pressable style={styles.photoButton} onPress={takePhoto}>
-            <View style={styles.photoIconContainer}>
-              <View style={styles.cameraIcon} />
-            </View>
-            <Text style={styles.photoButtonText}>Take Photo</Text>
-          </Pressable>
+        <Image 
+          source={{ uri: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=300&fit=crop&auto=format' }}
+          style={styles.photoSectionImage}
+          resizeMode="cover"
+        />
+        <View style={styles.photoSectionOverlay}>
+          <Text style={styles.sectionTitle}>Add Kitchen Ingredients 🍅</Text>
           
-          <Pressable style={styles.photoButton} onPress={pickImage}>
-            <View style={styles.photoIconContainer}>
-              <View style={styles.galleryIcon} />
-            </View>
-            <Text style={styles.photoButtonText}>Choose Photo</Text>
-          </Pressable>
+          <View style={styles.photoButtons}>
+            <Pressable style={styles.photoButton} onPress={takePhoto}>
+              <View style={styles.photoIconContainer}>
+                <Text style={styles.photoIcon}>📷</Text>
+              </View>
+              <Text style={styles.photoButtonText}>Take Photo</Text>
+            </Pressable>
+            
+            <Pressable style={styles.photoButton} onPress={pickImage}>
+              <View style={styles.photoIconContainer}>
+                <Text style={styles.photoIcon}>🖼️</Text>
+              </View>
+              <Text style={styles.photoButtonText}>Choose Photo</Text>
+            </Pressable>
+          </View>
+          
+          <Text style={styles.orText}>or</Text>
+          
+          <Button
+            onPress={() => setShowAddForm(!showAddForm)}
+            variant="outline"
+            style={styles.manualButton}
+          >
+            {showAddForm ? 'Cancel' : '✍️ Add Manually'}
+          </Button>
         </View>
-        
-        <Text style={styles.orText}>or</Text>
-        
-        <Button
-          onPress={() => setShowAddForm(!showAddForm)}
-          variant="outline"
-          style={styles.manualButton}
-        >
-          {showAddForm ? 'Cancel' : 'Add Manually'}
-        </Button>
       </View>
 
       {showAddForm && (
@@ -247,23 +261,28 @@ export default function IngredientsScreen() {
             <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.categoryScroll}>
               {categories.map((category) => (
                 <Pressable
-                  key={category}
+                  key={category.name}
                   style={[
                     styles.categoryButton,
-                    newIngredient.category === category && styles.categoryButtonActive,
+                    newIngredient.category === category.name && styles.categoryButtonActive,
                   ]}
-                  onPress={() => setNewIngredient({ ...newIngredient, category })}
+                  onPress={() => setNewIngredient({ ...newIngredient, category: category.name })}
                 >
+                  <Image 
+                    source={{ uri: category.image }}
+                    style={styles.categoryImage}
+                    resizeMode="cover"
+                  />
                   <View style={styles.categoryIconContainer}>
-                    <Text style={styles.categoryIcon}>{getCategoryIcon(category)}</Text>
+                    <Text style={styles.categoryEmoji}>{category.emoji}</Text>
                   </View>
                   <Text
                     style={[
                       styles.categoryText,
-                      newIngredient.category === category && styles.categoryTextActive,
+                      newIngredient.category === category.name && styles.categoryTextActive,
                     ]}
                   >
-                    {category}
+                    {category.name}
                   </Text>
                 </Pressable>
               ))}
@@ -295,14 +314,9 @@ export default function IngredientsScreen() {
               <View key={`ingredient-${ingredient.id}-${ingredient.name}`} style={styles.ingredientCard}>
                 <View style={styles.ingredientHeader}>
                   <View style={styles.categoryBadge}>
-                    <View style={[
-                      styles.categoryIcon,
-                      { 
-                        backgroundColor: getCategoryIcon(ingredient.category).backgroundColor,
-                        borderColor: getCategoryIcon(ingredient.category).border || getCategoryIcon(ingredient.category).backgroundColor,
-                        borderRadius: getCategoryIcon(ingredient.category).pattern === 'circle' ? 10 : 4
-                      }
-                    ]} />
+                    <Text style={styles.categoryBadgeEmoji}>
+                      {categories.find(cat => cat.name === ingredient.category)?.emoji || '🍳'}
+                    </Text>
                   </View>
                   <View style={styles.ingredientInfo}>
                     <Text style={styles.ingredientName}>{ingredient.name}</Text>
@@ -380,24 +394,35 @@ const styles = StyleSheet.create({
     zIndex: 0,
   },
   photoSection: {
-    backgroundColor: 'rgba(245, 222, 179, 0.8)',
+    backgroundColor: colors.card,
     borderRadius: 20,
-    padding: 25,
     marginHorizontal: 20,
     marginBottom: 24,
-    alignItems: 'center',
     shadowColor: colors.cardShadow,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 6,
     },
-    shadowOpacity: 0.2,
-    shadowRadius: 4.65,
-    elevation: 6,
-    borderWidth: 2,
-    borderColor: colors.steel,
-    position: 'relative',
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
+    borderWidth: 1,
+    borderColor: colors.border,
     overflow: 'hidden',
+    position: 'relative',
+  },
+  photoSectionImage: {
+    width: '100%',
+    height: 200,
+  },
+  photoSectionOverlay: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    padding: 25,
+    alignItems: 'center',
   },
   sectionTitle: {
     fontSize: 20,
@@ -511,40 +536,52 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 12,
     marginRight: 12,
-    borderRadius: 12,
+    borderRadius: 16,
     borderWidth: 2,
-    borderColor: colors.steel,
-    backgroundColor: colors.background,
-    minWidth: 80,
+    borderColor: colors.border,
+    backgroundColor: colors.card,
+    minWidth: 100,
+    shadowColor: colors.cardShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 3,
+    overflow: 'hidden',
   },
   categoryButtonActive: {
-    backgroundColor: colors.kitchenWood,
-    borderColor: colors.secondary,
+    backgroundColor: colors.primary,
+    borderColor: colors.primary,
+  },
+  categoryImage: {
+    width: '100%',
+    height: 60,
+    borderRadius: 12,
+    marginBottom: 8,
   },
   categoryIconContainer: {
-    backgroundColor: colors.tertiary,
-    borderRadius: 6,
-    paddingHorizontal: 8,
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 16,
+    paddingHorizontal: 6,
     paddingVertical: 4,
-    marginBottom: 6,
-  },
-  categoryIcon: {
-    width: 20,
-    height: 20,
-    borderWidth: 2,
   },
   categoryEmoji: {
-    fontSize: 20,
-    marginBottom: 4,
+    fontSize: 16,
   },
   categoryText: {
     fontSize: 12,
     color: colors.textSecondary,
-    fontWeight: '500',
+    fontWeight: '600',
+    textAlign: 'center',
   },
   categoryTextActive: {
     color: colors.light,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   submitButton: {
     backgroundColor: colors.primary,
@@ -614,15 +651,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   categoryBadge: {
-    backgroundColor: colors.tertiary,
+    backgroundColor: colors.backgroundAlt,
     borderRadius: 12,
     paddingHorizontal: 10,
-    paddingVertical: 6,
+    paddingVertical: 8,
     marginRight: 12,
-    borderWidth: 2,
-    borderColor: colors.kitchenWood,
-    minWidth: 40,
+    minWidth: 50,
     alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: colors.border,
+  },
+  categoryBadgeEmoji: {
+    fontSize: 20,
+    textAlign: 'center',
   },
   categoryBadgeText: {
     fontSize: 18,
