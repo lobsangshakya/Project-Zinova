@@ -20,11 +20,11 @@ export const AppHeader: React.FC<AppHeaderProps> = ({
         {showLogo && (
           <View style={styles.logoContainer}>
             <Image 
-              source={require('@/assets/images/WasteNot_logo.png')}
+              source={require('@/assets/images/Zinova_logo.png')}
               style={styles.logo}
               resizeMode="contain"
             />
-            <Text style={styles.brandText}>WasteNot Kitchen</Text>
+            <Text style={styles.brandText}>Project Zinova</Text>
           </View>
         )}
         <Text style={styles.title}>{title}</Text>

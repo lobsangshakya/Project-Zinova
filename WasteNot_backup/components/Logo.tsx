@@ -23,13 +23,13 @@ export const Logo: React.FC<LogoProps> = ({ size = 'medium', showText = false })
   return (
     <View style={styles.container}>
       <Image 
-        source={require('@/assets/images/WasteNot_logo.png')}
+        source={require('@/assets/images/Zinova_logo.png')}
         style={[styles.logo, logoSizes[size]]}
         resizeMode="contain"
       />
       {showText && (
         <Text style={[styles.text, { fontSize: textSizes[size] }]}>
-          WasteNot
+          Zinova
         </Text>
       )}
     </View>
