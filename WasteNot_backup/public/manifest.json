@@ -1,9 +1,9 @@
 {
-  "name": "WasteNot Kitchen Assistant",
-  "short_name": "WasteNot Kitchen",
+  "name": "Project Zinova Kitchen Assistant",
+  "short_name": "Project Zinova",
   "icons": [
     {
-      "src": "WasteNot_logo.png",
+      "src": "Zinova_logo.png",
       "sizes": "192x192 512x512",
       "type": "image/png"
     }
