@@ -30,8 +30,8 @@ export default function HomeScreen() {
       <View style={styles.backgroundImage} />
       
       <AppHeader 
-        title="Your Kitchen Assistant" 
-        subtitle="Turn your ingredients into delicious meals and reduce food waste"
+        title="Project Zinova - Smart Kitchen" 
+        subtitle="🍽️ Transform ingredients into culinary masterpieces with AI"
       />
 
       <View style={styles.heroSection}>
@@ -41,15 +41,15 @@ export default function HomeScreen() {
           <View style={styles.grainPattern} />
         </View>
         <View style={styles.kitchenIcon}>
-          <Text style={styles.kitchenIconText}>✨ KITCHEN MAGIC ✨</Text>
+          <Text style={styles.kitchenIconText}>✨ PROJECT ZINOVA ✨</Text>
         </View>
         <Text style={styles.heroText}>
-          Transform your ingredients into delicious meals and reduce food waste with AI-powered recipe suggestions! 🍽️
+          ✨ Welcome to Project Zinova! Transform your ingredients into incredible dishes with our AI-powered culinary companion. Reduce waste, maximize flavor! 🍽️✨
         </Text>
       </View>
 
       <View style={styles.actionsSection}>
-        <Text style={styles.sectionTitle}>What would you like to do?</Text>
+        <Text style={styles.sectionTitle}>🚀 What would you like to create today?</Text>
         
         {mainActions.map((action, index) => (
           <Pressable
@@ -74,12 +74,12 @@ export default function HomeScreen() {
           style={styles.recipeButton}
           onPress={() => router.push('/recipes')}
         >
-          <Text style={styles.recipeButtonText}>Browse All Kitchen Recipes</Text>
+          <Text style={styles.recipeButtonText}>🍴 Explore Zinova Recipe Collection</Text>
         </Pressable>
       </View>
 
       <View style={styles.howItWorks}>
-        <Text style={styles.sectionTitle}>How Your Kitchen Assistant Works</Text>
+        <Text style={styles.sectionTitle}>🎯 How Project Zinova Works</Text>
         
         <View style={styles.stepContainer}>
           <View style={styles.step}>
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   },
   heroSection: {
     alignItems: 'center',
-    backgroundColor: colors.marble,
+    backgroundColor: colors.tertiary,
     borderRadius: 20,
     padding: 30,
     marginHorizontal: 20,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 6,
     borderWidth: 2,
-    borderColor: colors.steel,
+    borderColor: colors.grey,
     position: 'relative',
     overflow: 'hidden',
   },
@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3,
   },
   kitchenIcon: {
-    backgroundColor: colors.kitchenWood,
+    backgroundColor: colors.primary,
     borderRadius: 8,
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -255,7 +255,7 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
     borderTopWidth: 2,
-    borderTopColor: colors.steel,
+    borderTopColor: colors.grey,
   },
   actionIconContainer: {
     backgroundColor: colors.tertiary,
@@ -263,7 +263,7 @@ const styles = StyleSheet.create({
     padding: 12,
     marginRight: 20,
     borderWidth: 2,
-    borderColor: colors.kitchenWood,
+    borderColor: colors.primary,
     minWidth: 50,
     alignItems: 'center',
   },
@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   stepNumberContainer: {
-    backgroundColor: colors.kitchenWood,
+    backgroundColor: colors.primary,
     borderRadius: 25,
     width: 50,
     height: 50,

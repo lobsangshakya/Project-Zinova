@@ -1,32 +1,33 @@
 import { StyleSheet, ViewStyle, TextStyle } from 'react-native';
 
 export const colors = {
-  primary: '#8B4513',      // Kitchen wood brown
-  secondary: '#D2691E',    // Warm copper
-  accent: '#CD853F',       // Sandy brown
-  tertiary: '#F5DEB3',     // Wheat/cream
-  quaternary: '#FFF8DC',   // Kitchen cream
-  background: '#FFF8F0',   // Warm cream background
-  backgroundAlt: '#F7F5F3', // Warm off-white
-  backgroundGradient: 'linear-gradient(135deg, #F5DEB3 0%, #DEB887 100%)', // Warm gradient
-  foodGradient: 'linear-gradient(45deg, #FF6B6B 0%, #FFE66D 50%, #4ECDC4 100%)', // Food gradient
-  kitchenGradient: 'linear-gradient(135deg, #8B4513 0%, #D2691E 50%, #F5DEB3 100%)', // Kitchen gradient
-  text: '#2F1B14',         // Dark brown
-  textSecondary: '#5D4E37', // Medium brown
-  textLight: '#8B7355',    // Light brown
-  grey: '#D3D3D3',         // Light grey
-  card: '#FFFFFF',         // Pure white
-  cardShadow: 'rgba(139, 69, 19, 0.1)', // Warm brown shadow
-  border: '#D2691E',       // Copper border
-  success: '#228B22',      // Forest green
-  warning: '#DAA520',      // Golden rod
-  error: '#B22222',        // Fire brick red
-  info: '#4682B4',         // Steel blue
-  dark: '#2F1B14',         // Dark brown
-  light: '#FFFFFF',        // White
-  kitchenWood: '#8B4513',  // Kitchen cabinet wood
-  marble: '#FAF0E6',       // Linen/marble countertop
-  steel: '#C0C0C0',        // Stainless steel
+  // Project Zinova Brand Colors - Modern & Fresh
+  primary: '#2B7A78',      // Teal/Turquoise - modern and fresh
+  secondary: '#17A2B8',    // Bright cyan - vibrant accent
+  accent: '#3AAFA9',       // Seafoam green - natural and calming
+  tertiary: '#DEF2F1',     // Light mint - fresh background
+  quaternary: '#FEFFFF',   // Pure white - clean canvas
+  background: '#F8FCFC',   // Off-white with hint of mint - clean modern
+  backgroundAlt: '#F4F9F9', // Subtle mint tint - sophisticated
+  backgroundGradient: 'linear-gradient(135deg, #DEF2F1 0%, #FEFFFF 100%)', // Fresh gradient
+  foodGradient: 'linear-gradient(45deg, #FF6B6B 0%, #4ECDC4 50%, #45B7D1 100%)', // Vibrant food gradient
+  zinovaGradient: 'linear-gradient(135deg, #2B7A78 0%, #17A2B8 50%, #3AAFA9 100%)', // Brand gradient
+  text: '#2D3748',         // Charcoal - professional and readable
+  textSecondary: '#4A5568', // Medium grey - subtle secondary text
+  textLight: '#718096',    // Light grey - supporting text
+  grey: '#E2E8F0',         // Light grey - borders and dividers
+  card: '#FFFFFF',         // Pure white - clean cards
+  cardShadow: 'rgba(43, 122, 120, 0.1)', // Teal shadow - brand consistent
+  border: '#3AAFA9',       // Seafoam border - subtle brand presence
+  success: '#48BB78',      // Fresh green - positive actions
+  warning: '#ED8936',      // Warm orange - attention
+  error: '#F56565',        // Coral red - friendly error
+  info: '#4299E1',         // Sky blue - informational
+  dark: '#1A202C',         // Deep charcoal - strong contrast
+  light: '#FFFFFF',        // Pure white
+  modernTeal: '#2B7A78',   // Primary brand color
+  freshMint: '#DEF2F1',    // Fresh accent
+  cleanWhite: '#FEFFFF',   // Clean backgrounds
 };
 
 export const buttonStyles = StyleSheet.create({
@@ -126,7 +127,7 @@ export const commonStyles = StyleSheet.create({
     boxShadow: '0px 3px 12px rgba(139, 69, 19, 0.15)',
     elevation: 4,
     borderTopWidth: 3,
-    borderTopColor: colors.kitchenWood,
+    borderTopColor: colors.modernTeal,
   },
   input: {
     borderWidth: 1,
