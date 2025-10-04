@@ -4,8 +4,12 @@ import { colors } from '@/styles/commonStyles';
 
 export const AnimatedHero = () => {
   const steamPosition = useRef(new Animated.Value(0)).current;
+  const steamPosition2 = useRef(new Animated.Value(0)).current;
+  const steamPosition3 = useRef(new Animated.Value(0)).current;
   const spoonRotation = useRef(new Animated.Value(0)).current;
   const ingredientBounce = useRef(new Animated.Value(0)).current;
+  const ingredientBounce2 = useRef(new Animated.Value(0)).current;
+  const ingredientBounce3 = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     // Steam animation
@@ -24,6 +28,43 @@ export const AnimatedHero = () => {
         }),
       ])
     ).start();
+
+    // Delayed steam animations
+    setTimeout(() => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(steamPosition2, {
+            toValue: 1,
+            duration: 3000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+          Animated.timing(steamPosition2, {
+            toValue: 0,
+            duration: 0,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    }, 500);
+
+    setTimeout(() => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(steamPosition3, {
+            toValue: 1,
+            duration: 3000,
+            easing: Easing.linear,
+            useNativeDriver: true,
+          }),
+          Animated.timing(steamPosition3, {
+            toValue: 0,
+            duration: 0,
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    }, 1000);
 
     // Spoon rotation animation
     Animated.loop(
@@ -60,6 +101,45 @@ export const AnimatedHero = () => {
         }),
       ])
     ).start();
+
+    // Delayed ingredient animations
+    setTimeout(() => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(ingredientBounce2, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.out(Easing.ease),
+            useNativeDriver: true,
+          }),
+          Animated.timing(ingredientBounce2, {
+            toValue: 0,
+            duration: 1500,
+            easing: Easing.in(Easing.ease),
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    }, 300);
+
+    setTimeout(() => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(ingredientBounce3, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.out(Easing.ease),
+            useNativeDriver: true,
+          }),
+          Animated.timing(ingredientBounce3, {
+            toValue: 0,
+            duration: 1500,
+            easing: Easing.in(Easing.ease),
+            useNativeDriver: true,
+          }),
+        ])
+      ).start();
+    }, 600);
   }, []);
 
   const steamTranslateY = steamPosition.interpolate({
@@ -95,10 +175,12 @@ export const AnimatedHero = () => {
           style={[
             styles.steamBubble, 
             { 
-              transform: [{ translateY: steamTranslateY }],
+              transform: [{ translateY: steamPosition2.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, -50],
+              }) }],
               left: '30%',
               opacity: 0.5,
-              delay: 500,
             }
           ]} 
         />
@@ -106,10 +188,12 @@ export const AnimatedHero = () => {
           style={[
             styles.steamBubble, 
             { 
-              transform: [{ translateY: steamTranslateY }],
+              transform: [{ translateY: steamPosition3.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, -50],
+              }) }],
               left: '70%',
               opacity: 0.6,
-              delay: 1000,
             }
           ]} 
         />
@@ -153,8 +237,10 @@ export const AnimatedHero = () => {
               backgroundColor: '#4ECDC4',
               top: '55%',
               left: '25%',
-              transform: [{ translateY: ingredientTranslateY }],
-              delay: 300,
+              transform: [{ translateY: ingredientBounce2.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, -15],
+              }) }],
             }
           ]} 
         />
@@ -165,8 +251,10 @@ export const AnimatedHero = () => {
               backgroundColor: '#FFE66D',
               top: '65%',
               left: '80%',
-              transform: [{ translateY: ingredientTranslateY }],
-              delay: 600,
+              transform: [{ translateY: ingredientBounce3.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, -15],
+              }) }],
             }
           ]} 
         />
