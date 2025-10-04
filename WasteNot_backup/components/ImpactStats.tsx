@@ -1,36 +1,37 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '@/styles/commonStyles';
+import { AnimatedSection } from '@/components/AnimatedSection';
 
 export const ImpactStats = () => {
   const stats = [
     {
-      value: '2.4M+',
-      label: 'Meals Created',
-      description: 'Delicious recipes made by our users',
+      value: '1.2M+',
+      label: 'Meals Distributed',
+      description: 'Nutritious meals delivered to communities in need',
     },
     {
-      value: '850T',
+      value: '650T',
       label: 'Food Waste Prevented',
-      description: 'Tons of food saved from landfills',
+      description: 'Tons of surplus food redirected from landfills',
     },
     {
-      value: '150K+',
-      label: 'Active Users',
-      description: 'Home cooks using Project Zinova',
+      value: '850+',
+      label: 'Partner Organizations',
+      description: 'Restaurants, farms, and NGOs in our network',
     },
     {
-      value: '98%',
+      value: '95%',
       label: 'User Satisfaction',
-      description: 'Rated excellent by our community',
+      description: 'Rated excellent by our community partners',
     },
   ];
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.sectionTitle}>Our Global Impact</Text>
+    <AnimatedSection style={styles.container}>
+      <Text style={styles.sectionTitle}>Our Social Impact</Text>
       <Text style={styles.sectionSubtitle}>
-        Making a difference, one kitchen at a time
+        Making a measurable difference in the fight against food waste and hunger
       </Text>
       
       <View style={styles.statsContainer}>
@@ -42,7 +43,7 @@ export const ImpactStats = () => {
           </View>
         ))}
       </View>
-    </View>
+    </AnimatedSection>
   );
 };
 
@@ -62,6 +63,7 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     marginBottom: 40,
     textAlign: 'center',
+    maxWidth: 700,
   },
   statsContainer: {
     flexDirection: 'row',

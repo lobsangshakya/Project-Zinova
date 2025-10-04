@@ -3,43 +3,43 @@ import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '@/styles/commonStyles';
 import { AnimatedSection } from '@/components/AnimatedSection';
 
-export const FeaturesTech = () => {
-  const features = [
+export const PartnerEcosystem = () => {
+  const partners = [
     {
-      icon: '🤖',
-      title: 'AI-Powered Matching',
-      description: 'Advanced algorithms connect food surplus with community needs in real-time.',
+      type: 'Farmers & Producers',
+      description: 'Surplus crops and products redirected to communities',
+      icon: '👨‍🌾',
     },
     {
-      icon: '🔗',
-      title: 'Blockchain Transparency',
-      description: 'Immutable records ensure food safety and traceability throughout the supply chain.',
+      type: 'Restaurants & Hotels',
+      description: 'Unused prepared food and ingredients shared daily',
+      icon: '🍽️',
     },
     {
-      icon: '🗺️',
-      title: 'Azure Maps Logistics',
-      description: 'Optimized routing reduces delivery time and ensures food freshness.',
+      type: 'Non-Profit Organizations',
+      description: 'Community groups distributing food to those in need',
+      icon: '🤝',
     },
     {
-      icon: '📊',
-      title: 'Power BI Dashboards',
-      description: 'Real-time analytics provide insights on impact, efficiency, and optimization opportunities.',
+      type: 'Logistics Partners',
+      description: 'Transportation services ensuring fresh delivery',
+      icon: '🚚',
     },
   ];
 
   return (
     <AnimatedSection style={[styles.container, styles.altBackground]}>
-      <Text style={styles.sectionTitle}>Technology Platform</Text>
+      <Text style={styles.sectionTitle}>Partner Ecosystem</Text>
       <Text style={styles.sectionSubtitle}>
-        Cutting-edge technologies driving sustainable food redistribution
+        A collaborative network driving sustainable food redistribution
       </Text>
       
-      <View style={styles.featuresContainer}>
-        {features.map((feature, index) => (
-          <View key={index} style={styles.featureCard}>
-            <Text style={styles.featureIcon}>{feature.icon}</Text>
-            <Text style={styles.featureTitle}>{feature.title}</Text>
-            <Text style={styles.featureDescription}>{feature.description}</Text>
+      <View style={styles.partnersContainer}>
+        {partners.map((partner, index) => (
+          <View key={index} style={styles.partnerCard}>
+            <Text style={styles.partnerIcon}>{partner.icon}</Text>
+            <Text style={styles.partnerType}>{partner.type}</Text>
+            <Text style={styles.partnerDescription}>{partner.description}</Text>
           </View>
         ))}
       </View>
@@ -68,14 +68,14 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     maxWidth: 700,
   },
-  featuresContainer: {
+  partnersContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
     maxWidth: 1200,
     alignSelf: 'center',
   },
-  featureCard: {
+  partnerCard: {
     width: 280,
     backgroundColor: colors.card,
     borderRadius: 12,
@@ -91,18 +91,18 @@ const styles = StyleSheet.create({
     elevation: 4,
     alignItems: 'center',
   },
-  featureIcon: {
+  partnerIcon: {
     fontSize: 40,
     marginBottom: 20,
   },
-  featureTitle: {
+  partnerType: {
     fontSize: 20,
     fontWeight: '700',
     color: colors.text,
     marginBottom: 15,
     textAlign: 'center',
   },
-  featureDescription: {
+  partnerDescription: {
     fontSize: 16,
     color: colors.textSecondary,
     lineHeight: 24,

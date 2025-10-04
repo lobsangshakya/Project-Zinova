@@ -1,36 +1,47 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '@/styles/commonStyles';
+import { AnimatedSection } from '@/components/AnimatedSection';
 
 export const HowItWorks = () => {
   const steps = [
     {
       number: '01',
-      title: 'Add Your Ingredients',
-      description: 'Scan or manually input the ingredients you have available in your kitchen.',
+      title: 'Real-Time Surplus Detection',
+      description: 'AI identifies surplus food from restaurants and farms through smart inventory tracking.',
+      icon: '🤖',
     },
     {
       number: '02',
-      title: 'AI Analysis',
-      description: 'Our intelligent system analyzes your ingredients and suggests perfect recipes.',
+      title: 'Smart Matching Algorithm',
+      description: 'Our AI matches surplus food with nearby NGOs and communities in need.',
+      icon: '🔗',
     },
     {
       number: '03',
-      title: 'Cook & Enjoy',
-      description: 'Follow step-by-step instructions to create delicious meals with minimal waste.',
+      title: 'Blockchain Verification',
+      description: 'Transparent tracking ensures food safety and quality from source to recipient.',
+      icon: '🔒',
+    },
+    {
+      number: '04',
+      title: 'Efficient Logistics',
+      description: 'Azure Maps optimizes delivery routes for maximum efficiency and freshness.',
+      icon: '🗺️',
     },
   ];
 
   return (
-    <View style={styles.container}>
+    <AnimatedSection style={styles.container}>
       <Text style={styles.sectionTitle}>How Project Zinova Works</Text>
       <Text style={styles.sectionSubtitle}>
-        A simple process to transform your kitchen experience
+        Our technology platform connects the entire food redistribution ecosystem
       </Text>
       
       <View style={styles.stepsContainer}>
         {steps.map((step, index) => (
           <View key={index} style={styles.stepCard}>
+            <Text style={styles.stepIcon}>{step.icon}</Text>
             <View style={styles.stepNumberContainer}>
               <Text style={styles.stepNumber}>{step.number}</Text>
             </View>
@@ -39,7 +50,7 @@ export const HowItWorks = () => {
           </View>
         ))}
       </View>
-    </View>
+    </AnimatedSection>
   );
 };
 
@@ -59,15 +70,16 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     marginBottom: 40,
     textAlign: 'center',
+    maxWidth: 700,
   },
   stepsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
-    maxWidth: 1000,
+    maxWidth: 1200,
   },
   stepCard: {
-    width: 300,
+    width: 280,
     backgroundColor: colors.card,
     borderRadius: 12,
     padding: 30,
@@ -82,6 +94,11 @@ const styles = StyleSheet.create({
     elevation: 4,
     borderLeftWidth: 4,
     borderLeftColor: colors.primary,
+    alignItems: 'center',
+  },
+  stepIcon: {
+    fontSize: 40,
+    marginBottom: 15,
   },
   stepNumberContainer: {
     width: 50,
@@ -98,14 +115,16 @@ const styles = StyleSheet.create({
     color: colors.primary,
   },
   stepTitle: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: '700',
     color: colors.text,
     marginBottom: 15,
+    textAlign: 'center',
   },
   stepDescription: {
     fontSize: 16,
     color: colors.textSecondary,
     lineHeight: 24,
+    textAlign: 'center',
   },
 });

@@ -7,23 +7,36 @@ export const ProfessionalHero = () => {
   return (
     <AnimatedSection style={styles.heroContainer}>
       <View style={styles.heroContent}>
-        <Text style={styles.tagline}>Transforming Kitchens with Intelligent Technology</Text>
-        <Text style={styles.title}>Project Zinova: Smart Kitchen Solutions</Text>
+        <Text style={styles.tagline}>TACKLING FOOD WASTE & HUNGER</Text>
+        <Text style={styles.title}>Project Zinova: Intelligent Food Redistribution</Text>
         <Text style={styles.description}>
-          Our AI-powered platform helps you reduce food waste, discover delicious recipes, 
-          and elevate your cooking experience through innovative technology.
+          Connecting farmers, restaurants, and NGOs through AI and blockchain to ensure 
+          surplus food reaches communities in need. Together, we're building a sustainable 
+          future with zero food waste.
         </Text>
         <View style={styles.buttonContainer}>
           <TouchableOpacity style={styles.primaryButton}>
-            <Text style={styles.buttonText}>Get Started</Text>
+            <Text style={styles.buttonText}>Join the Movement</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.secondaryButton}>
-            <Text style={styles.secondaryButtonText}>Learn More</Text>
+            <Text style={styles.secondaryButtonText}>See How It Works</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.heroVisual}>
-        <View style={styles.visualElement} />
+        <View style={styles.connectionLines} />
+        <View style={[styles.visualElement, styles.farmerElement]}>
+          <Text style={styles.visualEmoji}>👨‍🌾</Text>
+        </View>
+        <View style={[styles.visualElement, styles.restaurantElement]}>
+          <Text style={styles.visualEmoji}>🍽️</Text>
+        </View>
+        <View style={[styles.visualElement, styles.ngoElement]}>
+          <Text style={styles.visualEmoji}>🤝</Text>
+        </View>
+        <View style={[styles.visualElement, styles.communityElement]}>
+          <Text style={styles.visualEmoji}>👨‍👩‍👧‍👦</Text>
+        </View>
       </View>
     </AnimatedSection>
   );
@@ -52,7 +65,7 @@ const styles = StyleSheet.create({
   },
   tagline: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
     color: colors.primary,
     marginBottom: 12,
     textTransform: 'uppercase',
@@ -73,6 +86,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   primaryButton: {
     backgroundColor: colors.primary,
@@ -80,6 +94,7 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     paddingHorizontal: 32,
     marginRight: 16,
+    marginBottom: 10,
   },
   buttonText: {
     color: colors.light,
@@ -92,6 +107,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 14,
     paddingHorizontal: 30,
+    marginBottom: 10,
   },
   secondaryButtonText: {
     color: colors.text,
@@ -102,13 +118,44 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
   },
-  visualElement: {
+  connectionLines: {
+    position: 'absolute',
     width: 200,
     height: 200,
+    borderWidth: 2,
+    borderColor: colors.border,
     borderRadius: 100,
+  },
+  visualElement: {
+    position: 'absolute',
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     backgroundColor: colors.tertiary,
     borderWidth: 2,
     borderColor: colors.border,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  visualEmoji: {
+    fontSize: 30,
+  },
+  farmerElement: {
+    top: 0,
+    left: '30%',
+  },
+  restaurantElement: {
+    top: '20%',
+    right: 0,
+  },
+  ngoElement: {
+    bottom: '20%',
+    right: 0,
+  },
+  communityElement: {
+    bottom: 0,
+    left: '30%',
   },
 });

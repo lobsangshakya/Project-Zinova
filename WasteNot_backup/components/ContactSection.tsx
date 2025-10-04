@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { colors } from '@/styles/commonStyles';
+import { AnimatedSection } from '@/components/AnimatedSection';
 
 export const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    organization: '',
+    interest: 'partner',
     message: '',
   });
 
@@ -19,26 +22,28 @@ export const ContactSection = () => {
   const handleSubmit = () => {
     // Form submission logic would go here
     console.log('Form submitted:', formData);
-    alert('Thank you for your message! We will get back to you soon.');
+    alert('Thank you for your interest in Project Zinova! We will get back to you soon.');
   };
 
   return (
-    <View style={styles.container}>
+    <AnimatedSection style={styles.container}>
       <View style={styles.content}>
         <View style={styles.textContainer}>
-          <Text style={styles.title}>Ready to Transform Your Kitchen?</Text>
+          <Text style={styles.title}>Join the Food Redistribution Revolution</Text>
           <Text style={styles.description}>
-            Join thousands of home cooks reducing waste and creating amazing meals with Project Zinova.
+            Whether you're a farmer, restaurant, NGO, or logistics provider, we'd love to partner with you 
+            to build a sustainable future with zero food waste.
           </Text>
           <View style={styles.contactInfo}>
-            <Text style={styles.contactLabel}>Contact Us</Text>
-            <Text style={styles.contactDetail}>hello@projectzinova.com</Text>
+            <Text style={styles.contactLabel}>Connect With Us</Text>
+            <Text style={styles.contactDetail}>partnerships@projectzinova.com</Text>
             <Text style={styles.contactDetail}>+1 (555) 123-4567</Text>
+            <Text style={styles.contactDetail}>impact@projectzinova.com</Text>
           </View>
         </View>
         
         <View style={styles.formContainer}>
-          <Text style={styles.formTitle}>Get Started Today</Text>
+          <Text style={styles.formTitle}>Become a Partner</Text>
           <TextInput
             style={styles.input}
             placeholder="Your Name"
@@ -53,6 +58,29 @@ export const ContactSection = () => {
             onChangeText={(value) => handleChange('email', value)}
           />
           <TextInput
+            style={styles.input}
+            placeholder="Organization"
+            value={formData.organization}
+            onChangeText={(value) => handleChange('organization', value)}
+          />
+          <View style={styles.selectContainer}>
+            <Text style={styles.selectLabel}>I'm interested in:</Text>
+            <View style={styles.radioGroup}>
+              <TouchableOpacity 
+                style={[styles.radioButton, formData.interest === 'partner' && styles.radioButtonSelected]}
+                onPress={() => handleChange('interest', 'partner')}
+              >
+                <Text style={styles.radioText}>Becoming a Partner</Text>
+              </TouchableOpacity>
+              <TouchableOpacity 
+                style={[styles.radioButton, formData.interest === 'volunteer' && styles.radioButtonSelected]}
+                onPress={() => handleChange('interest', 'volunteer')}
+              >
+                <Text style={styles.radioText}>Volunteering</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+          <TextInput
             style={[styles.input, styles.textArea]}
             placeholder="Your Message"
             multiline
@@ -61,11 +89,11 @@ export const ContactSection = () => {
             onChangeText={(value) => handleChange('message', value)}
           />
           <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-            <Text style={styles.submitButtonText}>Send Message</Text>
+            <Text style={styles.submitButtonText}>Submit Interest</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </AnimatedSection>
   );
 };
 
@@ -147,6 +175,36 @@ const styles = StyleSheet.create({
   textArea: {
     height: 120,
     textAlignVertical: 'top',
+  },
+  selectContainer: {
+    marginBottom: 20,
+  },
+  selectLabel: {
+    fontSize: 16,
+    color: colors.text,
+    marginBottom: 10,
+    fontWeight: '600',
+  },
+  radioGroup: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  radioButton: {
+    borderWidth: 1,
+    borderColor: colors.grey,
+    borderRadius: 8,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  radioButtonSelected: {
+    backgroundColor: colors.tertiary,
+    borderColor: colors.primary,
+  },
+  radioText: {
+    color: colors.text,
+    fontSize: 14,
   },
   submitButton: {
     backgroundColor: colors.primary,

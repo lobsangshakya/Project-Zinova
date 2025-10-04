@@ -1,34 +1,35 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { colors } from '@/styles/commonStyles';
+import { AnimatedSection } from '@/components/AnimatedSection';
 
 export const Testimonials = () => {
   const testimonials = [
     {
-      quote: 'Project Zinova has completely transformed how I cook at home. I waste less food and discover amazing recipes I never would have tried otherwise.',
-      author: 'Sarah Johnson',
-      role: 'Home Chef & Food Blogger',
-      company: 'TasteExplorer',
+      quote: 'Project Zinova has transformed how we handle surplus food at our restaurant. What used to go to waste now feeds families in need, and our staff feels proud to be part of the solution.',
+      author: 'Maria Rodriguez',
+      role: 'Executive Chef',
+      company: 'Green Bistro Restaurant',
     },
     {
-      quote: 'The AI recommendations are incredibly accurate. It\'s like having a personal chef who understands exactly what I have in my kitchen.',
-      author: 'Michael Chen',
-      role: 'Professional Chef',
-      company: 'Urban Bistro',
+      quote: 'As a food bank, Project Zinova has increased our food supply by 40% while ensuring complete transparency about food sources and safety. The blockchain verification gives our recipients confidence in what they receive.',
+      author: 'James Wilson',
+      role: 'Operations Director',
+      company: 'Community Food Bank',
     },
     {
-      quote: 'As a sustainability advocate, I\'m impressed by how much food waste Project Zinova helps families reduce while saving them money.',
-      author: 'Emma Rodriguez',
-      role: 'Environmental Consultant',
-      company: 'Green Solutions Inc.',
+      quote: 'Our farm produces more than we can sell during peak seasons. Project Zinova helps us redirect this surplus to communities rather than letting it go to waste, creating value for our business and our community.',
+      author: 'Sarah Thompson',
+      role: 'Owner',
+      company: 'Sunny Acres Farm',
     },
   ];
 
   return (
-    <View style={styles.container}>
+    <AnimatedSection style={styles.container}>
       <Text style={styles.sectionTitle}>Partner Stories</Text>
       <Text style={styles.sectionSubtitle}>
-        Hear from our community and partners
+        Hear from organizations making a difference with Project Zinova
       </Text>
       
       <View style={styles.testimonialsContainer}>
@@ -43,7 +44,7 @@ export const Testimonials = () => {
           </View>
         ))}
       </View>
-    </View>
+    </AnimatedSection>
   );
 };
 
@@ -51,19 +52,20 @@ const styles = StyleSheet.create({
   container: {
     padding: 40,
     backgroundColor: colors.backgroundAlt,
+    alignItems: 'center',
   },
   sectionTitle: {
     fontSize: 32,
     fontWeight: '800',
     color: colors.text,
     marginBottom: 12,
-    textAlign: 'center',
   },
   sectionSubtitle: {
     fontSize: 18,
     color: colors.textSecondary,
     marginBottom: 40,
     textAlign: 'center',
+    maxWidth: 700,
   },
   testimonialsContainer: {
     flexDirection: 'row',

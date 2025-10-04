@@ -6,6 +6,7 @@ import { ProfessionalHero } from '@/components/ProfessionalHero';
 import { HowItWorks } from '@/components/HowItWorks';
 import { FeaturesTech } from '@/components/FeaturesTech';
 import { ImpactStats } from '@/components/ImpactStats';
+import { PartnerEcosystem } from '@/components/PartnerEcosystem';
 import { Testimonials } from '@/components/Testimonials';
 import { ContactSection } from '@/components/ContactSection';
 
@@ -16,7 +17,7 @@ export default function HomeScreen() {
       
       <AppHeader 
         title="Project Zinova" 
-        subtitle="Intelligent Kitchen Solutions"
+        subtitle="Intelligent Food Redistribution Platform"
       />
 
       <ProfessionalHero />
@@ -26,6 +27,8 @@ export default function HomeScreen() {
       <FeaturesTech />
       
       <ImpactStats />
+      
+      <PartnerEcosystem />
       
       <Testimonials />
       
