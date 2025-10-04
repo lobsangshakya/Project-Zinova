@@ -2,10 +2,12 @@ import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { colors } from '@/styles/commonStyles';
 import { AppHeader } from '@/components/AppHeader';
-import { AnimatedHero } from '@/components/AnimatedHero';
-import { RecipeCards } from '@/components/RecipeCards';
-import { CookingDiary } from '@/components/CookingDiary';
-import { AnimatedCTA } from '@/components/AnimatedCTA';
+import { ProfessionalHero } from '@/components/ProfessionalHero';
+import { HowItWorks } from '@/components/HowItWorks';
+import { FeaturesTech } from '@/components/FeaturesTech';
+import { ImpactStats } from '@/components/ImpactStats';
+import { Testimonials } from '@/components/Testimonials';
+import { ContactSection } from '@/components/ContactSection';
 
 export default function HomeScreen() {
   return (
@@ -13,17 +15,21 @@ export default function HomeScreen() {
       <View style={styles.backgroundPattern} />
       
       <AppHeader 
-        title="Project Zinova - Smart Kitchen" 
-        subtitle="🍽️ Transform ingredients into culinary masterpieces with AI"
+        title="Project Zinova" 
+        subtitle="Intelligent Kitchen Solutions"
       />
 
-      <AnimatedHero />
+      <ProfessionalHero />
       
-      <RecipeCards />
+      <HowItWorks />
       
-      <CookingDiary />
+      <FeaturesTech />
       
-      <AnimatedCTA />
+      <ImpactStats />
+      
+      <Testimonials />
+      
+      <ContactSection />
     </ScrollView>
   );
 }
