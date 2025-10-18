@@ -1,16 +1,14 @@
-import zinovaLogo from "@/assets/zinova-logo.png";
-
 const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img 
-            src={zinovaLogo} 
-            alt="Project Zinova Logo" 
+            src="/Zinova_logo.PNG" 
+            alt="Zinova Logo" 
             className="h-12 w-12 object-contain"
           />
-          <span className="text-xl font-bold text-foreground">Project Zinova</span>
+          <span className="text-xl font-bold text-foreground">Zinova</span>
         </div>
         
         <div className="hidden md:flex gap-8">

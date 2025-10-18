@@ -4,14 +4,14 @@ const About = () => {
       <div className="max-w-4xl mx-auto space-y-8">
         <div className="text-center space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            How Project Zinova Works
+            How Zinova Works
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
         </div>
         
         <div className="prose prose-lg mx-auto text-muted-foreground leading-relaxed space-y-4">
           <p className="text-center max-w-3xl mx-auto">
-            Project Zinova is an innovative platform that tackles food waste and hunger using cutting-edge technology. 
+            Zinova is an innovative platform that tackles food waste and hunger using cutting-edge technology. 
             We create a seamless connection between those with surplus food and communities in need.
           </p>
           
