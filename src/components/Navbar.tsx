@@ -5,7 +5,7 @@ const Navbar = () => {
         <div className="flex items-center gap-3">
           <img 
             src="/Zinova_logo.PNG" 
-            alt="Zinova Logo" 
+            alt="Zinova" 
             className="h-12 w-12 object-contain"
           />
           <span className="text-xl font-bold text-foreground">Zinova</span>
