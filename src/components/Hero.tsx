@@ -12,7 +12,7 @@ const Hero = () => {
       
       <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
         <h1 className="text-5xl md:text-7xl font-bold text-foreground tracking-tight">
-          Project Zinova
+          Zinova
         </h1>
         
         <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
