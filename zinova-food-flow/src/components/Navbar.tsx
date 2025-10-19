@@ -4,7 +4,7 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img 
-            src="/Zinova_logo.PNG" 
+            src="/Zinova_logo.svg" 
             alt="Zinova" 
             className="h-12 w-12 object-contain"
           />
