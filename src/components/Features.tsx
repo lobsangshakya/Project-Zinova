@@ -1,26 +1,46 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Shield, Map, BarChart3 } from "lucide-react";
+import { Brain, Shield, Map, BarChart3, Wheat, Package, Truck, Users } from "lucide-react";
 
 const features = [
   {
     icon: Brain,
-    title: "AI Matching",
+    title: "AI Matching 🤖",
     description: "Smart algorithms connect surplus food with communities in need instantly and efficiently."
   },
   {
     icon: Shield,
-    title: "Blockchain Transparency",
+    title: "Blockchain Transparency 🔒",
     description: "Complete traceability and trust through immutable records of every transaction."
   },
   {
-    icon: Map,
-    title: "Azure Maps Integration",
+    icon: Truck,
+    title: "Smart Logistics 🚚",
     description: "Optimized logistics and routing to ensure fast, efficient food distribution."
   },
   {
     icon: BarChart3,
-    title: "Power BI Dashboards",
+    title: "Impact Analytics 📊",
     description: "Real-time analytics and insights to measure impact and optimize operations."
+  },
+  {
+    icon: Wheat,
+    title: "Food Waste Tracking 🌾",
+    description: "Track and measure food waste reduction across the entire supply chain."
+  },
+  {
+    icon: Users,
+    title: "Community Network 👥",
+    description: "Connect with a growing network of farmers, restaurants, and NGOs."
+  },
+  {
+    icon: Package,
+    title: "Quality Assurance 📦",
+    description: "Ensure food safety and quality throughout the redistribution process."
+  },
+  {
+    icon: Map,
+    title: "Real-time Tracking 🗺️",
+    description: "Live tracking of food donations from source to recipient."
   }
 ];
 
@@ -30,15 +50,15 @@ const Features = () => {
       <div className="max-w-6xl mx-auto space-y-12">
         <div className="text-center space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
-            Powered by Innovation
+            Powered by Innovation 🚀
           </h2>
           <div className="w-20 h-1 bg-accent mx-auto rounded-full" />
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Advanced technology working together to create sustainable impact
+            Advanced technology working together to create sustainable impact 🌍
           </p>
         </div>
         
-        <div className="grid md:grid-cols-2 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
             <Card 
               key={index} 

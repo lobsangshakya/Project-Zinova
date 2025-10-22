@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Leaf, Sprout, Apple } from "lucide-react";
 
 const Hero = () => {
   const scrollToAbout = () => {
@@ -11,19 +11,23 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary to-background opacity-60" />
       
       <div className="relative z-10 max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
-        <h1 className="text-5xl md:text-7xl font-bold text-foreground tracking-tight">
-          Zinova
-        </h1>
+        <div className="flex justify-center items-center gap-4">
+          <Leaf className="h-8 w-8 text-green-500" />
+          <h1 className="text-5xl md:text-7xl font-bold text-foreground tracking-tight">
+            Zinova
+          </h1>
+          <Sprout className="h-8 w-8 text-green-500" />
+        </div>
         
         <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Empowering sustainability through technology
+          Empowering sustainability through technology 🌱
         </p>
         
         <p className="text-base md:text-lg text-muted-foreground max-w-3xl mx-auto">
-          Connecting farmers, restaurants, and NGOs to fight food waste and hunger with AI-powered solutions
+          Connecting farmers 🧑‍🌾, restaurants 🍽️, and NGOs ❤️ to fight food waste and hunger with AI-powered solutions
         </p>
         
-        <div className="pt-4">
+        <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
           <Button 
             size="lg" 
             onClick={scrollToAbout}
@@ -33,6 +37,9 @@ const Hero = () => {
             Learn More
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
+          <div className="hidden sm:block">
+            <Apple className="h-6 w-6 text-red-500" />
+          </div>
         </div>
       </div>
 
