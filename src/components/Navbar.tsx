@@ -1,5 +1,6 @@
 import { NAVIGATION_ITEMS } from "@/lib/config";
 import ThemeToggle from "@/components/ThemeToggle";
+import MobileMenu from "@/components/MobileMenu";
 
 const Navbar = () => {
   return (
@@ -27,9 +28,7 @@ const Navbar = () => {
           <ThemeToggle />
         </div>
         
-        <div className="md:hidden">
-          <ThemeToggle />
-        </div>
+        <MobileMenu />
       </div>
     </nav>
   );
