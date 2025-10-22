@@ -1,25 +1,30 @@
 import { Heart, Building, MapPin, Package } from "lucide-react";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const stats = [
   { 
-    value: "50K+", 
+    value: 50000, 
     label: "Meals Saved 🍽️",
-    icon: Heart
+    icon: Heart,
+    suffix: "+"
   },
   { 
-    value: "25+", 
+    value: 25, 
     label: "Partner Organizations 🤝",
-    icon: Building
+    icon: Building,
+    suffix: "+"
   },
   { 
-    value: "15", 
+    value: 15, 
     label: "Cities Covered 🌆",
-    icon: MapPin
+    icon: MapPin,
+    suffix: ""
   },
   { 
-    value: "100T", 
+    value: 100, 
     label: "Food Redistributed 📦",
-    icon: Package
+    icon: Package,
+    suffix: "T"
   }
 ];
 
@@ -47,8 +52,8 @@ const Impact = () => {
               <div className="flex justify-center">
                 <stat.icon className="h-8 w-8 text-accent" />
               </div>
-              <div className="text-4xl md:text-5xl font-bold text-accent">
-                {stat.value}
+              <div>
+                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
               </div>
               <div className="text-sm md:text-base text-primary-foreground/90">
                 {stat.label}
