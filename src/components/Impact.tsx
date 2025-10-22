@@ -1,32 +1,14 @@
+import { IMPACT_STATS } from "@/lib/config";
 import { Heart, Building, MapPin, Package } from "lucide-react";
 import AnimatedCounter from "@/components/AnimatedCounter";
 
-const stats = [
-  { 
-    value: 50000, 
-    label: "Meals Saved 🍽️",
-    icon: Heart,
-    suffix: "+"
-  },
-  { 
-    value: 25, 
-    label: "Partner Organizations 🤝",
-    icon: Building,
-    suffix: "+"
-  },
-  { 
-    value: 15, 
-    label: "Cities Covered 🌆",
-    icon: MapPin,
-    suffix: ""
-  },
-  { 
-    value: 100, 
-    label: "Food Redistributed 📦",
-    icon: Package,
-    suffix: "T"
-  }
-];
+// Map icon names to actual components
+const iconMap: Record<string, React.ComponentType<{className?: string}>> = {
+  Heart,
+  Building,
+  MapPin,
+  Package
+};
 
 const Impact = () => {
   return (
@@ -43,23 +25,26 @@ const Impact = () => {
         </div>
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {stats.map((stat, index) => (
-            <div 
-              key={index} 
-              className="text-center space-y-2 animate-fade-in bg-primary-foreground/10 p-6 rounded-xl backdrop-blur-sm"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="flex justify-center">
-                <stat.icon className="h-8 w-8 text-accent" />
+          {IMPACT_STATS.map((stat, index) => {
+            const IconComponent = iconMap[stat.icon];
+            return (
+              <div 
+                key={index} 
+                className="text-center space-y-2 animate-fade-in bg-primary-foreground/10 p-6 rounded-xl backdrop-blur-sm"
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                <div className="flex justify-center">
+                  {IconComponent && <IconComponent className="h-8 w-8 text-accent" />}
+                </div>
+                <div>
+                  <AnimatedCounter target={stat.value} suffix={stat.suffix} />
+                </div>
+                <div className="text-sm md:text-base text-primary-foreground/90">
+                  {stat.label}
+                </div>
               </div>
-              <div>
-                <AnimatedCounter target={stat.value} suffix={stat.suffix} />
-              </div>
-              <div className="text-sm md:text-base text-primary-foreground/90">
-                {stat.label}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

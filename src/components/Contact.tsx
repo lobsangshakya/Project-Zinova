@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { Send, User, Mail, Building, MessageSquare } from "lucide-react";
+import AnimatedButton from "@/components/ui/animated-button";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -89,9 +89,9 @@ const Contact = () => {
             </div>
           </div>
           
-          <Button type="submit" className="w-full" size="lg" variant="hero">
+          <AnimatedButton type="submit" className="w-full" size="lg" variant="hero" animationType="pulse">
             Send Message <Send className="ml-2 h-4 w-4" />
-          </Button>
+          </AnimatedButton>
         </form>
       </div>
     </section>

@@ -1,3 +1,6 @@
+import { NAVIGATION_ITEMS } from "@/lib/config";
+import ThemeToggle from "@/components/ThemeToggle";
+
 const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -11,19 +14,21 @@ const Navbar = () => {
           <span className="text-xl font-bold text-foreground">Zinova</span>
         </div>
         
-        <div className="hidden md:flex gap-8">
-          <a href="#about" className="text-muted-foreground hover:text-foreground transition-colors">
-            About
-          </a>
-          <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">
-            Features
-          </a>
-          <a href="#impact" className="text-muted-foreground hover:text-foreground transition-colors">
-            Impact
-          </a>
-          <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">
-            Contact
-          </a>
+        <div className="hidden md:flex gap-8 items-center">
+          {NAVIGATION_ITEMS.map((item, index) => (
+            <a 
+              key={index} 
+              href={item.href} 
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {item.name}
+            </a>
+          ))}
+          <ThemeToggle />
+        </div>
+        
+        <div className="md:hidden">
+          <ThemeToggle />
         </div>
       </div>
     </nav>

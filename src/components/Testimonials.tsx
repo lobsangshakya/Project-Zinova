@@ -1,25 +1,5 @@
+import { TESTIMONIALS } from "@/lib/config";
 import { Quote } from "lucide-react";
-
-const testimonials = [
-  {
-    name: "Sarah Johnson",
-    role: "Restaurant Owner",
-    content: "Zinova helped us reduce food waste by 60% while making a positive impact in our community. Their platform is incredibly easy to use!",
-    avatar: "SJ"
-  },
-  {
-    name: "Michael Chen",
-    role: "NGO Director",
-    content: "The real-time tracking and transparency features have transformed how we distribute food to those in need. Truly innovative!",
-    avatar: "MC"
-  },
-  {
-    name: "Emma Rodriguez",
-    role: "Local Farmer",
-    content: "I love knowing that my surplus produce goes to good use instead of the landfill. Zinova connects me with organizations that care.",
-    avatar: "ER"
-  }
-];
 
 const Testimonials = () => {
   return (
@@ -36,7 +16,7 @@ const Testimonials = () => {
         </div>
         
         <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+          {TESTIMONIALS.map((testimonial, index) => (
             <div 
               key={index} 
               className="bg-card border border-border rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow duration-300"

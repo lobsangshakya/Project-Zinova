@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Leaf, Sprout, Apple } from "lucide-react";
+import { Leaf, Sprout, Apple } from "lucide-react";
+import AnimatedButton from "@/components/ui/animated-button";
+import { ArrowRight } from "lucide-react";
 
 const Hero = () => {
   const scrollToAbout = () => {
@@ -28,15 +29,16 @@ const Hero = () => {
         </p>
         
         <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button 
+          <AnimatedButton 
             size="lg" 
             onClick={scrollToAbout}
             className="group"
             variant="hero"
+            animationType="lift"
           >
             Learn More
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+          </AnimatedButton>
           <div className="hidden sm:block">
             <Apple className="h-6 w-6 text-red-500" />
           </div>

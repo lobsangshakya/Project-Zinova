@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
+import { FOOD_FLOW_STEPS } from "@/lib/config";
 import { Apple, Wheat, Truck, Users, Heart } from "lucide-react";
+
+// Map icon names to actual components
+const iconMap: Record<string, React.ComponentType<{className?: string}>> = {
+  Apple,
+  Wheat,
+  Truck,
+  Users,
+  Heart
+};
 
 const FoodFlow = () => {
   const [activeStep, setActiveStep] = useState(0);
   
-  const steps = [
-    { icon: Wheat, label: "Farm", color: "text-green-500" },
-    { icon: Apple, label: "Restaurant", color: "text-red-500" },
-    { icon: Truck, label: "Transport", color: "text-blue-500" },
-    { icon: Users, label: "Community", color: "text-purple-500" },
-    { icon: Heart, label: "Impact", color: "text-pink-500" }
-  ];
+  const steps = FOOD_FLOW_STEPS;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,7 +38,7 @@ const FoodFlow = () => {
           {/* Flow steps */}
           <div className="relative flex justify-between">
             {steps.map((step, index) => {
-              const Icon = step.icon;
+              const IconComponent = iconMap[step.icon];
               const isActive = index === activeStep;
               const isCompleted = index < activeStep;
               
@@ -45,7 +49,7 @@ const FoodFlow = () => {
                     ${isActive ? 'bg-white shadow-lg scale-110 ring-4 ring-accent' : ''}
                     ${isCompleted ? 'bg-white shadow-md' : 'bg-white/80'}
                   `}>
-                    <Icon className={`w-8 h-8 ${step.color} ${isActive ? 'animate-pulse' : ''}`} />
+                    {IconComponent && <IconComponent className={`w-8 h-8 ${step.color} ${isActive ? 'animate-pulse' : ''}`} />}
                   </div>
                   <span className={`
                     text-sm font-medium text-center px-2 py-1 rounded-full
