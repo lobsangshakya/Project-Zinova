@@ -67,7 +67,7 @@ const ImpactCalculator = () => {
   ];
 
   return (
-    <section className="py-20 px-6 bg-gradient-to-br from-primary/10 to-accent/10">
+    <section id="impact-calculator" className="py-20 px-6 bg-gradient-to-br from-primary/10 to-accent/10">
       <div className="max-w-6xl mx-auto">
         <div className="text-center space-y-4 mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-foreground">
@@ -180,16 +180,18 @@ const ImpactCalculator = () => {
             </div>
             
             <div className="mt-8 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl p-6 text-white">
-              <div className="flex items-center">
-                <Heart className="h-8 w-8 mr-3" />
-                <div>
-                  <h3 className="text-xl font-bold">Ready to Make a Difference?</h3>
-                  <p className="mt-1 opacity-90">
-                    Join thousands of organizations using Zinova to fight food waste
-                  </p>
+              <div className="flex flex-col md:flex-row items-center">
+                <div className="flex items-center mb-4 md:mb-0 md:mr-4">
+                  <Heart className="h-8 w-8 mr-3" />
+                  <div>
+                    <h3 className="text-xl font-bold">Ready to Make a Difference?</h3>
+                    <p className="mt-1 opacity-90">
+                      Join thousands of organizations using Zinova to fight food waste
+                    </p>
+                  </div>
                 </div>
-                <button className="ml-auto bg-white text-green-600 font-bold py-2 px-6 rounded-full hover:bg-gray-100 transition-colors">
-                  Get Started
+                <button className="ml-auto bg-white text-green-600 font-bold py-3 px-6 rounded-full hover:bg-gray-100 transition-colors whitespace-nowrap">
+                  Get Started Today
                 </button>
               </div>
             </div>

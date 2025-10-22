@@ -1,10 +1,9 @@
-import { Leaf, Sprout, Apple } from "lucide-react";
+import { Leaf, Sprout, Apple, ArrowRight } from "lucide-react";
 import AnimatedButton from "@/components/ui/animated-button";
-import { ArrowRight } from "lucide-react";
 
 const Hero = () => {
-  const scrollToAbout = () => {
-    document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+  const scrollToCalculator = () => {
+    document.getElementById("impact-calculator")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
@@ -31,17 +30,21 @@ const Hero = () => {
         <div className="pt-4 flex flex-col sm:flex-row gap-4 justify-center items-center">
           <AnimatedButton 
             size="lg" 
-            onClick={scrollToAbout}
+            onClick={scrollToCalculator}
             className="group"
             variant="hero"
             animationType="lift"
           >
-            Learn More
+            Calculate Your Impact
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </AnimatedButton>
           <div className="hidden sm:block">
             <Apple className="h-6 w-6 text-red-500" />
           </div>
+        </div>
+        
+        <div className="mt-8 text-sm text-muted-foreground">
+          <p>Join 25+ organizations already making a difference</p>
         </div>
       </div>
 

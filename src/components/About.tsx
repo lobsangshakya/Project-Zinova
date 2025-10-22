@@ -1,4 +1,4 @@
-import { Leaf } from "lucide-react";
+import { Leaf, Zap, Heart } from "lucide-react";
 
 const About = () => {
   return (
@@ -21,6 +21,38 @@ const About = () => {
             By leveraging AI-driven matching algorithms, blockchain transparency, and real-time logistics optimization, 
             we ensure that no edible food goes to waste while helping feed those who need it most. 🚀
           </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6 mt-12">
+          <div className="text-center p-6 bg-background rounded-xl border border-border">
+            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Leaf className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="font-bold text-lg mb-2">Identify</h3>
+            <p className="text-muted-foreground text-sm">
+              We identify surplus food from restaurants, farms, and grocery stores
+            </p>
+          </div>
+          
+          <div className="text-center p-6 bg-background rounded-xl border border-border">
+            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Zap className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="font-bold text-lg mb-2">Match</h3>
+            <p className="text-muted-foreground text-sm">
+              Our AI matches surplus food with communities in need instantly
+            </p>
+          </div>
+          
+          <div className="text-center p-6 bg-background rounded-xl border border-border">
+            <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <Heart className="h-6 w-6 text-primary" />
+            </div>
+            <h3 className="font-bold text-lg mb-2">Deliver</h3>
+            <p className="text-muted-foreground text-sm">
+              Optimized logistics ensure fresh food reaches those who need it
+            </p>
+          </div>
         </div>
         
         <div className="flex justify-center pt-4">
